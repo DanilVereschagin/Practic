@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Block;
 
 use App\Block\PlayerBlock;
+use App\Model\Database;
 
 class LibraryBlock
 {
@@ -28,12 +29,17 @@ class LibraryBlock
 
     public function getGames()
     {
-        return [
-            'Minecraft',
-            'Fallout 4',
-            'For Honor',
-            'Counter-Strike: Global Offensive',
-            'Dota 2'
-        ];
+        $db = new Database();
+        $connection = $db->getConnection();
+        $array = $connection->query(
+            'select player.id, player.username, game.name, company.name as Company 
+                   from player 
+                   left join library on player.id = library.username 
+                   left join game on library.name_of_game = game.id 
+                   left join company on company.id = game.company 
+                   where player.id = 1 order by player.id;'
+        );
+
+        return $array;
     }
 }

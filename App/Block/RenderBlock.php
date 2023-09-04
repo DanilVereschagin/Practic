@@ -18,8 +18,8 @@ class RenderBlock
             $block = 'main';
         }
 
-        $block = 'App\Block' . '\\' . ucfirst($block) . 'Block';
-        $renderBlock = new $block();
-        $renderBlock->render();
+        $controller = 'App\Controller' . '\\' . ucfirst($block) . 'Controller';
+        $renderBlock = new $controller();
+        $renderBlock->execute();
     }
 }
