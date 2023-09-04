@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Block;
 
-class IndexBlock
+class MainBlock
 {
     public function render()
     {

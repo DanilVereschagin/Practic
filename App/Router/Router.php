@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Router;
 
 use App\Controller\AbstractController;
+use App\Controller\IndexController;
 use App\Controller\NotFoundErrorController;
 
 class Router
@@ -16,7 +17,7 @@ class Router
         $class = $controllerMap[$route] ?? null;
         if ($class) {
             /** @var AbstractController $controller */
-            $controller = new $class();
+            $controller = new IndexController();
             $controller->execute();
         } else {
             (new NotFoundErrorController())->execute();

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Block\IndexBlock;
+use App\Block\RenderBlock;
 
 class IndexController extends AbstractController
 {
     public function execute()
     {
-        (new IndexBlock())->render();
+        (new RenderBlock())->render();
     }
 }
