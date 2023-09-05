@@ -1,0 +1,44 @@
+<?php
+/**
+ * @var \App\Block\ShopBlock $this
+ */
+?>
+<html lang="en">
+<head>
+    <title>Магазин</title>
+</head>
+<body>
+<section class="content-wrap">
+    <section class="youplay-banner banner-top big youplay-banner-parallax background_anime">
+        <div class="info">
+            <div>
+                <div class="container">
+                    <div class="main-text neon-text">
+                        Магазин
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="youplay-content">
+        <section class="youplay-features container shop">
+            <?php $i = 0; foreach($this->getGames() as $game): ?>
+            <?php if ($i == 3): ?>
+                </section>
+                <section class="youplay-features container shop">
+            <?php $i = 0; endif; ?>
+                <a href="/game">
+                <div class="col-md-3 col-xs-12 shop__element">
+                    <div class="feature angled-bg">
+                        <h3><?= $game['name'] ?></h3>
+                    </div>
+                </div>
+                </a>
+            <?php $i++; endforeach; ?>
+        </section>
+    </div>
+
+</section>
+</body>
+</html>

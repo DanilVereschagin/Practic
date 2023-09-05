@@ -19,27 +19,24 @@ class LibraryBlock
     {
         $playerBlock = new PlayerBlock();
 
-        $info = [];
-        $info['nickname'] = $playerBlock->getNickname();
-        $info['fio'] = $playerBlock->getFIO();
-        $info['fake_hour'] = $playerBlock->getFakeHours();
-        $info['register_date'] = $playerBlock->getRegisterDate();
+        $info = $playerBlock->getPlayerInfo();
         return $info;
     }
 
-    public function getGames()
+    public function getGames(): array
     {
         $db = new Database();
         $connection = $db->getConnection();
-        $array = $connection->query(
-            'select player.id, player.username, game.name, company.name as Company 
+        $sql = 'select player.id, player.username, game.name, company.name as Company 
                    from player 
                    left join library on player.id = library.username 
                    left join game on library.name_of_game = game.id 
                    left join company on company.id = game.company 
-                   where player.id = 1 order by player.id;'
-        );
+                   where player.id = :ID order by player.id;';
+        $query = $connection->prepare($sql);
+        $query->execute(array('ID' => ID));
+        $games = $query->fetchAll();
 
-        return $array;
+        return $games;
     }
 }

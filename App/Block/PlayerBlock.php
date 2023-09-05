@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Block;
 
+use App\Model\Database;
+
 class PlayerBlock
 {
     public function render()
@@ -11,23 +13,14 @@ class PlayerBlock
         require_once APP_ROOT . '/view/template/player.phtml';
     }
 
-    public function getNickname()
+    public function getPlayerInfo(): array
     {
-        return 'Abyss';
-    }
-
-    public function getFIO()
-    {
-        return 'Верещагин' . PHP_EOL . 'Данил' . PHP_EOL . 'Олегович';
-    }
-
-    public function getFakeHours()
-    {
-        return 100;
-    }
-
-    public function getRegisterDate()
-    {
-        return '22-07-23';
+        $db = new Database();
+        $connection = $db->getConnection();
+        $sql = 'select * from player where player.id = :ID;';
+        $query = $connection->prepare($sql);
+        $query->execute(array('ID' => ID));
+        $info = $query->fetchAll();
+        return $info;
     }
 }

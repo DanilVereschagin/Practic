@@ -1,0 +1,9 @@
+.shop {
+    flex-wrap: wrap;
+}
+
+.shop__element {
+    width: 30%;
+    min-height: 143px;
+    height: 150px;
+}

@@ -1,7 +1,9 @@
 <?php
 /**
- * @var \App\Block\PlayerBlock $
+ * @var \App\Block\PlayerBlock $this
  */
+
+$playerInfo = $this->getPlayerInfo()[0];
 ?>
 
 <html>
@@ -35,13 +37,13 @@
                     </a>
 
                     <div class="user-data">
-                        <h2><?= $this->getNickname() ?></h2>
+                        <h2><?= $playerInfo['username'] ?></h2>
                         <div class="location">
-                            <?= $this->getFIO() ?>
+                            <?= $playerInfo['name'] . $playerInfo['surname'] ?>
                         </div>
                         <div class="activity">
                             <div>
-                                <div class="num"><?= $this->getFakeHours() ?></div>
+                                <div class="num"><?= $playerInfo['fake_hour'] ?></div>
                                 <div class="title">Игровых часов</div>
                             </div>
                         </div>
@@ -63,7 +65,7 @@
                         </td>
                         <td>
                             <p>
-                                <?= $this->getFIO() ?>
+                                <?= $playerInfo['name'] . $playerInfo['surname'] ?>
                             </p>
                         </td>
                     </tr>
@@ -73,7 +75,7 @@
                         </td>
                         <td>
                             <p>
-                                <?= $this->getNickname() ?>
+                                <?=$playerInfo['username'] ?>
                             </p>
                         </td>
                     </tr>
@@ -83,7 +85,7 @@
                         </td>
                         <td>
                             <p>
-                                <?= $this->getRegisterDate() ?>
+                                <?= $playerInfo['date_of_registration'] ?>
                             </p>
                         </td>
                     </tr>
@@ -93,7 +95,7 @@
                         </td>
                         <td>
                             <p>
-                                <?= $this->getFakeHours() ?>
+                                <?= $playerInfo['fake_hour'] ?>
                             </p>
                         </td>
                     </tr>

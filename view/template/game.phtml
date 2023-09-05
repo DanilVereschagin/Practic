@@ -2,7 +2,7 @@
 /**
  * @var \App\Block\GameBlock $this
  */
-
+$gameInfo = $this->getGameInfo()[0];
 $comments = $this->getComments();
 $childComments = $this->getChildComments();
 ?>
@@ -18,7 +18,7 @@ $childComments = $this->getChildComments();
             <div>
                 <div class="container">
                     <div class="main-text neon-text">
-                        <?= $this->getGameName() ?>
+                        <?= $gameInfo['name'] ?>
                     </div>
                 </div>
             </div>
@@ -46,17 +46,17 @@ $childComments = $this->getChildComments();
                 <div class="tags">
                     <i class="fa fa-tags"></i>
                     <a href="#">Release</a>,
-                    <a href="#"><?= $this->getGameName() ?></a>,
+                    <a href="#"><?= $gameInfo['name'] ?></a>,
                     <a href="#">Windows</a>
                 </div>
                 <div class="meta">
                     <div class="item">
                         <i class="fa fa-user meta-icon"></i>
-                        Автор: <a href="#!"><?= $this->getCompanyName() ?></a>
+                        Автор: <a href="#!"><?= $gameInfo['name'] ?></a>
                     </div>
                     <div class="item">
                         <i class="fa fa-calendar meta-icon"></i>
-                        Вышла: <a href="#!">14 Мая, 2016</a>
+                        Вышла: <a href="#!"><?= $gameInfo['year_of_release']?></a>
                     </div>
                     <div class="item">
                         <i class="fa fa-bookmark meta-icon"></i>
@@ -65,7 +65,12 @@ $childComments = $this->getChildComments();
                 </div>
             </article>
             <div class="comments-block">
-                <h2>Комментарии <small>(2)</small></h2>
+                <h2>
+                    Комментарии
+                    <small>
+                        <?= sizeof($comments) + sizeof($childComments) ?>
+                    </small>
+                </h2>
                 <ul class="comments-list">
                     <?php foreach ($comments as $comment): ?>
                     <li>
@@ -74,36 +79,37 @@ $childComments = $this->getChildComments();
                                 <img src="src/image/avatar-user-1.png" alt="">
                             </div>
                             <div class="comment-cont clearfix">
-                                <a class="comment-author h4" href="#!"><?= $comment['player'] ?></a>
+                                <a class="comment-author h4" href="#!"><?= $comment['username'] ?></a>
                                 <div class="date">
-                                    <?= $comment['time'] ?>
+                                    <?= $comment['date_of_writing'] ?>
                                     <a href="#!" class="pull-right"><i class="fa fa-reply"></i> Ответить</a>
                                 </div>
                                 <div class="comment-text">
-                                    <?= $comment['text'] ?>
+                                    <?= $comment['text_of_comment'] ?>
                                 </div>
                             </div>
                         </article>
 
                         <ul class="child-comment">
                             <?php foreach ($childComments as $childComment): ?>
+                            <?php if ($childComment['parent_comment'] == $comment['id']): ?>
                             <li>
                                 <article>
                                     <div class="comment-avatar pull-left">
                                         <img src="src/image/avatar.png" alt="">
                                     </div>
                                     <div class="comment-cont clearfix">
-                                        <a class="comment-author h4" href="#!"><?= $childComment['player'] ?></a>
+                                        <a class="comment-author h4" href="#!"><?= $childComment['username'] ?></a>
                                         <div class="date">
-                                            <?= $childComment['time'] ?>
-                                            <a href="#!" class="pull-right"><i class="fa fa-reply"></i> ответить</a>
+                                            <?= $childComment['date_of_writing'] ?>
                                         </div>
                                         <div class="comment-text">
-                                            <?= $childComment['text'] ?>
+                                            <?= $childComment['text_of_comment'] ?>
                                         </div>
                                     </div>
                                 </article>
                             </li>
+                            <?php endif; ?>
                             <?php endforeach; ?>
                         </ul>
                     </li>
@@ -131,7 +137,7 @@ $childComments = $this->getChildComments();
             <div class="side-block">
                 <h4 class="block-title">Компания</h4>
                 <ul class="block-content">
-                    <li><a href="#!"><?= $this->getCompanyName() ?></a>
+                    <li><a href="#!"><?= $gameInfo['Company'] ?></a>
                     </li>
                 </ul>
             </div>
@@ -140,7 +146,16 @@ $childComments = $this->getChildComments();
                 <h4 class="block-title">Жанр</h4>
                 <ul class="block-content">
                     <li>
-                        <a href="#!"><?= $this->getGenre() ?></a>
+                        <a href="#!"><?= $gameInfo['name_of_genre'] ?></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="side-block">
+                <h4 class="block-title">Оценка на MetaCritic</h4>
+                <ul class="block-content">
+                    <li>
+                        <a href="#!"><?= $gameInfo['score'] ?></a>
                     </li>
                 </ul>
             </div>

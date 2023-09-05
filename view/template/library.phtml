@@ -1,8 +1,8 @@
 <?php
 /**
- * @var array $player
  * @var \App\Block\LibraryBlock $this
  */
+$playerInfo = $this->getPlayerInfo()[0];
 ?>
 
 <html>
@@ -36,11 +36,13 @@
                     </a>
 
                     <div class="user-data">
-                        <h2><?= $player['nickname'] ?></h2>
-                        <div class="location"><i class="fa fa-map-marker"></i><?= $player['fio'] ?></div>
+                        <h2><?= $playerInfo['username'] ?></h2>
+                        <div class="location">
+                            <?= $playerInfo['name'] . $playerInfo['surname']; ?>
+                        </div>
                         <div class="activity">
                             <div>
-                                <div class="num"><?= $player['fake_hour'] ?></div>
+                                <div class="num"><?= $playerInfo['fake_hour'] ?></div>
                                 <div class="title">Игровых часов</div>
                             </div>
                         </div>
