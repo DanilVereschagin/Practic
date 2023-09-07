@@ -15,7 +15,7 @@ class GameBlock
 
     public function addGameRender()
     {
-        require_once APP_ROOT . '/view/template/add-game.phtml';
+        require_once APP_ROOT . '/view/template/newgame.phtml';
     }
 
     public function getGameInfo(): array
@@ -76,7 +76,27 @@ class GameBlock
 
     public function addGame()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $db = new Database();
+            $connection = $db->getConnection();
+            $sql = "insert into game
+                    set `name` = :name,
+                    `company` = :company,
+                    `genre` = :genre,
+                    `year_of_release` = :year_of_release,
+                     `score` = :score
+                    ";
+            $query = $connection->prepare($sql);
+        try {
+            $query->execute(array(
+                'name'            => $_POST['name'],
+                'company'         => $_POST['company'],
+                'genre'           => $_POST['genre'],
+                'year_of_release' => $_POST['year_of_release'],
+                'score'           => $_POST['score']
+            ));
+        } catch (\Exception $exception) {
+            $exception->getMessage();
         }
     }
 }

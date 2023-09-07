@@ -6,7 +6,7 @@
 
 <html>
 <head>
-    <title>Добавить игру</title>
+    <title>Добавить компанию</title>
 </head>
 <body>
     <section class="content-wrap">
@@ -17,30 +17,24 @@
             <div class="info">
                 <div>
                     <div class="container">
-                        <h1 class="neon-text main-text">Добавить игру</h1>
+                        <h1 class="neon-text main-text">Добавить компанию</h1>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="container youplay-content">
-            <h2 class="mt-0">Информация об игре</h2>
+            <h2 class="mt-0">Информация об компании</h2>
             <p>
-            <form action="/addgame/add/" method="post">
+            <form action="/addcompany" method="post">
                 <div class="youplay-input">
                     <input type="text" name="name" placeholder="Name">
                 </div>
                 <div class="youplay-input">
-                    <input type="text" name="company" placeholder="Company">
+                    <input type="text" name="type" placeholder="type">
                 </div>
                 <div class="youplay-input">
-                    <input type="text" name="genre" placeholder="Genre">
-                </div>
-                <div class="youplay-input">
-                    <input type="date" name="date_of_release">
-                </div>
-                <div class="youplay-input">
-                    <input type="text" name="score" placeholder="Score">
+                    <input type="text" name="address" placeholder="Address">
                 </div>
                 <button class="btn btn-default db">Добавить</button>
             </form>

@@ -12,23 +12,32 @@ class RenderBlock
 
     public function renderBlock(string $block)
     {
-        $controllerMap = require APP_ROOT . '/etc/routes.php';
-
-        $block = mb_substr($block, 1);
-        $block = explode('/', $block);
-
-        $controller = $controllerMap['/' . $block[0]] ?? null;
-
-        if (empty($block) || $block[0] == "") {
-            $controller = 'App\Controller\MainController';
+        if (empty($block) || $block == "/") {
+            $class = 'App\Block\MainBlock';
+        } else {
+            $class = $this->getNormalView($block);
         }
 
-        $renderBlock = new $controller();
+        $renderBlock = new $class();
+        $renderBlock->render();
+    }
 
-        if (array_key_exists(1, $block)) {
-            $renderBlock->{$block[1]}();
+    public function getNormalView(string $block): string
+    {
+        $class = mb_substr($block, 1);
+
+        if (stripos($block, 'new')) {
+            $class = mb_substr($block, 4);
+            $class = '\App\Block\\' . 'New' . ucfirst($class) . 'Block';
+            return $class;
         }
 
-        $renderBlock->execute();
+        if (stripos($block, 'update')) {
+            $class = mb_substr($block, 6);
+            $class = '\App\Block\\' . 'Update' . ucfirst($class) . 'Block';
+            return $class;
+        }
+
+        return '\App\Block\\' . ucfirst($class) . 'Block';
     }
 }
