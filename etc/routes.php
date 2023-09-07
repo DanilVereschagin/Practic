@@ -1,7 +1,6 @@
 <?php
 
 use App\Controller\GameController;
-use App\Controller\IndexController;
 use App\Controller\LibraryController;
 use App\Controller\PlayerController;
 use App\Controller\ShopController;
@@ -12,7 +11,7 @@ use App\Controller\AddCompanyController;
 use App\Controller\MainController;
 
 return [
-    '/' => IndexController::class,
+    '/' => MainController::class,
     '/main' => MainController::class,
     '/player' => PlayerController::class,
     '/game' => GameController::class,

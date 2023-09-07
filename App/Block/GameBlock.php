@@ -10,12 +10,12 @@ class GameBlock
 {
     public function render()
     {
-        require_once APP_ROOT . '/view/template/game.phtml';
+        require_once APP_ROOT . '/view/layout/player-layout.phtml';
     }
 
-    public function addGameRender()
+    public function renderTemplate()
     {
-        require_once APP_ROOT . '/view/template/newgame.phtml';
+        require_once APP_ROOT . '/view/template/game.phtml';
     }
 
     public function getGameInfo(): array
@@ -69,34 +69,8 @@ class GameBlock
                 left join discussion on discussion.child_comment = comment.id
                 where comment.game = :ID and comment.id in (select discussion.child_comment from discussion);';
         $query = $connection->prepare($sql);
-        $query->execute(array('ID' => ID));
+        $query->execute(['ID' => ID]);
         $childComments = $query->fetchAll();
         return $childComments;
-    }
-
-    public function addGame()
-    {
-
-            $db = new Database();
-            $connection = $db->getConnection();
-            $sql = "insert into game
-                    set `name` = :name,
-                    `company` = :company,
-                    `genre` = :genre,
-                    `year_of_release` = :year_of_release,
-                     `score` = :score
-                    ";
-            $query = $connection->prepare($sql);
-        try {
-            $query->execute(array(
-                'name'            => $_POST['name'],
-                'company'         => $_POST['company'],
-                'genre'           => $_POST['genre'],
-                'year_of_release' => $_POST['year_of_release'],
-                'score'           => $_POST['score']
-            ));
-        } catch (\Exception $exception) {
-            $exception->getMessage();
-        }
     }
 }

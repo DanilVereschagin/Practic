@@ -14,19 +14,14 @@ class Router
     {
         $controllerMap = require APP_ROOT . '/etc/routes.php';
 
-        $route = mb_substr($route, 1);
-        $route = explode('/', $route);
-
-        $class = $controllerMap['/' . $route[0]] ?? null;
+        $class = $controllerMap[$route] ?? null;
 
         if ($class) {
             /** @var AbstractController $controller */
-            $controller = new IndexController();
+            $controller = new $class();
             $controller->execute();
         } else {
             (new NotFoundErrorController())->execute();
-            $controller = new $class();
-            $controller->{$route[1]}();
         }
     }
 }

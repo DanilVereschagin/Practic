@@ -11,7 +11,15 @@ class AddGameController extends AbstractController
     public function execute()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            (new NewGameBlock())->addGame();
+            $post =  [
+                'name'            => $_POST['name'],
+                'company'         => $_POST['company'],
+                'genre'           => $_POST['genre'],
+                'year_of_release' => $_POST['year_of_release'],
+                'score'           => $_POST['score']
+            ];
+
+            (new NewGameBlock())->addGame($post);
         }
         header('Location: /shop', true, 302);
     }

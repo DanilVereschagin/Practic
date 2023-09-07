@@ -11,7 +11,13 @@ class AddCompanyController extends AbstractController
     public function execute()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            (new NewCompanyBlock())->addCompany();
+            $post = [
+                'name'    => $_POST['name'],
+                'type'    => $_POST['type'],
+                'address' => $_POST['address'],
+            ];
+
+            (new NewCompanyBlock())->addCompany($post);
         }
         header('Location: /main', true, 302);
     }

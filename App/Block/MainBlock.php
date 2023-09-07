@@ -10,14 +10,19 @@ class MainBlock
 {
     public function render()
     {
-        require_once APP_ROOT . '/view/template/main.phtml';
+        require APP_ROOT . '/view/layout/player-layout.phtml';
     }
 
-    public function getAllPlayer(): array
+    public function renderTemplate()
+    {
+        require APP_ROOT . '/view/template/main.phtml';
+    }
+
+    public function getAllPlayer(): \PDOStatement
     {
         $db = new Database();
         $connection = $db->getConnection();
-        $array = $connection->query('Select * from player');
+        $array = $connection->query('Select player.username from player');
         return $array;
     }
 }

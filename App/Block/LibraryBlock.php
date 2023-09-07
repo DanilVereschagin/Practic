@@ -11,6 +11,11 @@ class LibraryBlock
 {
     public function render()
     {
+        require_once APP_ROOT . '/view/layout/player-layout.phtml';
+    }
+
+    public function renderTemplate()
+    {
         $player = $this->getPlayerInfo();
         require_once APP_ROOT . '/view/template/library.phtml';
     }
@@ -34,7 +39,7 @@ class LibraryBlock
                    left join company on company.id = game.company 
                    where player.id = :ID order by player.id;';
         $query = $connection->prepare($sql);
-        $query->execute(array('ID' => ID));
+        $query->execute(['ID' => ID]);
         $games = $query->fetchAll();
 
         return $games;

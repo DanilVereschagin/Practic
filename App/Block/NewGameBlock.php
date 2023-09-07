@@ -10,10 +10,15 @@ class NewGameBlock
 {
     public function render()
     {
+        require_once APP_ROOT . '/view/layout/player-layout.phtml';
+    }
+
+    public function renderTemplate()
+    {
         require_once APP_ROOT . '/view/template/newgame.phtml';
     }
 
-    public function addGame()
+    public function addGame(array $post)
     {
             $db = new Database();
             $connection = $db->getConnection();
@@ -26,13 +31,15 @@ class NewGameBlock
                     ";
             $query = $connection->prepare($sql);
         try {
-            $query->execute(array(
-                'name'            => $_POST['name'],
-                'company'         => $_POST['company'],
-                'genre'           => $_POST['genre'],
-                'year_of_release' => $_POST['year_of_release'],
-                'score'           => $_POST['score']
-            ));
+            $query->execute(
+                [
+                'name'            => $post['name'],
+                'company'         => $post['company'],
+                'genre'           => $post['genre'],
+                'year_of_release' => $post['year_of_release'],
+                'score'           => $post['score']
+                ]
+            );
         } catch (\Exception $exception) {
             $exception->getMessage();
         }

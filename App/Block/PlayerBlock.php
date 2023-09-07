@@ -10,6 +10,11 @@ class PlayerBlock
 {
     public function render()
     {
+        require_once APP_ROOT . '/view/layout/player-layout.phtml';
+    }
+
+    public function renderTemplate()
+    {
         require_once APP_ROOT . '/view/template/player.phtml';
     }
 
@@ -19,7 +24,7 @@ class PlayerBlock
         $connection = $db->getConnection();
         $sql = 'select * from player where player.id = :ID;';
         $query = $connection->prepare($sql);
-        $query->execute(array('ID' => ID));
+        $query->execute(['ID' => ID]);
         $info = $query->fetchAll();
         return $info;
     }
