@@ -12,14 +12,23 @@ class RenderBlock
 
     public function renderBlock(string $block)
     {
-        $block = mb_substr($block, 1);
+        $controllerMap = require APP_ROOT . '/etc/routes.php';
 
-        if (empty($block) || $block == "/") {
-            $block = 'main';
+        $block = mb_substr($block, 1);
+        $block = explode('/', $block);
+
+        $controller = $controllerMap['/' . $block[0]] ?? null;
+
+        if (empty($block) || $block[0] == "") {
+            $controller = 'App\Controller\MainController';
         }
 
-        $controller = 'App\Controller' . '\\' . ucfirst($block) . 'Controller';
         $renderBlock = new $controller();
+
+        if (array_key_exists(1, $block)) {
+            $renderBlock->{$block[1]}();
+        }
+
         $renderBlock->execute();
     }
 }

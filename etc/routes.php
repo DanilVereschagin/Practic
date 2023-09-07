@@ -12,4 +12,5 @@ return [
     '/game' => GameController::class,
     '/shop' => ShopController::class,
     '/library' => LibraryController::class,
+    '/addgame' => \App\Controller\AddGameController::class,
 ];

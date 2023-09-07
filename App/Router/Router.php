@@ -12,15 +12,21 @@ class Router
 {
     public function selectController(string $route)
     {
-        $controllerMap = require_once APP_ROOT . '/etc/routes.php';
+        $controllerMap = require APP_ROOT . '/etc/routes.php';
 
-        $class = $controllerMap[$route] ?? null;
+        $route = mb_substr($route, 1);
+        $route = explode('/', $route);
+
+        $class = $controllerMap['/' . $route[0]] ?? null;
+
         if ($class) {
             /** @var AbstractController $controller */
             $controller = new IndexController();
             $controller->execute();
         } else {
             (new NotFoundErrorController())->execute();
+            $controller = new $class();
+            $controller->{$route[1]}();
         }
     }
 }

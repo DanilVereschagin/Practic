@@ -13,6 +13,11 @@ class GameBlock
         require_once APP_ROOT . '/view/template/game.phtml';
     }
 
+    public function addGameRender()
+    {
+        require_once APP_ROOT . '/view/template/add-game.phtml';
+    }
+
     public function getGameInfo(): array
     {
         $db = new Database();
@@ -67,5 +72,11 @@ class GameBlock
         $query->execute(array('ID' => ID));
         $childComments = $query->fetchAll();
         return $childComments;
+    }
+
+    public function addGame()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        }
     }
 }

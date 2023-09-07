@@ -1,0 +1,51 @@
+<?php
+/**
+ * @var \App\Block\GameBlock $this
+ */
+?>
+
+<html>
+<head>
+    <title>Добавить игру</title>
+</head>
+<body>
+    <section class="content-wrap">
+        <div class="youplay-banner banner-top youplay-banner-parallax small">
+            <div class="image" style="background-image: url('/src/image/banner-blog-bg.jpg')">
+            </div>
+
+            <div class="info">
+                <div>
+                    <div class="container">
+                        <h1 class="neon-text main-text">Добавить игру</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container youplay-content">
+            <h2 class="mt-0">Информация об игре</h2>
+            <p>
+            <form action="/addgame/add/" method="post">
+                <div class="youplay-input">
+                    <input type="text" name="name" placeholder="Name">
+                </div>
+                <div class="youplay-input">
+                    <input type="text" name="company" placeholder="Company">
+                </div>
+                <div class="youplay-input">
+                    <input type="text" name="genre" placeholder="Genre">
+                </div>
+                <div class="youplay-input">
+                    <input type="date" name="date_of_release">
+                </div>
+                <div class="youplay-input">
+                    <input type="text" name="score" placeholder="Score">
+                </div>
+                <button class="btn btn-default db">Добавить</button>
+            </form>
+            </p>
+        </div>
+    </section>
+</body>
+</html>
