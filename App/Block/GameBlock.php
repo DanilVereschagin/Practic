@@ -28,7 +28,7 @@ class GameBlock
                 left join genre on genre.genre_id = game.genre
                 where game.id = :ID;';
         $query = $connection->prepare($sql);
-        $query->execute(array('ID' => ID));
+        $query->execute(['ID' => ID]);
         $gameInfo = $query->fetchAll();
 
         return $gameInfo;
@@ -48,7 +48,7 @@ class GameBlock
                 left join comment on comment.username = player.id
                 where comment.game = :ID and comment.id in (select discussion.parent_comment from discussion);';
         $query = $connection->prepare($sql);
-        $query->execute(array('ID' => ID));
+        $query->execute(['ID' => ID]);
         $comments = $query->fetchAll();
 
         return $comments;
