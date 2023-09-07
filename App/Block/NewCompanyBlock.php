@@ -6,13 +6,8 @@ namespace App\Block;
 
 use App\Model\Database;
 
-class NewCompanyBlock
+class NewCompanyBlock extends AbstractBlock
 {
-    public function render()
-    {
-        require_once APP_ROOT . '/view/layout/player-layout.phtml';
-    }
-
     public function renderTemplate()
     {
         require_once APP_ROOT . '/view/template/newcompany.phtml';
@@ -25,13 +20,11 @@ class NewCompanyBlock
         $sql = "insert into company set `name` = :name, `type` = :type, `address` = :address";
         $query = $connection->prepare($sql);
         try {
-            $query->execute(
-                [
+            $query->execute([
                 'name'    => $post['name'],
                 'type'    => $post['type'],
                 'address' => $post['address'],
-                ]
-            );
+                ]);
         } catch (\Exception $exception) {
             $exception->getMessage();
         }

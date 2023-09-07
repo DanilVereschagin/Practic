@@ -6,13 +6,8 @@ namespace App\Block;
 
 use App\Model\Database;
 
-class NewGameBlock
+class NewGameBlock extends AbstractBlock
 {
-    public function render()
-    {
-        require_once APP_ROOT . '/view/layout/player-layout.phtml';
-    }
-
     public function renderTemplate()
     {
         require_once APP_ROOT . '/view/template/newgame.phtml';
@@ -31,15 +26,13 @@ class NewGameBlock
                     ";
             $query = $connection->prepare($sql);
         try {
-            $query->execute(
-                [
+            $query->execute([
                 'name'            => $post['name'],
                 'company'         => $post['company'],
                 'genre'           => $post['genre'],
                 'year_of_release' => $post['year_of_release'],
                 'score'           => $post['score']
-                ]
-            );
+                ]);
         } catch (\Exception $exception) {
             $exception->getMessage();
         }

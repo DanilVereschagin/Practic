@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace App\Block;
 
-class CompanyBlock
+class CompanyBlock extends AbstractBlock
 {
-    public function render()
-    {
-        echo 'это на будущее!';
-    }
 }

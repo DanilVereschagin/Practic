@@ -10,7 +10,7 @@ class AddCompanyController extends AbstractController
 {
     public function execute()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($this->isPost()) {
             $post = [
                 'name'    => $_POST['name'],
                 'type'    => $_POST['type'],
@@ -19,6 +19,6 @@ class AddCompanyController extends AbstractController
 
             (new NewCompanyBlock())->addCompany($post);
         }
-        header('Location: /main', true, 302);
+        $this->redirectTo('/main');
     }
 }

@@ -6,13 +6,8 @@ namespace App\Block;
 
 use App\Model\Database;
 
-class ShopBlock
+class ShopBlock extends AbstractBlock
 {
-    public function render()
-    {
-        require_once APP_ROOT . '/view/layout/player-layout.phtml';
-    }
-
     public function renderTemplate()
     {
         require_once APP_ROOT . '/view/template/shop.phtml';

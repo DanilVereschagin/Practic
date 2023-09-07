@@ -10,7 +10,7 @@ class AddGameController extends AbstractController
 {
     public function execute()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($this->isPost()) {
             $post =  [
                 'name'            => $_POST['name'],
                 'company'         => $_POST['company'],
@@ -21,6 +21,6 @@ class AddGameController extends AbstractController
 
             (new NewGameBlock())->addGame($post);
         }
-        header('Location: /shop', true, 302);
+        $this->redirectTo('/shop');
     }
 }

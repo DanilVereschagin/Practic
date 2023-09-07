@@ -6,13 +6,8 @@ namespace App\Block;
 
 use App\Model\Database;
 
-class MainBlock
+class MainBlock extends AbstractBlock
 {
-    public function render()
-    {
-        require APP_ROOT . '/view/layout/player-layout.phtml';
-    }
-
     public function renderTemplate()
     {
         require APP_ROOT . '/view/template/main.phtml';
