@@ -6,5 +6,8 @@ namespace App\Block;
 
 class CompanyBlock
 {
-
+    public function render()
+    {
+        echo 'это на будущее!';
+    }
 }

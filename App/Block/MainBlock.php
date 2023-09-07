@@ -13,7 +13,7 @@ class MainBlock
         require_once APP_ROOT . '/view/template/main.phtml';
     }
 
-    public function getAllPlayer()
+    public function getAllPlayer(): array
     {
         $db = new Database();
         $connection = $db->getConnection();
