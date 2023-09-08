@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\UI\ControllerInterface;
+use App\API\ControllerInterface;
 
 abstract class AbstractController implements ControllerInterface
 {
