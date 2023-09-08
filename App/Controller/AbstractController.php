@@ -10,7 +10,7 @@ abstract class AbstractController implements ControllerInterface
 {
     abstract public function execute();
 
-    public function isPost()
+    protected function isPost(): bool
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             return true;
@@ -19,8 +19,24 @@ abstract class AbstractController implements ControllerInterface
         }
     }
 
-    public function redirectTo(string $url)
+    protected function redirectTo(string $url)
     {
         header($url, true, 302);
+    }
+
+    protected function getQueryParams(): array
+    {
+        return $_GET ?? [];
+    }
+
+    protected function getQueryParam(string $param): ?string
+    {
+        $array = $this->getQueryParams() ?? null;
+        return $array[$param];
+    }
+
+    protected function getPostParams(): array
+    {
+        return $_POST ?? [];
     }
 }

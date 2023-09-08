@@ -11,12 +11,13 @@ class AddGameController extends AbstractController
     public function execute()
     {
         if ($this->isPost()) {
+            $postParams = $this->getPostParams();
             $post =  [
-                'name'            => $_POST['name'],
-                'company'         => $_POST['company'],
-                'genre'           => $_POST['genre'],
-                'year_of_release' => $_POST['year_of_release'],
-                'score'           => $_POST['score']
+                'name'            => $postParams['name'],
+                'company'         => $postParams['company'],
+                'genre'           => $postParams['genre'],
+                'year_of_release' => $postParams['year_of_release'],
+                'score'           => $postParams['score']
             ];
 
             (new NewGameBlock())->addGame($post);

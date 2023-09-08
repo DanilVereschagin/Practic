@@ -6,7 +6,7 @@ namespace App\Block;
 
 use App\Model\Database;
 
-class NewCompanyBlock extends AbstractBlock
+class NewCompanyBlock extends AbstractAdminBlock
 {
     public function renderTemplate()
     {

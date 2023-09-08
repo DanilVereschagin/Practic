@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Router;
 
 use App\Controller\AbstractController;
-use App\Controller\IndexController;
 use App\Controller\NotFoundErrorController;
 
 class Router
@@ -13,6 +12,10 @@ class Router
     public function selectController(string $route)
     {
         $controllerMap = require APP_ROOT . '/etc/routes.php';
+
+        if ($queryPos = stripos($route, '?')) {
+            $route = substr($route, 0, $queryPos);
+        }
 
         $class = $controllerMap[$route] ?? null;
 

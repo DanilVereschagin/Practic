@@ -11,10 +11,11 @@ class AddCompanyController extends AbstractController
     public function execute()
     {
         if ($this->isPost()) {
+            $postParams = $this->getPostParams();
             $post = [
-                'name'    => $_POST['name'],
-                'type'    => $_POST['type'],
-                'address' => $_POST['address'],
+                'name'    => $postParams['name'],
+                'type'    => $postParams['type'],
+                'address' => $postParams['address'],
             ];
 
             (new NewCompanyBlock())->addCompany($post);

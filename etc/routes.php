@@ -9,16 +9,20 @@ use App\Controller\NewGameController;
 use App\Controller\NewCompanyController;
 use App\Controller\AddCompanyController;
 use App\Controller\MainController;
+use App\Controller\AdminController;
+use App\Controller\AdminPlayersController;
 
 return [
-    '/' => MainController::class,
-    '/main' => MainController::class,
-    '/player' => PlayerController::class,
-    '/game' => GameController::class,
-    '/shop' => ShopController::class,
-    '/library' => LibraryController::class,
-    '/addgame' => AddGameController::class,
-    '/newgame' => NewGameController::class,
-    '/newcompany' => NewCompanyController::class,
-    '/addcompany' => AddCompanyController::class,
+    '/'              => MainController::class,
+    '/main'          => MainController::class,
+    '/player'        => PlayerController::class,
+    '/game'          => GameController::class,
+    '/shop'          => ShopController::class,
+    '/library'       => LibraryController::class,
+    '/addgame'       => AddGameController::class,
+    '/newgame'       => NewGameController::class,
+    '/newcompany'    => NewCompanyController::class,
+    '/addcompany'    => AddCompanyController::class,
+    '/admin'         => AdminController::class,
+    '/admin-players' => AdminPlayersController::class,
 ];

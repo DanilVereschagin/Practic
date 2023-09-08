@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Block\MainBlock;
+use App\Block\AdminBlock;
 
-class MainController extends AbstractController
+class AdminController extends AbstractController
 {
     public function execute()
     {
         $id = $this->getQueryParam('id');
 
-        (new MainBlock())->render();
+        (new AdminBlock())->render();
     }
 }

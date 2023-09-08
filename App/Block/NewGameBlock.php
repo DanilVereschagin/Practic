@@ -6,7 +6,7 @@ namespace App\Block;
 
 use App\Model\Database;
 
-class NewGameBlock extends AbstractBlock
+class NewGameBlock extends AbstractAdminBlock
 {
     public function renderTemplate()
     {
