@@ -1,0 +1,83 @@
+<?php
+/**
+ * @var \App\Block\EditPlayerBlock $this
+ */
+$player = $this->getPlayerInfo()[0];
+?>
+
+<html>
+<head>
+    <title>Изменить информацию</title>
+</head>
+<body>
+    <section class="content-wrap">
+        <div class="youplay-banner banner-top youplay-banner-parallax small">
+            <div class="image" style="background-image: url('/src/image/banner-blog-bg.jpg')">
+            </div>
+
+            <div class="info">
+                <div>
+                    <div class="container">
+                        <h1 class="neon-text main-text">Изменить информацию об игроке</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container youplay-content">
+            <h2 class="mt-0">Информация об игроке</h2>
+            <p>
+            <form action="/update-player" method="post">
+                <div class="youplay-input">
+                    <input
+                            type="hidden"
+                            name="id"
+                            value="<?= $player['id'] ?>"
+                    >
+                </div>
+                <div class="youplay-input">
+                    <input
+                            type="text"
+                            name="name"
+                            value="<?= $player['name'] ?>"
+                            placeholder="Имя"
+                    >
+                </div>
+                <div class="youplay-input">
+                    <input
+                            type="text"
+                            name="surname"
+                            value="<?= $player['surname'] ?>"
+                            placeholder="Фамилия"
+                    >
+                </div>
+                <div class="youplay-input">
+                    <input
+                            type="text"
+                            name="username"
+                            value="<?= $player['username'] ?>"
+                            placeholder="Ник"
+                    >
+                </div>
+                <div class="youplay-input">
+                    <input
+                            type="text"
+                            name="fake_hour"
+                            value="<?= $player['fake_hour'] ?>"
+                            placeholder="Игровые часы"
+                    >
+                </div>
+                <div class="youplay-input">
+                    <input
+                            type="text"
+                            name="is_admin"
+                            value="<?= $player['is_admin'] ?>"
+                    >
+                </div>
+                <button class="btn btn-default db">Сохранить</button>
+            </form>
+            </p>
+        </div>
+    </section>
+</body>
+</html>

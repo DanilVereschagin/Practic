@@ -1,0 +1,46 @@
+<?php
+/**
+ * @var \App\Block\EditCompanyBlock $this
+ */
+$company = $this->getCompanyInfo()[0];
+?>
+
+<html>
+<head>
+    <title>Изменить информацию</title>
+</head>
+<body>
+    <section class="content-wrap">
+        <div class="youplay-banner banner-top youplay-banner-parallax small">
+            <div class="image" style="background-image: url('/src/image/banner-blog-bg.jpg')">
+            </div>
+
+            <div class="info">
+                <div>
+                    <div class="container">
+                        <h1 class="neon-text main-text">Изменить информацию о компании</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container youplay-content">
+            <h2 class="mt-0">Информация о компании</h2>
+            <p>
+            <form action="/update-company" method="post">
+                <div class="youplay-input">
+                    <input type="text" name="name" value="<?= $company['name'] ?>" placeholder="Название">
+                </div>
+                <div class="youplay-input">
+                    <input type="text" name="type" value="<?= $company['type'] ?>" placeholder="Тип компании">
+                </div>
+                <div class="youplay-input">
+                    <input type="text" name="address" value="<?= $company['address'] ?>" placeholder="Адрес">
+                </div>
+                <button class="btn btn-default db">Сохранить</button>
+            </form>
+            </p>
+        </div>
+    </section>
+</body>
+</html>

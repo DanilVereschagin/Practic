@@ -1,0 +1,179 @@
+<?php
+/**
+ * @var \App\Block\AdminGameBlock $this
+ */
+$gameInfo = $this->getGameInfo()[0];
+$comments = $this->getComments();
+$childComments = $this->getChildComments();
+?>
+
+<html>
+<head>
+    <title>Игра</title>
+</head>
+<body>
+<section class="content-wrap">
+    <section class="youplay-banner banner-top big youplay-banner-parallax background_anime">
+        <div class="info">
+            <div>
+                <div class="container">
+                    <div class="main-text neon-text">
+                        <?= $gameInfo['name'] ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="youplay-user-navigation">
+            <div class="container">
+                <ul>
+                    <li class="active">
+                        <a href="/admin-game">Информация</a>
+                    </li>
+                    <li>
+                        <a <?= 'href=/edit-game?id=' . $gameInfo['id'] ?>>Изменить информацию</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="container youplay-news youplay-post">
+        <div class="col-md-9">
+            <article class="news-one">
+                <div class="description">
+                    <a
+                        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
+                        class="angled-img pull-left video-popup"
+                        target="_blank"
+                    >
+                        <div class="img">
+                            <img src="src/image/game-brs-1-500x375.jpg" alt="">
+                        </div>
+                        <i class="fa fa-play icon"></i>
+                    </a>
+                    <p>
+                        <?= $this->getGameDescription() ?>
+                    </p>
+                </div>
+                <div class="tags">
+                    <i class="fa fa-tags"></i>
+                    <a href="#">Release</a>,
+                    <a href="#"><?= $gameInfo['name'] ?></a>,
+                    <a href="#">Windows</a>
+                </div>
+                <div class="meta">
+                    <div class="item">
+                        <i class="fa fa-user meta-icon"></i>
+                        Автор: <a href="#!"><?= $gameInfo['name'] ?></a>
+                    </div>
+                    <div class="item">
+                        <i class="fa fa-calendar meta-icon"></i>
+                        Вышла: <a href="#!"><?= $gameInfo['year_of_release']?></a>
+                    </div>
+                    <div class="item">
+                        <i class="fa fa-bookmark meta-icon"></i>
+                        Состояние: <a href="#!">Релиз</a>
+                    </div>
+                </div>
+            </article>
+            <div class="comments-block">
+                <h2>
+                    Комментарии
+                    <small>
+                        <?= sizeof($comments) + sizeof($childComments) ?>
+                    </small>
+                </h2>
+                <ul class="comments-list">
+                    <?php foreach ($comments as $comment): ?>
+                    <li>
+                        <article>
+                            <div class="comment-avatar pull-left">
+                                <img src="src/image/avatar-user-1.png" alt="">
+                            </div>
+                            <div class="comment-cont clearfix">
+                                <a class="comment-author h4" href="#!"><?= $comment['username'] ?></a>
+                                <div class="date">
+                                    <?= $comment['date_of_writing'] ?>
+                                    <a href="#!" class="pull-right"><i class="fa fa-reply"></i> Ответить</a>
+                                </div>
+                                <div class="comment-text">
+                                    <?= $comment['text_of_comment'] ?>
+                                </div>
+                            </div>
+                        </article>
+
+                        <ul class="child-comment">
+                            <?php foreach ($childComments as $childComment): ?>
+                            <?php if ($childComment['parent_comment'] == $comment['id']): ?>
+                            <li>
+                                <article>
+                                    <div class="comment-avatar pull-left">
+                                        <img src="src/image/avatar.png" alt="">
+                                    </div>
+                                    <div class="comment-cont clearfix">
+                                        <a class="comment-author h4" href="#!"><?= $childComment['username'] ?></a>
+                                        <div class="date">
+                                            <?= $childComment['date_of_writing'] ?>
+                                        </div>
+                                        <div class="comment-text">
+                                            <?= $childComment['text_of_comment'] ?>
+                                        </div>
+                                    </div>
+                                </article>
+                            </li>
+                            <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+
+                <h2>Оставить комментарий</h2>
+                <form action="#!" class="comment-form">
+                    <div class="comment-cont clearfix">
+                        <div class="youplay-textarea">
+                            <textarea
+                                    name="message"
+                                    rows="5"
+                                    placeholder="Your Comment..."
+                            >
+                            </textarea>
+                        </div>
+                        <button class="btn btn-default pull-right">Отправить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="side-block">
+                <h4 class="block-title">Компания</h4>
+                <ul class="block-content">
+                    <li><a href="#!"><?= $gameInfo['Company'] ?></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="side-block">
+                <h4 class="block-title">Жанр</h4>
+                <ul class="block-content">
+                    <li>
+                        <a href="#!"><?= $gameInfo['name_of_genre'] ?></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="side-block">
+                <h4 class="block-title">Оценка на MetaCritic</h4>
+                <ul class="block-content">
+                    <li>
+                        <a href="#!"><?= $gameInfo['score'] ?></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

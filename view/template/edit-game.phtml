@@ -1,0 +1,52 @@
+<?php
+/**
+ * @var \App\Block\EditGameBlock $this
+ */
+$game = $this->getGameInfo()[0];
+?>
+
+<html>
+<head>
+    <title>Изменить информацию</title>
+</head>
+<body>
+    <section class="content-wrap">
+        <div class="youplay-banner banner-top youplay-banner-parallax small">
+            <div class="image" style="background-image: url('/src/image/banner-blog-bg.jpg')">
+            </div>
+
+            <div class="info">
+                <div>
+                    <div class="container">
+                        <h1 class="neon-text main-text">Изменить информацию об игре</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container youplay-content">
+            <h2 class="mt-0">Информация об игре</h2>
+            <p>
+            <form action="/update-game" method="post">
+                <div class="youplay-input">
+                    <input type="text" name="name" value="<?= $game['name'] ?>" placeholder="Название">
+                </div>
+                <div class="youplay-input">
+                    <input type="text" name="company" value="<?= $game['Company'] ?>" placeholder="Компания">
+                </div>
+                <div class="youplay-input">
+                    <input type="text" name="genre" value="<?= $game['name_of_genre'] ?>" placeholder="Жанр">
+                </div>
+                <div class="youplay-input">
+                    <input type="datetime" name="year_of_release" value="<?= $game['year_of_release'] ?>">
+                </div>
+                <div class="youplay-input">
+                    <input type="text" name="score" value="<?= $game['score'] ?>" placeholder="Оценка">
+                </div>
+                <button class="btn btn-default db">Сохранить</button>
+            </form>
+            </p>
+        </div>
+    </section>
+</body>
+</html>

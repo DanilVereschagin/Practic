@@ -6,7 +6,7 @@ namespace App\Block;
 
 use App\Model\Database;
 
-class GameBlock extends AbstractBlock
+class AdminGameBlock extends AbstractAdminBlock
 {
     protected ?int $id;
 
@@ -17,14 +17,19 @@ class GameBlock extends AbstractBlock
 
     public function renderTemplate()
     {
-        require_once APP_ROOT . '/view/template/game.phtml';
+        require_once APP_ROOT . '/view/template/admin-game.phtml';
     }
 
     public function getGameInfo(): array
     {
         $db = new Database();
         $connection = $db->getConnection();
-        $sql = 'select game.name, company.name as Company, genre.name_of_genre, game.year_of_release, game.score
+        $sql = 'select game.id,
+                game.name, 
+                company.name as Company, 
+                genre.name_of_genre, 
+                game.year_of_release, 
+                game.score
                 from game
                 left join company on company.id = game.company
                 left join genre on genre.genre_id = game.genre

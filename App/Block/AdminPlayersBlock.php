@@ -17,7 +17,7 @@ class AdminPlayersBlock extends AbstractAdminBlock
     {
         $db = new Database();
         $connection = $db->getConnection();
-        $array = $connection->query('Select player.username from player');
+        $array = $connection->query('Select player.id, player.username from player where is_admin = 0');
         return $array;
     }
 }

@@ -1,22 +1,34 @@
 <?php
 /**
- * @var \App\Block\ShopBlock $this
+ * @var \App\Block\AdminGamesBlock $this
  */
 ?>
 <html lang="en">
 <head>
-    <title>Магазин</title>
+    <title>Список игр</title>
 </head>
 <body>
 <section class="content-wrap">
-    <section class="youplay-banner banner-top big youplay-banner-parallax background_anime">
+    <section class="youplay-banner banner-top big youplay-banner-parallax background__anime_admin">
         <div class="info">
             <div>
                 <div class="container">
                     <div class="main-text neon-text">
-                        Магазин
+                        Список игр
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="youplay-user-navigation">
+            <div class="container">
+                <ul>
+                    <li class="active">
+                        <a href="/admin-games">Список игр</a>
+                    </li>
+                    <li>
+                        <a href="/newgame">Добавить игру</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
@@ -28,7 +40,7 @@
                 </section>
                 <section class="youplay-features container shop">
             <?php $i = 0; endif; ?>
-                <a <?= 'href=/game?id=' . $game['id'] ?>>
+                <a <?= 'href=/admin-game?id=' . $game['id'] ?>>
                 <div class="col-md-3 col-xs-12 shop__element">
                     <div class="feature angled-bg">
                         <h3><?= $game['name'] ?></h3>

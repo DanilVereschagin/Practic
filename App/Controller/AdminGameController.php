@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Block\GameBlock;
+use App\Block\AdminGameBlock;
 
-class GameController extends AbstractController
+class AdminGameController extends AbstractController
 {
     public function execute()
     {
         $id = (int)$this->getQueryParam('id');
-        (new GameBlock($id))->render();
+        (new AdminGameBlock($id))->render();
     }
 }

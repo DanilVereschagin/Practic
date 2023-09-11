@@ -28,7 +28,7 @@
             </section>
             <section class="youplay-features container shop">
                 <?php $i = 0; endif; ?>
-                <a href="/game">
+                <a <?= 'href=/edit-player?id=' . $player['id'] ?>>
                     <div class="col-md-3 col-xs-12 shop__element">
                         <div class="feature angled-bg">
                             <h3><?= $player['username'] ?></h3>
