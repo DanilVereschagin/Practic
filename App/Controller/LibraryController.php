@@ -10,6 +10,12 @@ class LibraryController extends AbstractController
 {
     public function execute()
     {
-        (new LibraryBlock())->render();
+        $id = (int)$this->getQueryParam('id');
+
+        if ($id == 0) {
+            $id = ID;
+        }
+
+        (new LibraryBlock($id))->render();
     }
 }

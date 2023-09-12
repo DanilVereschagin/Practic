@@ -29,10 +29,10 @@
             </section>
             <section class="youplay-features container shop">
                 <?php $i = 0; endif; ?>
-                <a href="/game">
+                <a <?= 'href=/player?id=' .  $player->getId() ?>>
                     <div class="col-md-3 col-xs-12 shop__element">
                         <div class="feature angled-bg">
-                            <h3><?= $player['username'] ?></h3>
+                            <h3><?= $player->getUsername() ?></h3>
                         </div>
                     </div>
                 </a>

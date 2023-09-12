@@ -2,7 +2,7 @@
 /**
  * @var \App\Block\LibraryBlock $this
  */
-$playerInfo = $this->getPlayerInfo()[0];
+$player = $this->getPlayerInfo();
 ?>
 
 <html>
@@ -16,10 +16,10 @@ $playerInfo = $this->getPlayerInfo()[0];
             <div class="container">
                 <ul>
                     <li>
-                        <a href="/player">Профиль</a>
+                        <a <?= 'href=/player?id=' . $player->getId() ?>>Профиль</a>
                     </li>
                     <li class="active">
-                        <a href="/library">Библиотека</a>
+                        <a <?= 'href=/library?id=' . $player->getId() ?>>Библиотека</a>
                     </li>
                 </ul>
             </div>
@@ -36,13 +36,13 @@ $playerInfo = $this->getPlayerInfo()[0];
                     </a>
 
                     <div class="user-data">
-                        <h2><?= $playerInfo['username'] ?></h2>
+                        <h2><?= $player->getUsername() ?></h2>
                         <div class="location">
-                            <?= $playerInfo['name'] . $playerInfo['surname']; ?>
+                            <?= $player->getName() . ' ' .  $player->getSurname(); ?>
                         </div>
                         <div class="activity">
                             <div>
-                                <div class="num"><?= $playerInfo['fake_hour'] ?></div>
+                                <div class="num"><?= $player->getFakeHour() ?></div>
                                 <div class="title">Игровых часов</div>
                             </div>
                         </div>
@@ -57,10 +57,10 @@ $playerInfo = $this->getPlayerInfo()[0];
             <div class="col-md-9">
                 <section class="youplay-features container">
                     <?php foreach($this->getGames() as $game): ?>
-                    <a href="/game">
+                    <a <?= 'href=/game?id=' . $game->getId() ?>>
                             <div class="col-md-3 col-xs-12">
                                 <div class="feature angled-bg">
-                                    <h3><?= $game['name'] ?></h3>
+                                    <h3><?= $game->getName() ?></h3>
                                 </div>
                             </div>
 

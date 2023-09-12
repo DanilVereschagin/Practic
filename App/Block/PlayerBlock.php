@@ -4,23 +4,29 @@ declare(strict_types=1);
 
 namespace App\Block;
 
-use App\Model\Database;
+use App\Model\Player;
+use App\Model\Resource\PlayerResource;
 
 class PlayerBlock extends AbstractBlock
 {
+    protected int $id;
+    public function __construct(int $id)
+    {
+        $this->id = $id;
+    }
+
     public function renderTemplate()
     {
         require_once APP_ROOT . '/view/template/player.phtml';
     }
 
-    public function getPlayerInfo(): array
+    /**
+     * @return Player
+     */
+    public function getPlayerInfo(): Player
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $sql = 'select * from player where player.id = :ID;';
-        $query = $connection->prepare($sql);
-        $query->execute(['ID' => ID]);
-        $info = $query->fetchAll();
-        return $info;
+        $playerResource = new PlayerResource();
+        $player = $playerResource->getById($this->id);
+        return $player;
     }
 }

@@ -3,7 +3,7 @@
  * @var \App\Block\PlayerBlock $this
  */
 
-$playerInfo = $this->getPlayerInfo()[0];
+$player = $this->getPlayerInfo();
 ?>
 
 <html>
@@ -17,10 +17,10 @@ $playerInfo = $this->getPlayerInfo()[0];
             <div class="container">
                 <ul>
                     <li class="active">
-                        <a href="/player">Профиль</a>
+                        <a <?= 'href=/player?id=' . $player->getId() ?>>Профиль</a>
                     </li>
                     <li>
-                        <a href="/library">Библиотека</a>
+                        <a <?= 'href=/library?id=' . $player->getId() ?>>Библиотека</a>
                     </li>
                 </ul>
             </div>
@@ -37,13 +37,13 @@ $playerInfo = $this->getPlayerInfo()[0];
                     </a>
 
                     <div class="user-data">
-                        <h2><?= $playerInfo['username'] ?></h2>
+                        <h2><?= $player->getUsername() ?></h2>
                         <div class="location">
-                            <?= $playerInfo['name'] . $playerInfo['surname'] ?>
+                            <?= $player->getName() . ' ' . $player->getSurname() ?>
                         </div>
                         <div class="activity">
                             <div>
-                                <div class="num"><?= $playerInfo['fake_hour'] ?></div>
+                                <div class="num"><?= $player->getFakeHour() ?></div>
                                 <div class="title">Игровых часов</div>
                             </div>
                         </div>
@@ -65,7 +65,7 @@ $playerInfo = $this->getPlayerInfo()[0];
                         </td>
                         <td>
                             <p>
-                                <?= $playerInfo['name'] . $playerInfo['surname'] ?>
+                                <?= $player->getName() . ' ' . $player->getSurname() ?>
                             </p>
                         </td>
                     </tr>
@@ -75,7 +75,7 @@ $playerInfo = $this->getPlayerInfo()[0];
                         </td>
                         <td>
                             <p>
-                                <?=$playerInfo['username'] ?>
+                                <?= $player->getUsername() ?>
                             </p>
                         </td>
                     </tr>
@@ -85,7 +85,7 @@ $playerInfo = $this->getPlayerInfo()[0];
                         </td>
                         <td>
                             <p>
-                                <?= $playerInfo['date_of_registration'] ?>
+                                <?= $player->getDateOfRegistration() ?>
                             </p>
                         </td>
                     </tr>
@@ -95,7 +95,7 @@ $playerInfo = $this->getPlayerInfo()[0];
                         </td>
                         <td>
                             <p>
-                                <?= $playerInfo['fake_hour'] ?>
+                                <?= $player->getFakeHour() ?>
                             </p>
                         </td>
                     </tr>

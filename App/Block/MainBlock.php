@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Block;
 
-use App\Model\Database;
+use App\Model\Player;
+use App\Model\Resource\PlayerResource;
 
 class MainBlock extends AbstractBlock
 {
@@ -13,11 +14,13 @@ class MainBlock extends AbstractBlock
         require APP_ROOT . '/view/template/main.phtml';
     }
 
-    public function getAllPlayer(): \PDOStatement
+    /**
+     * @return Player[]
+     */
+    public function getAllPlayer(): array
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $array = $connection->query('Select player.username from player');
-        return $array;
+        $playerResource = new PlayerResource();
+        $players = $playerResource->getAll();
+        return $players;
     }
 }
