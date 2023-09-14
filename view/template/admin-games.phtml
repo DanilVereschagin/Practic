@@ -40,10 +40,10 @@
                 </section>
                 <section class="youplay-features container shop">
             <?php $i = 0; endif; ?>
-                <a <?= 'href=/admin-game?id=' . $game['id'] ?>>
+                <a <?= 'href=/admin-game?id=' . $game->getId() ?>>
                 <div class="col-md-3 col-xs-12 shop__element">
                     <div class="feature angled-bg">
-                        <h3><?= $game['name'] ?></h3>
+                        <h3><?= $game->getName() ?></h3>
                     </div>
                 </div>
                 </a>

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Block\EditPlayerBlock;
+use App\Model\Resource\PlayerResource;
 
 class UpdatePlayerController extends AbstractController
 {
@@ -22,7 +23,7 @@ class UpdatePlayerController extends AbstractController
                 'is_admin'  => $postParams['is_admin']
             ];
 
-            (new EditPlayerBlock($id))->updatePlayer($post);
+            (new PlayerResource())->update($post);
         }
 
         $this->redirectTo("Location: /admin-players");

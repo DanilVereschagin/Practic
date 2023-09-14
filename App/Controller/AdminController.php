@@ -11,7 +11,6 @@ class AdminController extends AbstractController
     public function execute()
     {
         $id = $this->getQueryParam('id');
-
         (new AdminBlock())->render();
     }
 }

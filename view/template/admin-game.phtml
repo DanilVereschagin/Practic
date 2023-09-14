@@ -2,8 +2,8 @@
 /**
  * @var \App\Block\AdminGameBlock $this
  */
-$gameInfo = $this->getGameInfo()[0];
-$comments = $this->getComments();
+$game = $this->getGameInfo();
+$comments = $this->getParentComments();
 $childComments = $this->getChildComments();
 ?>
 
@@ -18,7 +18,7 @@ $childComments = $this->getChildComments();
             <div>
                 <div class="container">
                     <div class="main-text neon-text">
-                        <?= $gameInfo['name'] ?>
+                        <?= $game->getName() ?>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@ $childComments = $this->getChildComments();
                         <a href="/admin-game">Информация</a>
                     </li>
                     <li>
-                        <a <?= 'href=/edit-game?id=' . $gameInfo['id'] ?>>Изменить информацию</a>
+                        <a <?= 'href=/edit-game?id=' . $game->getId() ?>>Изменить информацию</a>
                     </li>
                 </ul>
             </div>
@@ -59,17 +59,17 @@ $childComments = $this->getChildComments();
                 <div class="tags">
                     <i class="fa fa-tags"></i>
                     <a href="#">Release</a>,
-                    <a href="#"><?= $gameInfo['name'] ?></a>,
+                    <a href="#"><?= $game->getName() ?></a>,
                     <a href="#">Windows</a>
                 </div>
                 <div class="meta">
                     <div class="item">
                         <i class="fa fa-user meta-icon"></i>
-                        Автор: <a href="#!"><?= $gameInfo['name'] ?></a>
+                        Автор: <a href="#!"><?= $game->getName() ?></a>
                     </div>
                     <div class="item">
                         <i class="fa fa-calendar meta-icon"></i>
-                        Вышла: <a href="#!"><?= $gameInfo['year_of_release']?></a>
+                        Вышла: <a href="#!"><?= $game->getYearOfRelease()?></a>
                     </div>
                     <div class="item">
                         <i class="fa fa-bookmark meta-icon"></i>
@@ -92,32 +92,32 @@ $childComments = $this->getChildComments();
                                 <img src="src/image/avatar-user-1.png" alt="">
                             </div>
                             <div class="comment-cont clearfix">
-                                <a class="comment-author h4" href="#!"><?= $comment['username'] ?></a>
+                                <a class="comment-author h4" href="#!"><?= $comment->getUsername() ?></a>
                                 <div class="date">
-                                    <?= $comment['date_of_writing'] ?>
+                                    <?= $comment->getDateOfWriting() ?>
                                     <a href="#!" class="pull-right"><i class="fa fa-reply"></i> Ответить</a>
                                 </div>
                                 <div class="comment-text">
-                                    <?= $comment['text_of_comment'] ?>
+                                    <?= $comment->getTextOfComment() ?>
                                 </div>
                             </div>
                         </article>
 
                         <ul class="child-comment">
                             <?php foreach ($childComments as $childComment): ?>
-                            <?php if ($childComment['parent_comment'] == $comment['id']): ?>
+                            <?php if ($childComment->getParentComment() == $comment->getId()): ?>
                             <li>
                                 <article>
                                     <div class="comment-avatar pull-left">
                                         <img src="src/image/avatar.png" alt="">
                                     </div>
                                     <div class="comment-cont clearfix">
-                                        <a class="comment-author h4" href="#!"><?= $childComment['username'] ?></a>
+                                        <a class="comment-author h4" href="#!"><?= $childComment->getUsername() ?></a>
                                         <div class="date">
-                                            <?= $childComment['date_of_writing'] ?>
+                                            <?= $childComment->getDateOfWriting() ?>
                                         </div>
                                         <div class="comment-text">
-                                            <?= $childComment['text_of_comment'] ?>
+                                            <?= $childComment->getTextOfComment() ?>
                                         </div>
                                     </div>
                                 </article>
@@ -130,7 +130,7 @@ $childComments = $this->getChildComments();
                 </ul>
 
                 <h2>Оставить комментарий</h2>
-                <form action="#!" class="comment-form">
+                <form action="/add-comment" class="comment-form" method="post">
                     <div class="comment-cont clearfix">
                         <div class="youplay-textarea">
                             <textarea
@@ -150,7 +150,7 @@ $childComments = $this->getChildComments();
             <div class="side-block">
                 <h4 class="block-title">Компания</h4>
                 <ul class="block-content">
-                    <li><a href="#!"><?= $gameInfo['Company'] ?></a>
+                    <li><a href="#!"><?= $game->getCompanyObject()->getName() ?></a>
                     </li>
                 </ul>
             </div>
@@ -159,7 +159,7 @@ $childComments = $this->getChildComments();
                 <h4 class="block-title">Жанр</h4>
                 <ul class="block-content">
                     <li>
-                        <a href="#!"><?= $gameInfo['name_of_genre'] ?></a>
+                        <a href="#!"><?= $game->getGenreObject()->getNameOfGenre() ?></a>
                     </li>
                 </ul>
             </div>
@@ -168,7 +168,7 @@ $childComments = $this->getChildComments();
                 <h4 class="block-title">Оценка на MetaCritic</h4>
                 <ul class="block-content">
                     <li>
-                        <a href="#!"><?= $gameInfo['score'] ?></a>
+                        <a href="#!"><?= $game->getScore() ?></a>
                     </li>
                 </ul>
             </div>

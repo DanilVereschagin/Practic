@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Block\NewCompanyBlock;
-use App\Model\Resource\CompanyResource;
+use App\Model\Resource\CommentResource;
 
-class AddCompanyController extends AbstractController
+class AddCommentController extends AbstractController
 {
     public function execute()
     {
@@ -19,7 +18,7 @@ class AddCompanyController extends AbstractController
                 'address' => $postParams['address'],
             ];
 
-            (new CompanyResource())->add($post);
+            (new CommentResource())->add($post);
         }
         $this->redirectTo('Location: /companies');
     }

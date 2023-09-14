@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Block\EditGameBlock;
+use App\Model\Resource\GameResource;
 
 class UpdateGameController extends AbstractController
 {
@@ -14,6 +14,7 @@ class UpdateGameController extends AbstractController
         if ($this->isPost()) {
             $postParams = $this->getPostParams();
             $post =  [
+                'id'              => $postParams['id'],
                 'name'            => $postParams['name'],
                 'company'         => $postParams['company'],
                 'genre'           => $postParams['genre'],
@@ -21,7 +22,7 @@ class UpdateGameController extends AbstractController
                 'score'           => $postParams['score']
             ];
 
-            (new EditGameBlock($id))->updateGame($post);
+            (new GameResource())->update($post);
         }
 
         $this->redirectTo("Location: /admin-games");

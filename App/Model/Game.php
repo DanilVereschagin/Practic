@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use App\Model\Company;
+use App\Model\Genre;
+use App\Model\Resource\CompanyResource;
+use App\Model\Resource\GenreResource;
+
 class Game
 {
     protected ?int $id;
@@ -12,6 +17,8 @@ class Game
     protected ?int $genre;
     protected ?string $year_of_release;
     protected ?float $score;
+    protected ?Company $companyObject;
+    protected ?Genre $genreObject;
 
     public function __construct(?array $data = [])
     {
@@ -21,6 +28,8 @@ class Game
         $this->setGenre($data['genre']);
         $this->setYearOfRelease($data['year_of_release']);
         $this->setScore($data['score']);
+        $this->setCompanyObject($data['Company']);
+        $this->setGenreObject($data['name_of_genre']);
     }
 
     public function getId(): ?int
@@ -81,5 +90,35 @@ class Game
     public function setScore(?float $score): void
     {
         $this->score = $score;
+    }
+
+    public function getCompanyObject(): ?\App\Model\Company
+    {
+        return $this->companyObject;
+    }
+
+    public function setCompanyObject(?string $companyName): void
+    {
+        if ($companyName == null) {
+            $this->companyObject = null;
+            return;
+        }
+        $companyResource = new CompanyResource();
+        $this->companyObject = $companyResource->getByName($companyName);
+    }
+
+    public function getGenreObject(): ?\App\Model\Genre
+    {
+        return $this->genreObject;
+    }
+
+    public function setGenreObject(?string $nameOfGenre): void
+    {
+        if ($nameOfGenre == null) {
+            $this->genreObject = null;
+            return;
+        }
+        $genreResource = new GenreResource();
+        $this->genreObject = $genreResource->getByName($nameOfGenre);
     }
 }

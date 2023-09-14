@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Block;
 
-use App\Model\Database;
+use App\Model\Player;
+use App\Model\Resource\PlayerResource;
 
 class AdminBlock extends AbstractAdminBlock
 {
@@ -13,11 +14,13 @@ class AdminBlock extends AbstractAdminBlock
         require APP_ROOT . '/view/template/admin.phtml';
     }
 
-    public function getAllPlayer(): \PDOStatement
+    /**
+     * @return Player[]
+     */
+    public function getAllAdmins(): array
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $array = $connection->query('Select player.username from player where is_admin = 1');
-        return $array;
+        $playerResource = new PlayerResource();
+        $admins = $playerResource->getAllAdmins();
+        return $admins;
     }
 }

@@ -2,7 +2,7 @@
 /**
  * @var \App\Block\EditCompanyBlock $this
  */
-$company = $this->getCompanyInfo()[0];
+$company = $this->getCompanyInfo();
 ?>
 
 <html>
@@ -29,13 +29,16 @@ $company = $this->getCompanyInfo()[0];
             <p>
             <form action="/update-company" method="post">
                 <div class="youplay-input">
-                    <input type="text" name="name" value="<?= $company['name'] ?>" placeholder="Название">
+                    <input type="hidden" name="id" value="<?= $company->getId() ?>">
                 </div>
                 <div class="youplay-input">
-                    <input type="text" name="type" value="<?= $company['type'] ?>" placeholder="Тип компании">
+                    <input type="text" name="name" value="<?= $company->getName() ?>" placeholder="Название">
                 </div>
                 <div class="youplay-input">
-                    <input type="text" name="address" value="<?= $company['address'] ?>" placeholder="Адрес">
+                    <input type="text" name="type" value="<?= $company->getType() ?>" placeholder="Тип компании">
+                </div>
+                <div class="youplay-input">
+                    <input type="text" name="address" value="<?= $company->getAddress() ?>" placeholder="Адрес">
                 </div>
                 <button class="btn btn-default db">Сохранить</button>
             </form>

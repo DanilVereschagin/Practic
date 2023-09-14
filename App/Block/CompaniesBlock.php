@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Block;
 
-use App\Model\Database;
+use App\Model\Company;
+use App\Model\Resource\CompanyResource;
 
 class CompaniesBlock extends AbstractAdminBlock
 {
@@ -13,11 +14,13 @@ class CompaniesBlock extends AbstractAdminBlock
         require APP_ROOT . '/view/template/companies.phtml';
     }
 
-    public function getAllCompanies(): \PDOStatement
+    /**
+     * @return Company[]
+     */
+    public function getAllCompanies(): array
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $companies = $connection->query('Select * from company');
+        $companyResource = new CompanyResource();
+        $companies = $companyResource->getAll();
         return $companies;
     }
 }

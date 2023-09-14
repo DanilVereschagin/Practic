@@ -40,10 +40,10 @@
                 </section>
                 <section class="youplay-features container shop">
             <?php $i = 0; endif; ?>
-                <a <?= "href=/edit-company?id=" . $company['id'] ?>>
+                <a <?= "href=/edit-company?id=" . $company->getId() ?>>
                 <div class="col-md-3 col-xs-12 shop__element">
                     <div class="feature angled-bg">
-                        <h3><?= $company['name'] ?></h3>
+                        <h3><?= $company->getName() ?></h3>
                     </div>
                 </div>
                 </a>

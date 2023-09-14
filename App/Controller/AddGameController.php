@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Block\NewGameBlock;
+use App\Model\Resource\GameResource;
 
 class AddGameController extends AbstractController
 {
@@ -20,8 +21,8 @@ class AddGameController extends AbstractController
                 'score'           => $postParams['score']
             ];
 
-            (new NewGameBlock())->addGame($post);
+            (new GameResource())->add($post);
         }
-        $this->redirectTo('/shop');
+        $this->redirectTo('Location: /admin-games');
     }
 }

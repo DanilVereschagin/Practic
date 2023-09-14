@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Block\EditCompanyBlock;
+use App\Model\Resource\CompanyResource;
 
 class UpdateCompanyController extends AbstractController
 {
@@ -14,12 +15,13 @@ class UpdateCompanyController extends AbstractController
         if ($this->isPost()) {
             $postParams = $this->getPostParams();
             $post = [
+                'id'      => $postParams['id'],
                 'name'    => $postParams['name'],
                 'type'    => $postParams['type'],
                 'address' => $postParams['address'],
             ];
 
-            (new EditCompanyBlock($id))->updateCompany($post);
+            (new CompanyResource())->update($post);
         }
 
         $this->redirectTo("Location: /companies");

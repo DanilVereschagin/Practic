@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Block;
 
-use App\Model\Database;
+use App\Model\Game;
+use App\Model\Resource\GameResource;
 
 class AdminGamesBlock extends AbstractAdminBlock
 {
@@ -14,14 +15,12 @@ class AdminGamesBlock extends AbstractAdminBlock
     }
 
     /**
-     * @return false|\PDOStatement
+     * @return Game[]
      */
-    public function getGames(): \PDOStatement
+    public function getGames(): array
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $games = $connection->query('select * from game;');
-
+        $gameResource = new GameResource();
+        $games = $gameResource->getAll();
         return $games;
     }
 }

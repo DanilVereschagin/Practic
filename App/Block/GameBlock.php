@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Block;
 
+use App\Model\Comment;
 use App\Model\Database;
+use App\Model\Game;
+use App\Model\Resource\CommentResource;
+use App\Model\Resource\GameResource;
 
 class GameBlock extends AbstractBlock
 {
@@ -20,20 +24,14 @@ class GameBlock extends AbstractBlock
         require_once APP_ROOT . '/view/template/game.phtml';
     }
 
-    public function getGameInfo(): array
+    /**
+     * @return Game
+     */
+    public function getGameInfo(): Game
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $sql = 'select game.name, company.name as Company, genre.name_of_genre, game.year_of_release, game.score
-                from game
-                left join company on company.id = game.company
-                left join genre on genre.genre_id = game.genre
-                where game.id = :ID;';
-        $query = $connection->prepare($sql);
-        $query->execute(['ID' => $this->id]);
-        $gameInfo = $query->fetchAll();
-
-        return $gameInfo;
+        $gameResource = new GameResource();
+        $game = $gameResource->getById($this->id);
+        return $game;
     }
 
     public function getGameDescription(): string
@@ -41,38 +39,23 @@ class GameBlock extends AbstractBlock
         return 'Игра крутая, ну ваще';
     }
 
-    public function getComments(): array
+    /**
+     * @return Comment[]
+     */
+    public function getParentComments(): array
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $sql = 'select player.username, comment.id, comment.text_of_comment, comment.date_of_writing
-                from player
-                left join comment on comment.username = player.id
-                where comment.game = :ID and comment.id in (select discussion.parent_comment from discussion);';
-        $query = $connection->prepare($sql);
-        $query->execute(['ID' => $this->id]);
-        $comments = $query->fetchAll();
-
+        $commentResource = new CommentResource();
+        $comments = $commentResource->getParentComments($this->id);
         return $comments;
     }
 
+    /**
+     * @return Comment[]
+     */
     public function getChildComments(): array
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $sql = 'select 
-                        player.username,
-                        comment.id,
-                        discussion.parent_comment, 
-                        comment.text_of_comment, 
-                        comment.date_of_writing
-                from player
-                left join comment on comment.username = player.id
-                left join discussion on discussion.child_comment = comment.id
-                where comment.game = :ID and comment.id in (select discussion.child_comment from discussion);';
-        $query = $connection->prepare($sql);
-        $query->execute(['ID' => $this->id]);
-        $childComments = $query->fetchAll();
-        return $childComments;
+        $commentResource = new CommentResource();
+        $comments = $commentResource->getChildComments($this->id);
+        return $comments;
     }
 }

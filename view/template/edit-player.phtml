@@ -2,7 +2,7 @@
 /**
  * @var \App\Block\EditPlayerBlock $this
  */
-$player = $this->getPlayerInfo()[0];
+$player = $this->getPlayerInfo();
 ?>
 
 <html>
@@ -32,14 +32,14 @@ $player = $this->getPlayerInfo()[0];
                     <input
                             type="hidden"
                             name="id"
-                            value="<?= $player['id'] ?>"
+                            value="<?= $player->getId() ?>"
                     >
                 </div>
                 <div class="youplay-input">
                     <input
                             type="text"
                             name="name"
-                            value="<?= $player['name'] ?>"
+                            value="<?= $player->getName() ?>"
                             placeholder="Имя"
                     >
                 </div>
@@ -47,7 +47,7 @@ $player = $this->getPlayerInfo()[0];
                     <input
                             type="text"
                             name="surname"
-                            value="<?= $player['surname'] ?>"
+                            value="<?= $player->getSurname() ?>"
                             placeholder="Фамилия"
                     >
                 </div>
@@ -55,7 +55,7 @@ $player = $this->getPlayerInfo()[0];
                     <input
                             type="text"
                             name="username"
-                            value="<?= $player['username'] ?>"
+                            value="<?= $player->getUsername() ?>"
                             placeholder="Ник"
                     >
                 </div>
@@ -63,7 +63,7 @@ $player = $this->getPlayerInfo()[0];
                     <input
                             type="text"
                             name="fake_hour"
-                            value="<?= $player['fake_hour'] ?>"
+                            value="<?= $player->getFakeHour() ?>"
                             placeholder="Игровые часы"
                     >
                 </div>
@@ -71,7 +71,7 @@ $player = $this->getPlayerInfo()[0];
                     <input
                             type="text"
                             name="is_admin"
-                            value="<?= $player['is_admin'] ?>"
+                            value="<?= $player->getIsAdmin() ?>"
                     >
                 </div>
                 <button class="btn btn-default db">Сохранить</button>

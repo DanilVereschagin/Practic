@@ -11,6 +11,14 @@ class Company
     protected ?int $type;
     protected ?string $address;
 
+    public function __construct(?array $data = [])
+    {
+        $this->setId($data['id']);
+        $this->setName($data['name']);
+        $this->setAddress($data['address']);
+        $this->setType($data['type']);
+    }
+
 
     public function getId(): ?int
     {
