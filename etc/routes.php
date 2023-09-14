@@ -20,6 +20,7 @@ use App\Controller\EditCompanyController;
 use App\Controller\UpdateCompanyController;
 use App\Controller\EditPlayerController;
 use App\Controller\UpdatePlayerController;
+use App\Controller\AddCommentController;
 
 return [
     '/'               => MainController::class,
@@ -43,4 +44,5 @@ return [
     '/update-company' => UpdateCompanyController::class,
     '/edit-player'    => EditPlayerController::class,
     '/update-player'  => UpdatePlayerController::class,
+    '/add-comment'    => AddCommentController::class,
 ];

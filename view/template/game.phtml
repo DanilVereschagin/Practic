@@ -117,7 +117,7 @@ $childComments = $this->getChildComments();
                 </ul>
 
                 <h2>Оставить комментарий</h2>
-                <form action="/add-comment" class="comment-form" method="post">
+                <form <?= 'action=/add-comment?id=' . $game->getId() ?> method="post">
                     <div class="comment-cont clearfix">
                         <div class="youplay-textarea">
                             <textarea

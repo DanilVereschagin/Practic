@@ -10,16 +10,18 @@ class AddCommentController extends AbstractController
 {
     public function execute()
     {
+        $id = (int)$this->getQueryParam('id');
         if ($this->isPost()) {
             $postParams = $this->getPostParams();
             $post = [
-                'name'    => $postParams['name'],
-                'type'    => $postParams['type'],
-                'address' => $postParams['address'],
+                'text_of_comment'    => $postParams['message'],
+                'username'           => ID,
+                'game'               => $id,
+                'date_of_writing'    => date('Y-m-d h:i:s'),
             ];
 
             (new CommentResource())->add($post);
         }
-        $this->redirectTo('Location: /companies');
+        $this->redirectTo('Location: /game?id=' . $id);
     }
 }
