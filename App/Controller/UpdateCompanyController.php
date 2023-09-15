@@ -13,17 +13,10 @@ class UpdateCompanyController extends AbstractController
     {
         $id = (int)$this->getQueryParam('id');
         if ($this->isPost()) {
-            $postParams = $this->getPostParams();
-            $post = [
-                'id'      => $postParams['id'],
-                'name'    => $postParams['name'],
-                'type'    => $postParams['type'],
-                'address' => $postParams['address'],
-            ];
-
+            $post = $this->getPostValues(['id', 'name', 'type', 'address']);
             (new CompanyResource())->update($post);
         }
 
-        $this->redirectTo("Location: /companies");
+        $this->redirectTo("/companies");
     }
 }

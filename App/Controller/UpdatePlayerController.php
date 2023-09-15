@@ -13,19 +13,10 @@ class UpdatePlayerController extends AbstractController
     {
         $id = (int)$this->getQueryParam('id');
         if ($this->isPost()) {
-            $postParams = $this->getPostParams();
-            $post =  [
-                'id'        => $postParams['id'],
-                'name'      => $postParams['name'],
-                'surname'   => $postParams['surname'],
-                'username'  => $postParams['username'],
-                'fake_hour' => $postParams['fake_hour'],
-                'is_admin'  => $postParams['is_admin']
-            ];
-
+            $post = $this->getPostValues(['id', 'name', 'surname', 'username', 'fake_hour', 'is_admin']);
             (new PlayerResource())->update($post);
         }
 
-        $this->redirectTo("Location: /admin-players");
+        $this->redirectTo("/admin-players");
     }
 }

@@ -20,8 +20,9 @@ class AddCommentController extends AbstractController
                 'date_of_writing'    => date('Y-m-d h:i:s'),
             ];
 
+
             (new CommentResource())->add($post);
         }
-        $this->redirectTo('Location: /game?id=' . $id);
+        $this->redirectTo('/game?id=' . $id);
     }
 }

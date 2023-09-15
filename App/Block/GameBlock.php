@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Block;
 
 use App\Model\Comment;
-use App\Model\Database;
 use App\Model\Game;
 use App\Model\Resource\CommentResource;
 use App\Model\Resource\GameResource;
@@ -30,8 +29,7 @@ class GameBlock extends AbstractBlock
     public function getGameInfo(): Game
     {
         $gameResource = new GameResource();
-        $game = $gameResource->getById($this->id);
-        return $game;
+        return $gameResource->getById($this->id);
     }
 
     public function getGameDescription(): string
@@ -45,8 +43,7 @@ class GameBlock extends AbstractBlock
     public function getParentComments(): array
     {
         $commentResource = new CommentResource();
-        $comments = $commentResource->getParentComments($this->id);
-        return $comments;
+        return $commentResource->getParentComments($this->id);
     }
 
     /**
@@ -55,7 +52,6 @@ class GameBlock extends AbstractBlock
     public function getChildComments(): array
     {
         $commentResource = new CommentResource();
-        $comments = $commentResource->getChildComments($this->id);
-        return $comments;
+        return $commentResource->getChildComments($this->id);
     }
 }

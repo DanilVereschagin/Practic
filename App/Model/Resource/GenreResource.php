@@ -7,26 +7,8 @@ namespace App\Model\Resource;
 use App\Model\Database;
 use App\Model\Genre;
 
-class GenreResource
+class GenreResource extends AbstractResource
 {
-    /**
-     * @return Genre[]
-     */
-    public function getAll(): array
-    {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $rowset = $connection->query('select * from genre;');
-
-        $genres = [];
-        foreach ($rowset as $row) {
-            $genre = new Genre($row);
-            $genres[] = $genre;
-        }
-
-        return $genres;
-    }
-
     /**
      * @param int|null $id
      * @return Genre

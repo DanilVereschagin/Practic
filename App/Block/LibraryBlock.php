@@ -30,8 +30,7 @@ class LibraryBlock extends AbstractBlock
     public function getPlayerInfo(): Player
     {
         $playerResource = new PlayerResource();
-        $player = $playerResource->getById($this->id);
-        return $player;
+        return $playerResource->getById($this->id);
     }
 
     /**
@@ -40,7 +39,6 @@ class LibraryBlock extends AbstractBlock
     public function getGames(): array
     {
         $gameResource = new GameResource();
-        $games = $gameResource->getLibraryGames($this->id);
-        return $games;
+        return $gameResource->getLibraryGames($this->id);
     }
 }

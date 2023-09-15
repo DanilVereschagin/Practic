@@ -26,7 +26,6 @@ class PlayerBlock extends AbstractBlock
     public function getPlayerInfo(): Player
     {
         $playerResource = new PlayerResource();
-        $player = $playerResource->getById($this->id);
-        return $player;
+        return $playerResource->getById($this->id);
     }
 }

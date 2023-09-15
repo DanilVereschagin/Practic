@@ -30,8 +30,7 @@ class AdminGameBlock extends AbstractAdminBlock
     public function getGameInfo(): Game
     {
         $gameResource = new GameResource();
-        $game = $gameResource->getById($this->id);
-        return $game;
+        return $gameResource->getById($this->id);
     }
 
     public function getGameDescription(): string
@@ -45,8 +44,7 @@ class AdminGameBlock extends AbstractAdminBlock
     public function getParentComments(): array
     {
         $commentResource = new CommentResource();
-        $comments = $commentResource->getParentComments($this->id);
-        return $comments;
+        return $commentResource->getParentComments($this->id);
     }
 
     /**
@@ -55,7 +53,6 @@ class AdminGameBlock extends AbstractAdminBlock
     public function getChildComments(): array
     {
         $commentResource = new CommentResource();
-        $comments = $commentResource->getChildComments($this->id);
-        return $comments;
+        return $commentResource->getChildComments($this->id);
     }
 }

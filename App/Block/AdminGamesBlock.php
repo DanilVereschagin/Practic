@@ -20,7 +20,6 @@ class AdminGamesBlock extends AbstractAdminBlock
     public function getGames(): array
     {
         $gameResource = new GameResource();
-        $games = $gameResource->getAll();
-        return $games;
+        return $gameResource->getAll('game');
     }
 }

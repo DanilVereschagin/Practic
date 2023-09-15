@@ -21,7 +21,7 @@ abstract class AbstractController implements ControllerInterface
 
     protected function redirectTo(string $url)
     {
-        header($url, true, 302);
+        header('Location: ' . $url, true, 302);
     }
 
     protected function getQueryParams(): array
@@ -38,5 +38,22 @@ abstract class AbstractController implements ControllerInterface
     protected function getPostParams(): array
     {
         return $_POST ?? [];
+    }
+
+    protected function getPostParam(string $param): array
+    {
+        return $_POST[$param] ?? [];
+    }
+
+    protected function getPostValues(array $names)
+    {
+        $postParams = $this->getPostParams();
+
+        $post =  [];
+        foreach ($names as $name) {
+            $post[$name] = $postParams[$name];
+        }
+
+        return $post;
     }
 }

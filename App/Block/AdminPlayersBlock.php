@@ -20,7 +20,6 @@ class AdminPlayersBlock extends AbstractAdminBlock
     public function getAllPlayer(): array
     {
         $playerResource = new PlayerResource();
-        $players = $playerResource->getAllPlayers();
-        return $players;
+        return $playerResource->getAllPlayers();
     }
 }

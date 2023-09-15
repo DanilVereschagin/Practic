@@ -12,15 +12,9 @@ class AddCompanyController extends AbstractController
     public function execute()
     {
         if ($this->isPost()) {
-            $postParams = $this->getPostParams();
-            $post = [
-                'name'    => $postParams['name'],
-                'type'    => $postParams['type'],
-                'address' => $postParams['address'],
-            ];
-
+            $post = $this->getPostValues(['name', 'type', 'address']);
             (new CompanyResource())->add($post);
         }
-        $this->redirectTo('Location: /companies');
+        $this->redirectTo('/companies');
     }
 }

@@ -12,19 +12,10 @@ class UpdateGameController extends AbstractController
     {
         $id = (int)$this->getQueryParam('id');
         if ($this->isPost()) {
-            $postParams = $this->getPostParams();
-            $post =  [
-                'id'              => $postParams['id'],
-                'name'            => $postParams['name'],
-                'company'         => $postParams['company'],
-                'genre'           => $postParams['genre'],
-                'year_of_release' => $postParams['year_of_release'],
-                'score'           => $postParams['score']
-            ];
-
+            $post = $this->getPostValues(['id', 'name', 'company', 'genre', 'year_of_release', 'score']);
             (new GameResource())->update($post);
         }
 
-        $this->redirectTo("Location: /admin-games");
+        $this->redirectTo("/admin-games");
     }
 }

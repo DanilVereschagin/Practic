@@ -5,7 +5,7 @@ namespace App\Model\Resource;
 use App\Model\Comment;
 use App\Model\Database;
 
-class CommentResource
+class CommentResource extends AbstractResource
 {
     public function getParentComments($id): array
     {

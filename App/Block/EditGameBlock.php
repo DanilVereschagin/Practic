@@ -27,7 +27,6 @@ class EditGameBlock extends AbstractAdminBlock
     public function getGameInfo(): Game
     {
         $gameResource = new GameResource();
-        $game = $gameResource->getById($this->id);
-        return $game;
+        return $gameResource->getById($this->id);
     }
 }

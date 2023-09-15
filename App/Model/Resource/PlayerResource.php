@@ -7,26 +7,8 @@ namespace App\Model\Resource;
 use App\Model\Database;
 use App\Model\Player;
 
-class PlayerResource
+class PlayerResource extends AbstractResource
 {
-    /**
-     * @return Player[]
-     */
-    public function getAll(): array
-    {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $rowset = $connection->query('Select * from player');
-
-        $players = [];
-        foreach ($rowset as $row) {
-            $player = new Player($row);
-            $players[] = $player;
-        }
-
-        return $players;
-    }
-
     /**
      * @param int|null $id
      * @return Player

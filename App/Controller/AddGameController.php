@@ -12,17 +12,9 @@ class AddGameController extends AbstractController
     public function execute()
     {
         if ($this->isPost()) {
-            $postParams = $this->getPostParams();
-            $post =  [
-                'name'            => $postParams['name'],
-                'company'         => $postParams['company'],
-                'genre'           => $postParams['genre'],
-                'year_of_release' => $postParams['year_of_release'],
-                'score'           => $postParams['score']
-            ];
-
+            $post = $this->getPostValues(['name', 'company', 'genre', 'year_of_release', 'score']);
             (new GameResource())->add($post);
         }
-        $this->redirectTo('Location: /admin-games');
+        $this->redirectTo('/admin-games');
     }
 }

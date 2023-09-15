@@ -7,26 +7,8 @@ namespace App\Model\Resource;
 use App\Model\Company;
 use App\Model\Database;
 
-class CompanyResource
+class CompanyResource extends AbstractResource
 {
-    /**
-     * @return Company[]
-     */
-    public function getAll(): array
-    {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $rowset = $connection->query('select * from company;');
-
-        $companies = [];
-        foreach ($rowset as $row) {
-            $company = new Company($row);
-            $companies[] = $company;
-        }
-
-        return $companies;
-    }
-
     /**
      * @param int|null $id
      * @return Company
