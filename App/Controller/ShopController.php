@@ -10,6 +10,7 @@ class ShopController extends AbstractController
 {
     public function execute()
     {
-        (new ShopBlock())->render();
+        $block = new ShopBlock();
+        $block->render();
     }
 }

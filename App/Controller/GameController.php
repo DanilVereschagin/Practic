@@ -11,6 +11,7 @@ class GameController extends AbstractController
     public function execute()
     {
         $id = (int)$this->getQueryParam('id');
-        (new GameBlock($id))->render();
+        $block = new GameBlock($id);
+        $block->render();
     }
 }

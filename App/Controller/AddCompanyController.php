@@ -13,8 +13,12 @@ class AddCompanyController extends AbstractController
     {
         if ($this->isPost()) {
             $post = $this->getPostValues(['name', 'type', 'address']);
-            (new CompanyResource())->add($post);
+            $resource = new CompanyResource();
+            $resource->add($post);
+        } else {
+            http_response_code(405);
         }
+
         $this->redirectTo('/companies');
     }
 }

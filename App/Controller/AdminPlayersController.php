@@ -10,6 +10,7 @@ class AdminPlayersController extends AbstractController
 {
     public function execute()
     {
-        (new AdminPlayersBlock())->render();
+        $block = new AdminPlayersBlock();
+        $block->render();
     }
 }

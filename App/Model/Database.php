@@ -6,14 +6,10 @@ namespace App\Model;
 
 class Database
 {
-    protected static $connection;
+    protected static $_instance;
 
-    public static function getConnection(): \PDO
+    private function __construct()
     {
-        if (self::$connection) {
-            return self::$connection;
-        }
-
         $host = '127.0.0.1:3308';
         $db   = 'computer_game';
         $user = 'dvereschagin';
@@ -27,12 +23,24 @@ class Database
             \PDO::ATTR_EMULATE_PREPARES   => false,
         ];
 
-        try {
-            self::$connection = new \PDO($dsn, $user, $pass, $opt);
-        } catch (\Exception $exception) {
-            $exception->getMessage();
+
+        self::$_instance = new \PDO($dsn, $user, $pass, $opt);
+    }
+
+    public static function getInstance()
+    {
+        if (self::$_instance === null) {
+            new self();
         }
 
-        return self::$connection;
+        return self::$_instance;
+    }
+
+    private function __clone()
+    {
+    }
+
+    private function __wakeup()
+    {
     }
 }

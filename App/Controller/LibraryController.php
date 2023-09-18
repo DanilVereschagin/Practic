@@ -16,6 +16,7 @@ class LibraryController extends AbstractController
             $id = ID;
         }
 
-        (new LibraryBlock($id))->render();
+        $block = new LibraryBlock($id);
+        $block->render();
     }
 }

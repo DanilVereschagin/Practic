@@ -15,8 +15,7 @@ class AbstractResource
     public function getAll(string $tableName): array
     {
         $entityModel = 'App\\Model\\' . ucfirst($tableName);
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $rowset = $connection->query('Select * from ' . $tableName);
 
         $entities = [];

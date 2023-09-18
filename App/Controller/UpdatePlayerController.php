@@ -14,7 +14,10 @@ class UpdatePlayerController extends AbstractController
         $id = (int)$this->getQueryParam('id');
         if ($this->isPost()) {
             $post = $this->getPostValues(['id', 'name', 'surname', 'username', 'fake_hour', 'is_admin']);
-            (new PlayerResource())->update($post);
+            $resource = new PlayerResource();
+            $resource->update($post);
+        } else {
+            http_response_code(405);
         }
 
         $this->redirectTo("/admin-players");

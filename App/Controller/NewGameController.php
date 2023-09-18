@@ -10,6 +10,7 @@ class NewGameController extends AbstractController
 {
     public function execute()
     {
-        (new NewGameBlock())->render();
+        $block = new NewGameBlock();
+        $block->render();
     }
 }

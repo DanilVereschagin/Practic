@@ -33,11 +33,6 @@ class AdminGameBlock extends AbstractAdminBlock
         return $gameResource->getById($this->id);
     }
 
-    public function getGameDescription(): string
-    {
-        return 'Игра крутая, ну ваще';
-    }
-
     /**
      * @return Comment[]
      */

@@ -11,6 +11,7 @@ class AdminGameController extends AbstractController
     public function execute()
     {
         $id = (int)$this->getQueryParam('id');
-        (new AdminGameBlock($id))->render();
+        $block = new AdminGameBlock($id);
+        $block->render();
     }
 }

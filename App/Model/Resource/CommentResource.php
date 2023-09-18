@@ -9,8 +9,7 @@ class CommentResource extends AbstractResource
 {
     public function getParentComments($id): array
     {
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $sql = 'select player.username, comment.id, comment.text_of_comment, comment.date_of_writing
                 from player
                 left join comment on comment.username = player.id
@@ -30,8 +29,7 @@ class CommentResource extends AbstractResource
 
     public function getChildComments($id): array
     {
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $sql = 'select 
                         player.username,
                         comment.id,
@@ -57,19 +55,14 @@ class CommentResource extends AbstractResource
 
     public function add(array $post)
     {
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $sql = "insert into comment
                     set `game` = :game,
                     `text_of_comment` = :text_of_comment,
                     `date_of_writing` = :date_of_writing,
                     `username` = :username
                     ";
-        try {
-            $query = $connection->prepare($sql);
-        } catch (\Exception $exception) {
-            $exception->getMessage();
-        }
+        $query = $connection->prepare($sql);
 
         $this->prepareDataOfComment($query, $post);
         $query->execute();

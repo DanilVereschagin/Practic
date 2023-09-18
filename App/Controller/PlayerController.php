@@ -16,6 +16,7 @@ class PlayerController extends AbstractController
             $id = ID;
         }
 
-        (new PlayerBlock($id))->render();
+        $block = new PlayerBlock($id);
+        $block->render();
     }
 }

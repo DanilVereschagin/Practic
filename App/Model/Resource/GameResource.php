@@ -15,8 +15,7 @@ class GameResource extends AbstractResource
      */
     public function getLibraryGames(int $id): array
     {
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $sql = 'select player.id as playerId, game.id, game.name
                    from player 
                    left join library on player.id = library.username 
@@ -41,10 +40,10 @@ class GameResource extends AbstractResource
      */
     public function getById(?int $id): Game
     {
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $sql = 'select game.id,
-                game.name, 
+                game.name,
+                game.description,
                 company.name as Company, 
                 genre.name_of_genre, 
                 game.year_of_release, 
@@ -64,14 +63,14 @@ class GameResource extends AbstractResource
 
     public function add(array $post)
     {
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $sql = "insert into game
                     set `name` = :name,
                     `company` = :company,
                     `genre` = :genre,
                     `year_of_release` = :year_of_release,
-                     `score` = :score
+                    `score` = :score,
+                    `description` = :description
                     ";
         $query = $connection->prepare($sql);
         $this->prepareDataOfGame($query, $post);
@@ -80,14 +79,14 @@ class GameResource extends AbstractResource
 
     public function update(array $post)
     {
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $sql = "update game
                     set `name` = :name,
                     `company` = :company,
                     `genre` = :genre,
                     `year_of_release` = :year_of_release,
-                    `score` = :score
+                    `score` = :score,
+                    `description` = :description
                     where game.id = :ID
                     ";
         $query = $connection->prepare($sql);
@@ -102,6 +101,7 @@ class GameResource extends AbstractResource
         $query->bindValue('genre', $post['genre'], \PDO::PARAM_INT);
         $query->bindValue('year_of_release', $post['year_of_release'], \PDO::PARAM_STR);
         $query->bindValue('score', $post['score'], \PDO::PARAM_STR);
+        $query->bindValue('description', $post['description'], \PDO::PARAM_STR);
         if ($post['id'] != null) {
             $query->bindValue('ID', $post['id'], \PDO::PARAM_INT);
         }

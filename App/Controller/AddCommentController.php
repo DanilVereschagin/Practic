@@ -20,9 +20,12 @@ class AddCommentController extends AbstractController
                 'date_of_writing'    => date('Y-m-d h:i:s'),
             ];
 
-
-            (new CommentResource())->add($post);
+            $resource = new CommentResource();
+            $resource->add($post);
+        } else {
+            http_response_code(405);
         }
+
         $this->redirectTo('/game?id=' . $id);
     }
 }

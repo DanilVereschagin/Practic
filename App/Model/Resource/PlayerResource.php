@@ -15,8 +15,7 @@ class PlayerResource extends AbstractResource
      */
     public function getById(?int $id): Player
     {
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $sql = 'select * from player where player.id = :ID;';
         $query = $connection->prepare($sql);
         $query->execute(['ID' => $id]);
@@ -30,8 +29,7 @@ class PlayerResource extends AbstractResource
      */
     public function getAllPlayers(): array
     {
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $rowset = $connection->query('Select * from player where is_admin = 0');
 
         $players = [];
@@ -48,8 +46,7 @@ class PlayerResource extends AbstractResource
      */
     public function getAllAdmins(): array
     {
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $rowset = $connection->query('Select * from player where is_admin = 1');
 
         $players = [];
@@ -63,8 +60,7 @@ class PlayerResource extends AbstractResource
 
     public function update(array $post)
     {
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $sql = "update player
                     set `name` = :name,
                     `surname` = :surname,

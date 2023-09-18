@@ -11,6 +11,7 @@ class EditCompanyController extends AbstractController
     public function execute()
     {
         $id = (int)$this->getQueryParam('id');
-        (new EditCompanyBlock($id))->render();
+        $block = new EditCompanyBlock($id);
+        $block->render();
     }
 }

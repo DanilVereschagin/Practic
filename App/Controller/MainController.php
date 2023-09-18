@@ -12,6 +12,7 @@ class MainController extends AbstractController
     {
         $id = $this->getQueryParam('id');
 
-        (new MainBlock())->render();
+        $block = new MainBlock();
+        $block->render();
     }
 }

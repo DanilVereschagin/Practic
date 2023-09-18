@@ -10,6 +10,7 @@ class AdminGamesController extends AbstractController
 {
     public function execute()
     {
-        (new AdminGamesBlock())->render();
+        $block = new AdminGamesBlock();
+        $block->render();
     }
 }

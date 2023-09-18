@@ -15,8 +15,7 @@ class GenreResource extends AbstractResource
      */
     public function getById(?int $id): Genre
     {
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $sql = 'select * from genre where genre.genre_id = :ID;';
         $query = $connection->prepare($sql);
         $query->execute(['ID' => $id]);
@@ -33,8 +32,7 @@ class GenreResource extends AbstractResource
      */
     public function getByName(?string $name): Genre
     {
-        $db = new Database();
-        $connection = $db->getConnection();
+        $connection = Database::getInstance();
         $sql = 'select * from genre where genre.name_of_genre = :name;';
         $query = $connection->prepare($sql);
         $query->execute(['name' => $name]);

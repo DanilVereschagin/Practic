@@ -17,6 +17,7 @@ class Game
     protected ?int $genre;
     protected ?string $year_of_release;
     protected ?float $score;
+    protected ?string $description;
     protected ?Company $companyObject;
     protected ?Genre $genreObject;
 
@@ -28,6 +29,7 @@ class Game
         $this->setGenre($data['genre']);
         $this->setYearOfRelease($data['year_of_release']);
         $this->setScore($data['score']);
+        $this->setDescription($data['description']);
         $this->setCompanyObject($data['Company']);
         $this->setGenreObject($data['name_of_genre']);
     }
@@ -120,5 +122,15 @@ class Game
         }
         $genreResource = new GenreResource();
         $this->genreObject = $genreResource->getByName($nameOfGenre);
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
     }
 }

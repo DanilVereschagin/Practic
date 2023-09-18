@@ -10,6 +10,7 @@ class CompaniesController extends AbstractController
 {
     public function execute()
     {
-        (new CompaniesBlock())->render();
+        $block = new CompaniesBlock();
+        $block->render();
     }
 }

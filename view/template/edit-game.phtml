@@ -46,6 +46,11 @@ $game = $this->getGameInfo();
                 <div class="youplay-input">
                     <input type="text" name="score" value="<?= $game->getScore() ?>" placeholder="Оценка">
                 </div>
+                <div class="comment-cont clearfix">
+                    <div class="youplay-textarea">
+                        <input name="description" placeholder="Описание игры" value="<?= $game->getDescription() ?>">
+                    </div>
+                </div>
                 <button class="btn btn-default db">Сохранить</button>
             </form>
             </p>
