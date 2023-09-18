@@ -10,11 +10,13 @@ class Database
 
     private function __construct()
     {
-        $host = '127.0.0.1:3308';
-        $db   = 'computer_game';
-        $user = 'dvereschagin';
-        $pass = '654321test';
-        $charset = 'utf8';
+        $settings = Environment::getInstance();
+
+        $host = $settings['db']['HOST'];
+        $db   = $settings['db']['DB'];
+        $user = $settings['db']['USER'];
+        $pass = $settings['db']['PASS'];
+        $charset = $settings['db']['CHARSET'];
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
         $opt = [
