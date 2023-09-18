@@ -10,7 +10,7 @@ class EditPlayerController extends AbstractController
 {
     public function execute()
     {
-        $id = (int)$this->getQueryParam('id');
+        $id = $this->getIdParam();
         $block = new EditPlayerBlock($id);
         $block->render();
     }

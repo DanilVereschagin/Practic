@@ -10,23 +10,6 @@ use App\Model\Database;
 class CompanyResource extends AbstractResource
 {
     /**
-     * @param int|null $id
-     * @return Company
-     */
-    public function getById(?int $id): Company
-    {
-        $connection = Database::getInstance();
-        $sql = 'select * from company where company.id = :ID;';
-        $query = $connection->prepare($sql);
-        $query->execute(['ID' => $id]);
-        $companyInfo = $query->fetch();
-
-        $company = new Company($companyInfo);
-
-        return $company;
-    }
-
-    /**
      * @param string|null $name
      * @return Company
      */

@@ -10,7 +10,7 @@ class LibraryController extends AbstractController
 {
     public function execute()
     {
-        $id = (int)$this->getQueryParam('id');
+        $id = $this->getIdParam();
 
         if ($id == 0) {
             $id = ID;

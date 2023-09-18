@@ -10,8 +10,6 @@ class MainController extends AbstractController
 {
     public function execute()
     {
-        $id = $this->getQueryParam('id');
-
         $block = new MainBlock();
         $block->render();
     }

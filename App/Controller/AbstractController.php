@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\API\ControllerInterface;
+use App\Api\ControllerInterface;
 
 abstract class AbstractController implements ControllerInterface
 {
@@ -35,6 +35,11 @@ abstract class AbstractController implements ControllerInterface
         return $array[$param];
     }
 
+    protected function getIdParam()
+    {
+        return (int)$_GET['id'];
+    }
+
     protected function getPostParams(): array
     {
         return $_POST ?? [];
@@ -55,5 +60,11 @@ abstract class AbstractController implements ControllerInterface
         }
 
         return $post;
+    }
+
+    protected function sendNotAllowedMethodError()
+    {
+        http_response_code(405);
+        exit;
     }
 }

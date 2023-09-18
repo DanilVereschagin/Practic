@@ -10,23 +10,6 @@ use App\Model\Genre;
 class GenreResource extends AbstractResource
 {
     /**
-     * @param int|null $id
-     * @return Genre
-     */
-    public function getById(?int $id): Genre
-    {
-        $connection = Database::getInstance();
-        $sql = 'select * from genre where genre.genre_id = :ID;';
-        $query = $connection->prepare($sql);
-        $query->execute(['ID' => $id]);
-        $genreInfo = $query->fetch();
-
-        $genre = new Genre($genreInfo);
-
-        return $genre;
-    }
-
-    /**
      * @param string|null $name
      * @return Genre
      */

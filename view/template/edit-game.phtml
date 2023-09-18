@@ -53,6 +53,12 @@ $game = $this->getGameInfo();
                 </div>
                 <button class="btn btn-default db">Сохранить</button>
             </form>
+            <button
+                    class="btn btn-default db"
+                <?= "onclick=window.location.href='/delete-game?id=" . $game->getId() . "'" ?>
+            >
+                Удалить
+            </button>
             </p>
         </div>
     </section>

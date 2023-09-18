@@ -8,10 +8,10 @@ class Comment
 {
     protected ?int $id;
     protected ?int $game;
-    protected ?string $text_of_comment;
-    protected ?string $date_of_writing;
+    protected ?string $textOfComment;
+    protected ?string $dateOfWriting;
     protected ?string $username;
-    protected ?int $parent_comment;
+    protected ?int $parentComment;
 
 
     public function __construct(?array $data = [])
@@ -29,9 +29,10 @@ class Comment
         return $this->id;
     }
 
-    public function setId(?int $id): void
+    public function setId(?int $id): Comment
     {
         $this->id = $id;
+        return $this;
     }
 
     public function getGame(): ?int
@@ -39,29 +40,32 @@ class Comment
         return $this->game;
     }
 
-    public function setGame(?int $game): void
+    public function setGame(?int $game)
     {
         $this->game = $game;
+        return $this;
     }
 
     public function getTextOfComment(): ?string
     {
-        return $this->text_of_comment;
+        return $this->textOfComment;
     }
 
-    public function setTextOfComment(?string $text_of_comment): void
+    public function setTextOfComment(?string $textOfComment)
     {
-        $this->text_of_comment = $text_of_comment;
+        $this->textOfComment = $textOfComment;
+        return $this;
     }
 
     public function getDateOfWriting(): ?string
     {
-        return $this->date_of_writing;
+        return $this->dateOfWriting;
     }
 
-    public function setDateOfWriting(?string $date_of_writing): void
+    public function setDateOfWriting(?string $dateOfWriting)
     {
-        $this->date_of_writing = $date_of_writing;
+        $this->dateOfWriting = $dateOfWriting;
+        return $this;
     }
 
     public function getUsername(): ?string
@@ -69,18 +73,20 @@ class Comment
         return $this->username;
     }
 
-    public function setUsername(?string $username): void
+    public function setUsername(?string $username)
     {
         $this->username = $username;
+        return $this;
     }
 
     public function getParentComment(): ?int
     {
-        return $this->parent_comment;
+        return $this->parentComment;
     }
 
-    public function setParentComment(?int $parent_comment): void
+    public function setParentComment(?int $parentComment)
     {
-        $this->parent_comment = $parent_comment;
+        $this->parentComment = $parentComment;
+        return $this;
     }
 }

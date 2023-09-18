@@ -38,7 +38,7 @@ class GameResource extends AbstractResource
      * @param int|null $id
      * @return Game
      */
-    public function getById(?int $id): Game
+    public function getComplexInfoById(?int $id): Game
     {
         $connection = Database::getInstance();
         $sql = 'select game.id,

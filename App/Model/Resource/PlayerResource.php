@@ -10,21 +10,6 @@ use App\Model\Player;
 class PlayerResource extends AbstractResource
 {
     /**
-     * @param int|null $id
-     * @return Player
-     */
-    public function getById(?int $id): Player
-    {
-        $connection = Database::getInstance();
-        $sql = 'select * from player where player.id = :ID;';
-        $query = $connection->prepare($sql);
-        $query->execute(['ID' => $id]);
-        $infoAboutPlayer = $query->fetch();
-        $player = new Player($infoAboutPlayer);
-        return $player;
-    }
-
-    /**
      * @return Player[]
      */
     public function getAllPlayers(): array

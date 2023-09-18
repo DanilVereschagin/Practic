@@ -15,7 +15,7 @@ class Game
     protected ?string $name;
     protected ?int $company;
     protected ?int $genre;
-    protected ?string $year_of_release;
+    protected ?string $yearOfRelease;
     protected ?float $score;
     protected ?string $description;
     protected ?Company $companyObject;
@@ -39,9 +39,10 @@ class Game
         return $this->id;
     }
 
-    public function setId(?int $id): void
+    public function setId(?int $id)
     {
         $this->id = $id;
+        return $this;
     }
 
     public function getName(): ?string
@@ -49,9 +50,10 @@ class Game
         return $this->name;
     }
 
-    public function setName(?string $name): void
+    public function setName(?string $name)
     {
         $this->name = $name;
+        return $this;
     }
 
     public function getCompany(): ?int
@@ -59,9 +61,10 @@ class Game
         return $this->company;
     }
 
-    public function setCompany(?int $company): void
+    public function setCompany(?int $company)
     {
         $this->company = $company;
+        return $this;
     }
 
     public function getGenre(): ?int
@@ -69,19 +72,21 @@ class Game
         return $this->genre;
     }
 
-    public function setGenre(?int $genre): void
+    public function setGenre(?int $genre)
     {
         $this->genre = $genre;
+        return $this;
     }
 
     public function getYearOfRelease(): ?string
     {
-        return $this->year_of_release;
+        return $this->yearOfRelease;
     }
 
-    public function setYearOfRelease(?string $year_of_release): void
+    public function setYearOfRelease(?string $yearOfRelease)
     {
-        $this->year_of_release = $year_of_release;
+        $this->yearOfRelease = $yearOfRelease;
+        return $this;
     }
 
     public function getScore(): ?float
@@ -89,9 +94,10 @@ class Game
         return $this->score;
     }
 
-    public function setScore(?float $score): void
+    public function setScore(?float $score)
     {
         $this->score = $score;
+        return $this;
     }
 
     public function getCompanyObject(): ?\App\Model\Company
@@ -99,14 +105,16 @@ class Game
         return $this->companyObject;
     }
 
-    public function setCompanyObject(?string $companyName): void
+    public function setCompanyObject(?string $companyName)
     {
         if ($companyName == null) {
             $this->companyObject = null;
-            return;
+            return $this;
         }
         $companyResource = new CompanyResource();
         $this->companyObject = $companyResource->getByName($companyName);
+
+        return $this;
     }
 
     public function getGenreObject(): ?\App\Model\Genre
@@ -114,14 +122,16 @@ class Game
         return $this->genreObject;
     }
 
-    public function setGenreObject(?string $nameOfGenre): void
+    public function setGenreObject(?string $nameOfGenre)
     {
         if ($nameOfGenre == null) {
             $this->genreObject = null;
-            return;
+            return $this;
         }
         $genreResource = new GenreResource();
         $this->genreObject = $genreResource->getByName($nameOfGenre);
+
+        return $this;
     }
 
     public function getDescription(): ?string
@@ -129,8 +139,9 @@ class Game
         return $this->description;
     }
 
-    public function setDescription(?string $description): void
+    public function setDescription(?string $description)
     {
         $this->description = $description;
+        return $this;
     }
 }

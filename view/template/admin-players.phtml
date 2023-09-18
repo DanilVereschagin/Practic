@@ -24,17 +24,17 @@
         <div class="youplay-content">
             <section class="youplay-features container shop">
                 <?php $i = 0; foreach($this->getAllPlayer() as $player): ?>
-                <?php if ($i == 3): ?>
-            </section>
-            <section class="youplay-features container shop">
-                <?php $i = 0; endif; ?>
-                <a <?= 'href=/edit-player?id=' . $player->getId() ?>>
-                    <div class="col-md-3 col-xs-12 shop__element">
-                        <div class="feature angled-bg">
-                            <h3><?= $player->getUsername() ?></h3>
+                    <?php if ($i == 3): ?>
+                        </section>
+                        <section class="youplay-features container shop">
+                    <?php $i = 0; endif; ?>
+                    <a <?= 'href=/edit-player?id=' . $player->getId() ?>>
+                        <div class="col-md-3 col-xs-12 shop__element">
+                            <div class="feature angled-bg">
+                                <h3><?= $player->getUsername() ?></h3>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
                 <?php $i++; endforeach; ?>
             </section>
         </div>

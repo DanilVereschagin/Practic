@@ -57,13 +57,13 @@ $player = $this->getPlayerInfo();
             <div class="col-md-9">
                 <section class="youplay-features container">
                     <?php foreach($this->getGames() as $game): ?>
-                    <a <?= 'href=/game?id=' . $game->getId() ?>>
-                            <div class="col-md-3 col-xs-12">
-                                <div class="feature angled-bg">
-                                    <h3><?= $game->getName() ?></h3>
+                        <a <?= 'href=/game?id=' . $game->getId() ?>>
+                                <div class="col-md-3 col-xs-12">
+                                    <div class="feature angled-bg">
+                                        <h3><?= $game->getName() ?></h3>
+                                    </div>
                                 </div>
-                            </div>
-
+                        </a>
                    <?php endforeach; ?>
                 </section>
             </div>

@@ -16,7 +16,7 @@ class AddGameController extends AbstractController
             $resource = new GameResource();
             $resource->add($post);
         } else {
-            http_response_code(405);
+            $this->sendNotAllowedMethodError();
         }
 
         $this->redirectTo('/admin-games');

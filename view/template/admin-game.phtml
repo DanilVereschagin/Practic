@@ -86,46 +86,48 @@ $childComments = $this->getChildComments();
                 </h2>
                 <ul class="comments-list">
                     <?php foreach ($comments as $comment): ?>
-                    <li>
-                        <article>
-                            <div class="comment-avatar pull-left">
-                                <img src="src/image/avatar-user-1.png" alt="">
-                            </div>
-                            <div class="comment-cont clearfix">
-                                <a class="comment-author h4" href="#!"><?= $comment->getUsername() ?></a>
-                                <div class="date">
-                                    <?= $comment->getDateOfWriting() ?>
-                                    <a href="#!" class="pull-right"><i class="fa fa-reply"></i> Ответить</a>
+                        <li>
+                            <article>
+                                <div class="comment-avatar pull-left">
+                                    <img src="src/image/avatar-user-1.png" alt="">
                                 </div>
-                                <div class="comment-text">
-                                    <?= $comment->getTextOfComment() ?>
+                                <div class="comment-cont clearfix">
+                                    <a class="comment-author h4" href="#!"><?= $comment->getUsername() ?></a>
+                                    <div class="date">
+                                        <?= $comment->getDateOfWriting() ?>
+                                        <a href="#!" class="pull-right"><i class="fa fa-reply"></i> Ответить</a>
+                                    </div>
+                                    <div class="comment-text">
+                                        <?= $comment->getTextOfComment() ?>
+                                    </div>
                                 </div>
-                            </div>
-                        </article>
+                            </article>
 
-                        <ul class="child-comment">
-                            <?php foreach ($childComments as $childComment): ?>
-                            <?php if ($childComment->getParentComment() == $comment->getId()): ?>
-                            <li>
-                                <article>
-                                    <div class="comment-avatar pull-left">
-                                        <img src="src/image/avatar.png" alt="">
-                                    </div>
-                                    <div class="comment-cont clearfix">
-                                        <a class="comment-author h4" href="#!"><?= $childComment->getUsername() ?></a>
-                                        <div class="date">
-                                            <?= $childComment->getDateOfWriting() ?>
-                                        </div>
-                                        <div class="comment-text">
-                                            <?= $childComment->getTextOfComment() ?>
-                                        </div>
-                                    </div>
-                                </article>
-                            </li>
-                            <?php endif; ?>
-                            <?php endforeach; ?>
-                        </ul>
-                    </li>
+                            <ul class="child-comment">
+                                <?php foreach ($childComments as $childComment): ?>
+                                    <?php if ($childComment->getParentComment() == $comment->getId()): ?>
+                                        <li>
+                                            <article>
+                                                <div class="comment-avatar pull-left">
+                                                    <img src="src/image/avatar.png" alt="">
+                                                </div>
+                                                <div class="comment-cont clearfix">
+                                                    <a class="comment-author h4" href="#!">
+                                                        <?= $childComment->getUsername() ?>
+                                                    </a>
+                                                    <div class="date">
+                                                        <?= $childComment->getDateOfWriting() ?>
+                                                    </div>
+                                                    <div class="comment-text">
+                                                        <?= $childComment->getTextOfComment() ?>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
                     <?php endforeach; ?>
                 </ul>
 

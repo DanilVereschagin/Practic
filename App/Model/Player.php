@@ -11,9 +11,9 @@ class Player
     protected ?string $surname;
     protected ?string $username;
     protected ?string $mail;
-    protected ?string $date_of_registration;
-    protected ?float $fake_hour;
-    protected ?int $is_admin;
+    protected ?string $dateOfRegistration;
+    protected ?float $fakeHour;
+    protected ?int $isAdmin;
 
     public function __construct(?array $data = [])
     {
@@ -33,9 +33,10 @@ class Player
         return $this->id ?? null;
     }
 
-    public function setId(?int $id): void
+    public function setId(?int $id)
     {
         $this->id = $id;
+        return $this;
     }
 
     public function getName(): ?string
@@ -43,9 +44,10 @@ class Player
         return $this->name ?? null;
     }
 
-    public function setName(?string $name): void
+    public function setName(?string $name)
     {
         $this->name = $name;
+        return $this;
     }
 
     public function getSurname(): ?string
@@ -53,9 +55,10 @@ class Player
         return $this->surname ?? null;
     }
 
-    public function setSurname(?string $surname): void
+    public function setSurname(?string $surname)
     {
         $this->surname = $surname;
+        return $this;
     }
 
     public function getUsername(): ?string
@@ -63,9 +66,10 @@ class Player
         return $this->username ?? null;
     }
 
-    public function setUsername(?string $username): void
+    public function setUsername(?string $username)
     {
         $this->username = $username;
+        return $this;
     }
 
     public function getMail(): ?string
@@ -73,38 +77,42 @@ class Player
         return $this->mail ?? null;
     }
 
-    public function setMail(?string $mail): void
+    public function setMail(?string $mail)
     {
         $this->mail = $mail;
+        return $this;
     }
 
     public function getDateOfRegistration(): ?string
     {
-        return $this->date_of_registration ?? null;
+        return $this->dateOfRegistration ?? null;
     }
 
-    public function setDateOfRegistration(?string $date_of_registration): void
+    public function setDateOfRegistration(?string $dateOfRegistration)
     {
-        $this->date_of_registration = $date_of_registration;
+        $this->dateOfRegistration = $dateOfRegistration;
+        return $this;
     }
 
     public function getFakeHour(): ?float
     {
-        return $this->fake_hour ?? null;
+        return $this->fakeHour ?? null;
     }
 
-    public function setFakeHour(?float $fake_hour): void
+    public function setFakeHour(?float $fakeHour)
     {
-        $this->fake_hour = $fake_hour;
+        $this->fakeHour = $fakeHour;
+        return $this;
     }
 
     public function getIsAdmin(): ?int
     {
-        return $this->is_admin ?? null;
+        return $this->isAdmin ?? null;
     }
 
-    public function setIsAdmin(?int $is_admin): void
+    public function setIsAdmin(?int $isAdmin)
     {
-        $this->is_admin = $is_admin;
+        $this->isAdmin = $isAdmin;
+        return $this;
     }
 }

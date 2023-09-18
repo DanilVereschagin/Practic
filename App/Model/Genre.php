@@ -7,7 +7,7 @@ namespace App\Model;
 class Genre
 {
     protected ?int $id;
-    protected ?string $name_of_genre;
+    protected ?string $nameOfGenre;
 
     public function __construct(?array $data = [])
     {
@@ -21,18 +21,20 @@ class Genre
         return $this->id;
     }
 
-    public function setId(?int $id): void
+    public function setId(?int $id)
     {
         $this->id = $id;
+        return $this;
     }
 
     public function getNameOfGenre(): ?string
     {
-        return $this->name_of_genre;
+        return $this->nameOfGenre;
     }
 
-    public function setNameOfGenre(?string $name_of_genre): void
+    public function setNameOfGenre(?string $nameOfGenre)
     {
-        $this->name_of_genre = $name_of_genre;
+        $this->nameOfGenre = $nameOfGenre;
+        return $this;
     }
 }

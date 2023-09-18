@@ -10,7 +10,7 @@ class AddCommentController extends AbstractController
 {
     public function execute()
     {
-        $id = (int)$this->getQueryParam('id');
+        $id = $this->getIdParam();
         if ($this->isPost()) {
             $postParams = $this->getPostParams();
             $post = [
@@ -23,7 +23,7 @@ class AddCommentController extends AbstractController
             $resource = new CommentResource();
             $resource->add($post);
         } else {
-            http_response_code(405);
+            $this->sendNotAllowedMethodError();
         }
 
         $this->redirectTo('/game?id=' . $id);

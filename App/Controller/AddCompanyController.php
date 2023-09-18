@@ -16,7 +16,7 @@ class AddCompanyController extends AbstractController
             $resource = new CompanyResource();
             $resource->add($post);
         } else {
-            http_response_code(405);
+            $this->sendNotAllowedMethodError();
         }
 
         $this->redirectTo('/companies');

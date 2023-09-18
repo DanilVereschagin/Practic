@@ -21,6 +21,9 @@ use App\Controller\UpdateCompanyController;
 use App\Controller\EditPlayerController;
 use App\Controller\UpdatePlayerController;
 use App\Controller\AddCommentController;
+use App\Controller\DeleteCompanyController;
+use App\Controller\DeleteGameController;
+use App\Controller\DeletePlayerController;
 
 return [
     '/'               => MainController::class,
@@ -45,4 +48,7 @@ return [
     '/edit-player'    => EditPlayerController::class,
     '/update-player'  => UpdatePlayerController::class,
     '/add-comment'    => AddCommentController::class,
+    '/delete-company' => DeleteCompanyController::class,
+    '/delete-game'    => DeleteGameController::class,
+    '/delete-player'  => DeletePlayerController::class,
 ];

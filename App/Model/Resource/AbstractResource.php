@@ -26,4 +26,27 @@ class AbstractResource
 
         return $entities;
     }
+
+    public function getById(?int $id, string $tableName)
+    {
+        $entityModel = 'App\\Model\\' . ucfirst($tableName);
+        $connection = Database::getInstance();
+        $sql = 'select * from ' . $tableName . ' where `id` = :ID;';
+        $query = $connection->prepare($sql);
+        $query->execute(['ID' => $id]);
+        $info = $query->fetch();
+
+        $entity = new $entityModel($info);
+
+        return $entity;
+    }
+
+    public function delete(int $id, string $tableName)
+    {
+        $connection = Database::getInstance();
+        $sql = "delete from " . $tableName . " where `id` = :ID";
+        $query = $connection->prepare($sql);
+        $query->bindValue('ID', $id, \PDO::PARAM_INT);
+        $query->execute();
+    }
 }

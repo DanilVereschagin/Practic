@@ -25,9 +25,10 @@ class Company
         return $this->id;
     }
 
-    public function setId(?int $id): void
+    public function setId(?int $id)
     {
         $this->id = $id;
+        return $this;
     }
 
     public function getName(): ?string
@@ -35,9 +36,10 @@ class Company
         return $this->name;
     }
 
-    public function setName(?string $name): void
+    public function setName(?string $name)
     {
         $this->name = $name;
+        return $this;
     }
 
     public function getType(): ?int
@@ -45,9 +47,10 @@ class Company
         return $this->type;
     }
 
-    public function setType(?int $type): void
+    public function setType(?int $type)
     {
         $this->type = $type;
+        return $this;
     }
 
     public function getAddress(): ?string
@@ -55,8 +58,9 @@ class Company
         return $this->address;
     }
 
-    public function setAddress(?string $address): void
+    public function setAddress(?string $address)
     {
         $this->address = $address;
+        return $this;
     }
 }
