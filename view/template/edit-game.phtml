@@ -38,7 +38,7 @@ $game = $this->getGameInfo();
                     <input type="text" name="company" value="<?= $game->getCompanyObject()->getId() ?>" placeholder="Компания">
                 </div>
                 <div class="youplay-input">
-                    <input type="text" name="genre" value="<?= $game->getGenreObject()->getId() ?>" placeholder="Жанр">
+                    <input type="text" name="genre" value="<?= $game->getGenreObject()->getGenreId() ?>" placeholder="Жанр">
                 </div>
                 <div class="youplay-input">
                     <input type="datetime" name="year_of_release" value="<?= $game->getYearOfRelease() ?>">
@@ -53,12 +53,12 @@ $game = $this->getGameInfo();
                 </div>
                 <button class="btn btn-default db">Сохранить</button>
             </form>
-            <button
+            <a
                     class="btn btn-default db"
-                <?= "onclick=window.location.href='/delete-game?id=" . $game->getId() . "'" ?>
+                <?= "href=/delete-game?id=" . $game->getId() ?>
             >
                 Удалить
-            </button>
+            </a>
             </p>
         </div>
     </section>

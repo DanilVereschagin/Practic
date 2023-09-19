@@ -22,8 +22,10 @@
     </section>
 
     <div class="youplay-content">
-        <section class="youplay-features container shop">
             <?php $i = 0; foreach($this->getGames() as $game): ?>
+                <?php if ($i == 0): ?>
+                    <section class="youplay-features container shop">
+                <?php endif; ?>
                 <?php if ($i == 3): ?>
                     </section>
                     <section class="youplay-features container shop">

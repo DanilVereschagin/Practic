@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class Company
+class Company extends AbstractModel
 {
     protected ?int $id;
     protected ?string $name;
@@ -13,10 +13,7 @@ class Company
 
     public function __construct(?array $data = [])
     {
-        $this->setId($data['id']);
-        $this->setName($data['name']);
-        $this->setAddress($data['address']);
-        $this->setType($data['type']);
+        $this->setData($data);
     }
 
 

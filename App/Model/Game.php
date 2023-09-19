@@ -9,7 +9,7 @@ use App\Model\Genre;
 use App\Model\Resource\CompanyResource;
 use App\Model\Resource\GenreResource;
 
-class Game
+class Game extends AbstractModel
 {
     protected ?int $id;
     protected ?string $name;
@@ -23,15 +23,7 @@ class Game
 
     public function __construct(?array $data = [])
     {
-        $this->setId($data['id']);
-        $this->setName($data['name']);
-        $this->setCompany($data['company']);
-        $this->setGenre($data['genre']);
-        $this->setYearOfRelease($data['year_of_release']);
-        $this->setScore($data['score']);
-        $this->setDescription($data['description']);
-        $this->setCompanyObject($data['Company']);
-        $this->setGenreObject($data['name_of_genre']);
+        $this->setData($data);
     }
 
     public function getId(): ?int

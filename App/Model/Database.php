@@ -25,11 +25,7 @@ class Database
             \PDO::ATTR_EMULATE_PREPARES   => false,
         ];
 
-        try {
         self::$_instance = new \PDO($dsn, $user, $pass, $opt);
-        } catch (\Exception $exception) {
-            echo $exception->getMessage();
-        }
     }
 
     public static function getInstance()

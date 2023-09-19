@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class Player
+class Player extends AbstractModel
 {
     protected ?int $id;
     protected ?string $name;
@@ -17,14 +17,7 @@ class Player
 
     public function __construct(?array $data = [])
     {
-        $this->setId($data['id']);
-        $this->setName($data['name']);
-        $this->setSurname($data['surname']);
-        $this->setUsername($data['username']);
-        $this->setMail($data['mail']);
-        $this->setDateOfRegistration($data['date_of_registration']);
-        $this->setFakeHour($data['fake_hour']);
-        $this->setIsAdmin($data['is_admin']);
+        $this->setData($data);
     }
 
 

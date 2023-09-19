@@ -42,12 +42,12 @@ $company = $this->getCompanyInfo();
                 </div>
                 <button class="btn btn-default db">Сохранить</button>
             </form>
-            <button
+            <a
                     class="btn btn-default db"
-                    <?= "onclick=window.location.href='/delete-company?id=" . $company->getId() . "'" ?>
+                    <?= "href=/delete-company?id=" . $company->getId() ?>
             >
                 Удалить
-            </button>
+            </a>
             </p>
         </div>
     </section>

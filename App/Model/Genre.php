@@ -4,26 +4,25 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class Genre
+class Genre extends AbstractModel
 {
-    protected ?int $id;
+    protected ?int $genreId;
     protected ?string $nameOfGenre;
 
     public function __construct(?array $data = [])
     {
-        $this->setId($data['genre_id']);
-        $this->setNameOfGenre($data['name_of_genre']);
+        $this->setData($data);
     }
 
 
-    public function getId(): ?int
+    public function getGenreId(): ?int
     {
-        return $this->id;
+        return $this->genreId;
     }
 
-    public function setId(?int $id)
+    public function setGenreId(?int $genreId)
     {
-        $this->id = $id;
+        $this->genreId = $genreId;
         return $this;
     }
 

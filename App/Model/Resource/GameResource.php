@@ -44,8 +44,8 @@ class GameResource extends AbstractResource
         $sql = 'select game.id,
                 game.name,
                 game.description,
-                company.name as Company, 
-                genre.name_of_genre, 
+                company.name as CompanyObject,
+                genre.name_of_genre as GenreObject,
                 game.year_of_release, 
                 game.score
                 from game

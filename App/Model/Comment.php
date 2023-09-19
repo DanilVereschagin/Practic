@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class Comment
+class Comment extends AbstractModel
 {
     protected ?int $id;
     protected ?int $game;
@@ -16,12 +16,7 @@ class Comment
 
     public function __construct(?array $data = [])
     {
-        $this->setId($data['id']);
-        $this->setUsername($data['username']);
-        $this->setGame($data['game']);
-        $this->setDateOfWriting($data['date_of_writing']);
-        $this->setTextOfComment($data['text_of_comment']);
-        $this->setParentComment($data['parent_comment']);
+        $this->setData($data);
     }
 
     public function getId(): ?int
