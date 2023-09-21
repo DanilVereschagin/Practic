@@ -29,6 +29,7 @@ class GameResource extends AbstractResource
 
         $games = [];
         foreach ($rowset as $row) {
+            unset($row['playerId']);
             $game = new Game($row);
             $games[] = $game;
         }
@@ -104,7 +105,7 @@ class GameResource extends AbstractResource
         $query->bindValue('year_of_release', $post['year_of_release'], \PDO::PARAM_STR);
         $query->bindValue('score', $post['score'], \PDO::PARAM_STR);
         $query->bindValue('description', $post['description'], \PDO::PARAM_STR);
-        if ($post['id'] != null) {
+        if (array_key_exists('id', $post)) {
             $query->bindValue('ID', $post['id'], \PDO::PARAM_INT);
         }
     }

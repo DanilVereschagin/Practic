@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Block\LibraryBlock;
+use App\Model\Session;
 
 class LibraryController extends AbstractController
 {
@@ -13,7 +14,8 @@ class LibraryController extends AbstractController
         $id = $this->getIdParam();
 
         if ($id == 0) {
-            $id = ID;
+            Session::start();
+            $id = Session::getClientId();
         }
 
         $block = new LibraryBlock($id);

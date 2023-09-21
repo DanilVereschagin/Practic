@@ -61,6 +61,13 @@ $player = $this->getPlayerInfo();
                 </div>
                 <div class="youplay-input">
                     <input
+                            type="email"
+                            name="mail"
+                            placeholder="Email"
+                    >
+                </div>
+                <div class="youplay-input">
+                    <input
                             type="text"
                             name="fake_hour"
                             value="<?= $player->getFakeHour() ?>"

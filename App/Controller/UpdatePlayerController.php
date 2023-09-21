@@ -12,7 +12,7 @@ class UpdatePlayerController extends AbstractController
     public function execute()
     {
         if ($this->isPost()) {
-            $post = $this->getPostValues(['id', 'name', 'surname', 'username', 'fake_hour', 'is_admin']);
+            $post = $this->getPostValues(['id', 'name', 'surname', 'username', 'mail', 'fake_hour', 'is_admin']);
             $resource = new PlayerResource();
             $resource->update($post);
         } else {

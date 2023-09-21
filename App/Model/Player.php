@@ -15,6 +15,8 @@ class Player extends AbstractModel
     protected ?float $fakeHour;
     protected ?int $isAdmin;
 
+    protected ?string $password;
+
     public function __construct(?array $data = [])
     {
         $this->setData($data);
@@ -106,6 +108,17 @@ class Player extends AbstractModel
     public function setIsAdmin(?int $isAdmin)
     {
         $this->isAdmin = $isAdmin;
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(?string $password)
+    {
+        $this->password = $password;
         return $this;
     }
 }

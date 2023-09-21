@@ -37,7 +37,8 @@ abstract class AbstractController implements ControllerInterface
 
     protected function getIdParam()
     {
-        return (int)$_GET['id'];
+        $id = $_GET['id'] ?? null;
+        return (int)$id;
     }
 
     protected function getPostParams(): array

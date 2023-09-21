@@ -24,6 +24,11 @@ use App\Controller\AddCommentController;
 use App\Controller\DeleteCompanyController;
 use App\Controller\DeleteGameController;
 use App\Controller\DeletePlayerController;
+use App\Controller\LoginController;
+use App\Controller\RegistrationController;
+use App\Controller\AddPlayerController;
+use App\Controller\SignInController;
+use App\Controller\LogoutController;
 
 return [
     '/'               => MainController::class,
@@ -51,4 +56,9 @@ return [
     '/delete-company' => DeleteCompanyController::class,
     '/delete-game'    => DeleteGameController::class,
     '/delete-player'  => DeletePlayerController::class,
+    '/login'          => LoginController::class,
+    '/registration'   => RegistrationController::class,
+    '/add-player'     => AddPlayerController::class,
+    '/sign-in'        => SignInController::class,
+    '/logout'         => LogoutController::class,
 ];
