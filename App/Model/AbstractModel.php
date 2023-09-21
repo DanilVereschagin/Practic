@@ -8,14 +8,13 @@ class AbstractModel
 {
     protected function setData(?array $data = [])
     {
-        foreach (array_keys($data) as $datum) {
-            $partsOfSet = explode('_', $datum);
-            $set = "";
-            foreach ($partsOfSet as $part) {
-                $set = $set . ucfirst($part);
+        foreach ($data as $datum => $value) {
+            $partsOfField = explode('_', $datum);
+            $method = "set";
+            foreach ($partsOfField as $part) {
+                $method = $method . ucfirst($part);
             }
-            $set = 'set' . $set;
-            $this->{$set}($data[$datum]);
+            $this->{$method}($value);
         }
     }
 }

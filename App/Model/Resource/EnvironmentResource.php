@@ -13,13 +13,15 @@ class EnvironmentResource
         $parsedRowset = [];
         $section = '';
         foreach ($rowset as $row) {
-            if (mb_substr($row, 0, 1) == '[') {
+            $isGroupRow = mb_substr($row, 0, 1) == '[';
+            if ($isGroupRow) {
                 $section = mb_substr($row, 1, strlen($row) - 2);
                 $parsedRowset[$section] = [];
             } else {
-                $separatorPlace = mb_stripos($row, '=');
-                $name = mb_substr($row, 0, $separatorPlace - 1);
-                $value = mb_substr($row, $separatorPlace + 3, strlen($row) - strlen($name) - 5);
+                $setting = explode("=", $row);
+                $name = trim($setting[0]);
+                $value = trim($setting[1], ' "\'');
+
                 $parsedRowset[$section][$name] = $value;
             }
         }

@@ -30,7 +30,7 @@ class LibraryBlock extends AbstractBlock
     public function getPlayerInfo(): Player
     {
         $playerResource = new PlayerResource();
-        return $playerResource->getById($this->id, 'player');
+        return $playerResource->getById($this->id);
     }
 
     /**

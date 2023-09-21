@@ -7,6 +7,8 @@ use App\Model\Database;
 
 class CommentResource extends AbstractResource
 {
+    protected string $table = "comment";
+
     public function getParentComments($id): array
     {
         $connection = Database::getInstance();

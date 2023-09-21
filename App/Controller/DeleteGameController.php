@@ -12,7 +12,7 @@ class DeleteGameController extends AbstractController
     {
         $id = $this->getIdParam();
         $resource = new GameResource();
-        $resource->delete($id, 'game');
+        $resource->delete($id);
 
         $this->redirectTo("/admin-games");
     }

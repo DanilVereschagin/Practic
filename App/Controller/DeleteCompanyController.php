@@ -13,7 +13,7 @@ class DeleteCompanyController extends AbstractController
     {
         $id = $this->getIdParam();
         $resource = new CompanyResource();
-        $resource->delete($id, 'company');
+        $resource->delete($id);
 
         $this->redirectTo("/companies");
     }

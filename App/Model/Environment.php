@@ -25,6 +25,11 @@ class Environment
         return self::$_instance;
     }
 
+    public static function getSetting(string $section, string $setting)
+    {
+        return self::getInstance()[$section][$setting] ?? null;
+    }
+
     private function __clone()
     {
     }

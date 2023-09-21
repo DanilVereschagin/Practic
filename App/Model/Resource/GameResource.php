@@ -9,6 +9,8 @@ use App\Model\Game;
 
 class GameResource extends AbstractResource
 {
+    protected string $table = "game";
+
     /**
      * @param int $id
      * @return Game[]

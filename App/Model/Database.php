@@ -7,16 +7,15 @@ namespace App\Model;
 class Database
 {
     protected static $_instance;
+    protected static $section = "db";
 
     private function __construct()
     {
-        $settings = Environment::getInstance();
-
-        $host = $settings['db']['HOST'];
-        $db   = $settings['db']['DB'];
-        $user = $settings['db']['USER'];
-        $pass = $settings['db']['PASS'];
-        $charset = $settings['db']['CHARSET'];
+        $host = Environment::getSetting(self::$section, "HOST");
+        $db   = Environment::getSetting(self::$section, "DB");
+        $user = Environment::getSetting(self::$section, "USER");
+        $pass = Environment::getSetting(self::$section, "PASS");
+        $charset = Environment::getSetting(self::$section, "CHARSET");
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
         $opt = [

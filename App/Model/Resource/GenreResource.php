@@ -9,6 +9,8 @@ use App\Model\Genre;
 
 class GenreResource extends AbstractResource
 {
+    protected string $table = "genre";
+
     /**
      * @param string|null $name
      * @return Genre

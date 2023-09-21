@@ -19,6 +19,6 @@ class AddCompanyController extends AbstractController
             $this->sendNotAllowedMethodError();
         }
 
-        $this->redirectTo('/companies');
+        $this->redirectTo("/companies");
     }
 }

@@ -20,6 +20,6 @@ class MainBlock extends AbstractBlock
     public function getAllPlayer(): array
     {
         $playerResource = new PlayerResource();
-        return $playerResource->getAll('player');
+        return $playerResource->getAll();
     }
 }

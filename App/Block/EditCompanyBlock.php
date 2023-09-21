@@ -28,6 +28,6 @@ class EditCompanyBlock extends AbstractAdminBlock
     public function getCompanyInfo(): Company
     {
         $companyResource = new CompanyResource();
-        return $companyResource->getById($this->id, 'company');
+        return $companyResource->getById($this->id);
     }
 }

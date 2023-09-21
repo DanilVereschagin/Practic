@@ -9,6 +9,8 @@ use App\Model\Database;
 
 class CompanyResource extends AbstractResource
 {
+    protected string $table = "company";
+
     /**
      * @param string|null $name
      * @return Company

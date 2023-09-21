@@ -19,6 +19,6 @@ class AddGameController extends AbstractController
             $this->sendNotAllowedMethodError();
         }
 
-        $this->redirectTo('/admin-games');
+        $this->redirectTo("/admin-games");
     }
 }

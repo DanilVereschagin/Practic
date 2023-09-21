@@ -20,6 +20,6 @@ class ShopBlock extends AbstractBlock
     public function getGames(): array
     {
         $gameResource = new GameResource();
-        return $gameResource->getAll('game');
+        return $gameResource->getAll();
     }
 }

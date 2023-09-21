@@ -9,6 +9,8 @@ use App\Model\Player;
 
 class PlayerResource extends AbstractResource
 {
+    protected string $table = "player";
+
     /**
      * @return Player[]
      */

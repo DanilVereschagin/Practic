@@ -20,6 +20,6 @@ class CompaniesBlock extends AbstractAdminBlock
     public function getAllCompanies(): array
     {
         $companyResource = new CompanyResource();
-        return $companyResource->getAll('company');
+        return $companyResource->getAll();
     }
 }
