@@ -9,6 +9,7 @@ use App\Model\Resource\EnvironmentResource;
 class Environment
 {
     protected static $_instance;
+    protected static $sectionDb = "db";
 
     private function __construct()
     {
@@ -25,9 +26,9 @@ class Environment
         return self::$_instance;
     }
 
-    public static function getSetting(string $section, string $setting)
+    public static function getDbSetting(string $setting)
     {
-        return self::getInstance()[$section][$setting] ?? null;
+        return self::getInstance()[self::$sectionDb][$setting] ?? null;
     }
 
     private function __clone()
