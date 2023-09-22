@@ -17,8 +17,8 @@ class SignInController extends AbstractController
             $player = $resource->getByMail($post['mail']);
 
             if (password_verify($post['password'], $player->getPassword())) {
-                Session::start();
                 Session::setClientId($player->getId());
+                Session::setIsAdmin($player->getIsAdmin());
                 $this->redirectTo("/main");
             } else {
                 $this->redirectTo("/login");

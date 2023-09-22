@@ -39,9 +39,19 @@ class Session
         $_SESSION['client_id'] = $id;
     }
 
+    public static function setIsAdmin(int $is)
+    {
+        $_SESSION['is_admin'] = $is;
+    }
+
     public static function getClientId()
     {
         return $_SESSION['client_id'] ?? null;
+    }
+
+    public static function getIsAdmin()
+    {
+        return $_SESSION['is_admin'];
     }
 
     private function __clone()

@@ -22,22 +22,6 @@ $player = $this->getPlayerInfo();
                     </div>
                 </div>
             </div>
-
-            <div class="youplay-user-navigation">
-                <div class="container">
-                    <ul>
-                        <li>
-                            <a <?= 'href=/player?id=' . $player->getId() ?>>Профиль</a>
-                        </li>
-                        <li>
-                            <a <?= 'href=/library?id=' . $player->getId() ?>>Библиотека</a>
-                        </li>
-                        <li class="active">
-                            <a <?= 'href=/edit-player?id=' . $player->getId() ?>>Изменить информацию</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
 
         <div class="container youplay-content">
@@ -85,14 +69,15 @@ $player = $this->getPlayerInfo();
                 </div>
                 <div class="youplay-input">
                     <input
-                            type="hidden"
+                            type="text"
                             name="fake_hour"
                             value="<?= $player->getFakeHour() ?>"
+                            placeholder="Игровые часы"
                     >
                 </div>
                 <div class="youplay-input">
                     <input
-                            type="hidden"
+                            type="text"
                             name="is_admin"
                             value="<?= $player->getIsAdmin() ?>"
                     >

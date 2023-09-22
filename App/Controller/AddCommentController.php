@@ -13,7 +13,6 @@ class AddCommentController extends AbstractController
     {
         $id = $this->getIdParam();
         if ($this->isPost()) {
-            Session::start();
             $postParams = $this->getPostParams();
             $post = [
                 'text_of_comment'    => $postParams['message'],

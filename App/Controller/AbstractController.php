@@ -5,9 +5,15 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Api\ControllerInterface;
+use App\Model\Session;
 
 abstract class AbstractController implements ControllerInterface
 {
+    public function __construct()
+    {
+        Session::start();
+    }
+
     abstract public function execute();
 
     protected function isPost(): bool

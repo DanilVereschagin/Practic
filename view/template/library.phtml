@@ -21,6 +21,9 @@ $player = $this->getPlayerInfo();
                     <li class="active">
                         <a <?= 'href=/library?id=' . $player->getId() ?>>Библиотека</a>
                     </li>
+                    <li>
+                        <a <?= 'href=/edit-player?id=' . $player->getId() ?>>Изменить информацию</a>
+                    </li>
                 </ul>
             </div>
         </div>

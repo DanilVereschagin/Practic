@@ -8,7 +8,7 @@ use App\Model\Database;
 use App\Model\Player;
 use App\Model\Resource\PlayerResource;
 
-class EditPlayerBlock extends AbstractBlock
+class AdminEditPlayerBlock extends AbstractAdminBlock
 {
     protected ?int $id;
 
@@ -19,7 +19,7 @@ class EditPlayerBlock extends AbstractBlock
 
     public function renderTemplate()
     {
-        require_once APP_ROOT . '/view/template/edit-player.phtml';
+        require_once APP_ROOT . '/view/template/admin-edit-player.phtml';
     }
 
     /**

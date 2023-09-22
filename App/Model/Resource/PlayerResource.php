@@ -70,7 +70,7 @@ class PlayerResource extends AbstractResource
                     `mail` = :mail,
                     `fake_hour` = :fake_hour,
                     `is_admin` = :is_admin
-                    where player.id = :id
+                    where player.id = :ID
                     ";
         $query = $connection->prepare($sql);
         $this->prepareDataOfPlayer($query, $post);

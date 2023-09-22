@@ -29,6 +29,7 @@ use App\Controller\RegistrationController;
 use App\Controller\AddPlayerController;
 use App\Controller\SignInController;
 use App\Controller\LogoutController;
+use App\Controller\ErrorController;
 
 return [
     '/'               => MainController::class,
@@ -61,4 +62,5 @@ return [
     '/add-player'     => AddPlayerController::class,
     '/sign-in'        => SignInController::class,
     '/logout'         => LogoutController::class,
+    '/error'          => ErrorController::class,
 ];

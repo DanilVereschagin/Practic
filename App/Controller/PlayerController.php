@@ -14,7 +14,6 @@ class PlayerController extends AbstractController
         $id = $this->getIdParam();
 
         if ($id == 0) {
-            Session::start();
             $id = Session::getClientId();
         }
 
