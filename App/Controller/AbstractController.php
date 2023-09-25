@@ -23,7 +23,7 @@ abstract class AbstractController implements ControllerInterface
 
     protected function redirectTo(string $url)
     {
-        header("Location: " . $url, true, 302);
+        header('Location: ' . $url, true, 302);
     }
 
     protected function getQueryParams(): array

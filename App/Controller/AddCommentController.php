@@ -28,6 +28,6 @@ class AddCommentController extends AbstractController
         $resource = new CommentResource();
         $resource->add($post);
 
-        $this->redirectTo("/game?id=" . $id);
+        $this->redirectTo('/game?id=' . $id);
     }
 }

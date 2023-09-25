@@ -10,7 +10,7 @@ class Session
 
     private function __construct()
     {
-        session_save_path(APP_ROOT . "/var/sessions");
+        session_save_path(APP_ROOT . '/var/sessions');
     }
 
     public static function getInstance()

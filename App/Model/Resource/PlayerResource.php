@@ -17,7 +17,7 @@ class PlayerResource extends AbstractResource
     public function getAllPlayers(): array
     {
         $connection = Database::getInstance();
-        $rowset = $connection->query("Select * from player where is_admin = 0");
+        $rowset = $connection->query('Select * from player where is_admin = 0');
 
         $players = [];
         foreach ($rowset as $row) {
@@ -34,7 +34,7 @@ class PlayerResource extends AbstractResource
     public function getAllAdmins(): array
     {
         $connection = Database::getInstance();
-        $rowset = $connection->query("Select * from player where is_admin = 1");
+        $rowset = $connection->query('Select * from player where is_admin = 1');
 
         $players = [];
         foreach ($rowset as $row) {
@@ -52,7 +52,7 @@ class PlayerResource extends AbstractResource
     public function getByMail($mail): Player
     {
         $connection = Database::getInstance();
-        $sql = "select * from player where `mail` = :mail";
+        $sql = 'select * from player where `mail` = :mail';
         $query = $connection->prepare($sql);
         $query->execute(['mail' => $mail]);
         $info = $query->fetch();
@@ -63,7 +63,7 @@ class PlayerResource extends AbstractResource
     public function update(array $post)
     {
         $connection = Database::getInstance();
-        $sql = "update player
+        $sql = 'update player
                     set `name` = :name,
                     `surname` = :surname,
                     `username` = :username,
@@ -71,7 +71,7 @@ class PlayerResource extends AbstractResource
                     `fake_hour` = :fake_hour,
                     `is_admin` = :is_admin
                     where player.id = :ID
-                    ";
+                    ';
         $query = $connection->prepare($sql);
         $this->prepareDataOfPlayer($query, $post);
         $query->execute();
@@ -80,7 +80,7 @@ class PlayerResource extends AbstractResource
     public function add(array $post)
     {
         $connection = Database::getInstance();
-        $sql = "insert into player
+        $sql = 'insert into player
                     set `name` = :name,
                     `surname` = :surname,
                     `username` = :username,
@@ -89,7 +89,7 @@ class PlayerResource extends AbstractResource
                     `fake_hour` = :fake_hour,
                     `is_admin` = :is_admin,
                     `password` = :password
-                    ";
+                    ';
         $query = $connection->prepare($sql);
         $this->prepareDataOfPlayer($query, $post);
         $query->execute();

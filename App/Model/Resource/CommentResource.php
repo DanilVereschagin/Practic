@@ -12,10 +12,10 @@ class CommentResource extends AbstractResource
     public function getParentComments($id): array
     {
         $connection = Database::getInstance();
-        $sql = "select player.username, comment.id, comment.text_of_comment, comment.date_of_writing
+        $sql = 'select player.username, comment.id, comment.text_of_comment, comment.date_of_writing
                 from player
                 left join comment on comment.username = player.id
-                where comment.game = :ID and comment.id not in (select discussion.child_comment from discussion);";
+                where comment.game = :ID and comment.id not in (select discussion.child_comment from discussion);';
         $query = $connection->prepare($sql);
         $query->execute(['ID' => $id]);
         $rowset = $query->fetchAll();
@@ -32,7 +32,7 @@ class CommentResource extends AbstractResource
     public function getChildComments($id): array
     {
         $connection = Database::getInstance();
-        $sql = "select 
+        $sql = 'select 
                         player.username,
                         comment.id,
                         discussion.parent_comment, 
@@ -41,7 +41,7 @@ class CommentResource extends AbstractResource
                 from player
                 left join comment on comment.username = player.id
                 left join discussion on discussion.child_comment = comment.id
-                where comment.game = :ID and comment.id in (select discussion.child_comment from discussion);";
+                where comment.game = :ID and comment.id in (select discussion.child_comment from discussion);';
         $query = $connection->prepare($sql);
         $query->execute(['ID' => $id]);
         $rowset = $query->fetchAll();
@@ -58,12 +58,12 @@ class CommentResource extends AbstractResource
     public function add(array $post)
     {
         $connection = Database::getInstance();
-        $sql = "insert into comment
+        $sql = 'insert into comment
                     set `game` = :game,
                     `text_of_comment` = :text_of_comment,
                     `date_of_writing` = :date_of_writing,
                     `username` = :username
-                    ";
+                    ';
         $query = $connection->prepare($sql);
 
         $this->prepareDataOfComment($query, $post);

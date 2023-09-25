@@ -18,7 +18,7 @@ class CompanyResource extends AbstractResource
     public function getByName(?string $name): Company
     {
         $connection = Database::getInstance();
-        $sql = "select * from company where company.name = :name;";
+        $sql = 'select * from company where company.name = :name;';
         $query = $connection->prepare($sql);
         $query->execute(['name' => $name]);
         $companyInfo = $query->fetch();
@@ -31,7 +31,7 @@ class CompanyResource extends AbstractResource
     public function add(array $post)
     {
         $connection = Database::getInstance();
-        $sql = "insert into company set `name` = :name, `type` = :type, `address` = :address";
+        $sql = 'insert into company set `name` = :name, `type` = :type, `address` = :address';
         $query = $connection->prepare($sql);
         $this->prepareDataOfCompany($query, $post);
         $query->execute();
@@ -40,8 +40,8 @@ class CompanyResource extends AbstractResource
     public function update(array $post)
     {
         $connection = Database::getInstance();
-        $sql = "update company set `name` = :name, `type` = :type, `address` = :address
-                where company.id = :ID;";
+        $sql = 'update company set `name` = :name, `type` = :type, `address` = :address
+                where company.id = :ID;';
         $query = $connection->prepare($sql);
         $this->prepareDataOfCompany($query, $post);
         $query->execute();

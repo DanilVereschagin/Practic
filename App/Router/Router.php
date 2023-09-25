@@ -11,9 +11,9 @@ class Router
 {
     public function selectController(string $route)
     {
-        $controllerMap = require APP_ROOT . "/etc/routes.php";
+        $controllerMap = require APP_ROOT . '/etc/routes.php';
 
-        if ($queryPos = stripos($route, "?")) {
+        if ($queryPos = stripos($route, '?')) {
             $route = substr($route, 0, $queryPos);
         }
 

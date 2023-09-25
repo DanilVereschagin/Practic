@@ -22,7 +22,7 @@ class EditPlayerController extends AbstractController
             $block = new AdminEditPlayerBlock($id);
             $block->render();
         } else {
-            $this->redirectTo("/player?id=" . $id);
+            $this->redirectTo('/player?id=' . $id);
         }
     }
 }
