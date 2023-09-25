@@ -29,22 +29,37 @@ $company = $this->getCompanyInfo();
             <p>
             <form action="/update-company" method="post">
                 <div class="youplay-input">
-                    <input type="hidden" name="id" value="<?= $company->getId() ?>">
+                    <input
+                            type="hidden"
+                            name="id"
+                            value="<?= htmlspecialchars($company->getId()) ?>">
                 </div>
                 <div class="youplay-input">
-                    <input type="text" name="name" value="<?= $company->getName() ?>" placeholder="Название">
+                    <input
+                            type="text"
+                            name="name"
+                            value="<?= htmlspecialchars($company->getName()) ?>"
+                            placeholder="Название">
                 </div>
                 <div class="youplay-input">
-                    <input type="text" name="type" value="<?= $company->getType() ?>" placeholder="Тип компании">
+                    <input
+                            type="text"
+                            name="type"
+                            value="<?= htmlspecialchars($company->getType()) ?>"
+                            placeholder="Тип компании">
                 </div>
                 <div class="youplay-input">
-                    <input type="text" name="address" value="<?= $company->getAddress() ?>" placeholder="Адрес">
+                    <input
+                            type="text"
+                            name="address"
+                            value="<?= htmlspecialchars($company->getAddress()) ?>"
+                            placeholder="Адрес">
                 </div>
                 <button class="btn btn-default db">Сохранить</button>
             </form>
             <a
                     class="btn btn-default db"
-                    <?= "href=/delete-company?id=" . $company->getId() ?>
+                    <?= "href=/delete-company?id=" . htmlspecialchars($company->getId()) ?>
             >
                 Удалить
             </a>

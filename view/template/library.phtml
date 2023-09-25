@@ -16,13 +16,13 @@ $player = $this->getPlayerInfo();
             <div class="container">
                 <ul>
                     <li>
-                        <a <?= 'href=/player?id=' . $player->getId() ?>>Профиль</a>
+                        <a <?= 'href=/player?id=' . htmlspecialchars( $player->getId()) ?>>Профиль</a>
                     </li>
                     <li class="active">
-                        <a <?= 'href=/library?id=' . $player->getId() ?>>Библиотека</a>
+                        <a <?= 'href=/library?id=' . htmlspecialchars($player->getId()) ?>>Библиотека</a>
                     </li>
                     <li>
-                        <a <?= 'href=/edit-player?id=' . $player->getId() ?>>Изменить информацию</a>
+                        <a <?= 'href=/edit-player?id=' . htmlspecialchars($player->getId()) ?>>Изменить информацию</a>
                     </li>
                 </ul>
             </div>
@@ -39,13 +39,13 @@ $player = $this->getPlayerInfo();
                     </a>
 
                     <div class="user-data">
-                        <h2><?= $player->getUsername() ?></h2>
+                        <h2><?= htmlspecialchars($player->getUsername()) ?></h2>
                         <div class="location">
-                            <?= $player->getName() . ' ' .  $player->getSurname(); ?>
+                            <?= htmlspecialchars($player->getName() . ' ' .  $player->getSurname()); ?>
                         </div>
                         <div class="activity">
                             <div>
-                                <div class="num"><?= $player->getFakeHour() ?></div>
+                                <div class="num"><?= htmlspecialchars($player->getFakeHour()) ?></div>
                                 <div class="title">Игровых часов</div>
                             </div>
                         </div>
@@ -60,10 +60,10 @@ $player = $this->getPlayerInfo();
             <div class="col-md-9">
                 <section class="youplay-features container">
                     <?php foreach($this->getGames() as $game): ?>
-                        <a <?= 'href=/game?id=' . $game->getId() ?>>
+                        <a <?= 'href=/game?id=' . htmlspecialchars($game->getId()) ?>>
                                 <div class="col-md-3 col-xs-12">
                                     <div class="feature angled-bg">
-                                        <h3><?= $game->getName() ?></h3>
+                                        <h3><?= htmlspecialchars($game->getName()) ?></h3>
                                     </div>
                                 </div>
                         </a>

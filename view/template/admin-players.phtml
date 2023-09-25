@@ -30,10 +30,10 @@
                         </section>
                         <section class="youplay-features container shop">
                     <?php $i = 0; endif; ?>
-                    <a <?= 'href=/edit-player?id=' . $player->getId() ?>>
+                    <a <?= 'href=/edit-player?id=' . htmlspecialchars($player->getId()) ?>>
                         <div class="col-md-3 col-xs-12 shop__element">
                             <div class="feature angled-bg">
-                                <h3><?= $player->getUsername() ?></h3>
+                                <h3><?= htmlspecialchars($player->getUsername()) ?></h3>
                             </div>
                         </div>
                     </a>

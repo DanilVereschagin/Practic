@@ -32,14 +32,14 @@ $player = $this->getPlayerInfo();
                     <input
                             type="hidden"
                             name="id"
-                            value="<?= $player->getId() ?>"
+                            value="<?= htmlspecialchars($player->getId()) ?>"
                     >
                 </div>
                 <div class="youplay-input">
                     <input
                             type="text"
                             name="name"
-                            value="<?= $player->getName() ?>"
+                            value="<?= htmlspecialchars($player->getName()) ?>"
                             placeholder="Имя"
                     >
                 </div>
@@ -47,7 +47,7 @@ $player = $this->getPlayerInfo();
                     <input
                             type="text"
                             name="surname"
-                            value="<?= $player->getSurname() ?>"
+                            value="<?= htmlspecialchars($player->getSurname()) ?>"
                             placeholder="Фамилия"
                     >
                 </div>
@@ -55,7 +55,7 @@ $player = $this->getPlayerInfo();
                     <input
                             type="text"
                             name="username"
-                            value="<?= $player->getUsername() ?>"
+                            value="<?= htmlspecialchars($player->getUsername()) ?>"
                             placeholder="Ник"
                     >
                 </div>
@@ -63,7 +63,7 @@ $player = $this->getPlayerInfo();
                     <input
                             type="email"
                             name="mail"
-                            value="<?= $player->getMail() ?>"
+                            value="<?= htmlspecialchars($player->getMail()) ?>"
                             placeholder="Email"
                     >
                 </div>
@@ -71,7 +71,7 @@ $player = $this->getPlayerInfo();
                     <input
                             type="text"
                             name="fake_hour"
-                            value="<?= $player->getFakeHour() ?>"
+                            value="<?= htmlspecialchars($player->getFakeHour()) ?>"
                             placeholder="Игровые часы"
                     >
                 </div>
@@ -79,14 +79,14 @@ $player = $this->getPlayerInfo();
                     <input
                             type="text"
                             name="is_admin"
-                            value="<?= $player->getIsAdmin() ?>"
+                            value="<?= htmlspecialchars($player->getIsAdmin()) ?>"
                     >
                 </div>
                 <button class="btn btn-default db">Сохранить</button>
             </form>
             <button
                     class="btn btn-default db"
-                <?= "href=/delete-player?id=" . $player->getId() ?>
+                <?= "href=/delete-player?id=" . htmlspecialchars($player->getId()) ?>
             >
                 Удалить
             </button>
