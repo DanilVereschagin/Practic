@@ -10,11 +10,11 @@ class Database
 
     private function __construct()
     {
-        $host = Environment::getDbSetting("HOST");
-        $db   = Environment::getDbSetting("DB");
-        $user = Environment::getDbSetting("USER");
-        $pass = Environment::getDbSetting("PASS");
-        $charset = Environment::getDbSetting("CHARSET");
+        $host = Environment::getDbSetting('HOST');
+        $db   = Environment::getDbSetting('DB');
+        $user = Environment::getDbSetting('USER');
+        $pass = Environment::getDbSetting('PASS');
+        $charset = Environment::getDbSetting('CHARSET');
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
         $opt = [

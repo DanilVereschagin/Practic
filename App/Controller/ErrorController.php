@@ -13,7 +13,7 @@ class ErrorController extends AbstractController
     {
         $message = Session::getMessage();
         $block = new ErrorBlock($message);
-        Session::deleteVariable("message");
+        Session::deleteVariable('message');
         $block->render();
     }
 }

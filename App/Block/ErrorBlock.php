@@ -7,6 +7,7 @@ namespace App\Block;
 class ErrorBlock
 {
     protected string $message;
+
     public function __construct(string $message)
     {
         $this->message = $message;

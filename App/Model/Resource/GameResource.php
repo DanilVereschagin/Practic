@@ -9,7 +9,7 @@ use App\Model\Game;
 
 class GameResource extends AbstractResource
 {
-    protected string $table = "game";
+    protected string $table = 'game';
 
     /**
      * @param int $id
@@ -24,12 +24,12 @@ class GameResource extends AbstractResource
                    left join game on library.name_of_game = game.id 
                    where player.id = :ID order by player.id;";
         $query = $connection->prepare($sql);
-        $query->execute(["ID" => $id]);
+        $query->execute(['ID' => $id]);
         $rowset = $query->fetchAll();
 
         $games = [];
         foreach ($rowset as $row) {
-            unset($row["playerId"]);
+            unset($row['playerId']);
             $game = new Game($row);
             $games[] = $game;
         }
@@ -56,7 +56,7 @@ class GameResource extends AbstractResource
                 left join genre on genre.genre_id = game.genre
                 where game.id = :ID;";
         $query = $connection->prepare($sql);
-        $query->execute(["ID" => $id]);
+        $query->execute(['ID' => $id]);
         $gameInfo = $query->fetch();
 
         $game = new Game($gameInfo);
@@ -99,14 +99,14 @@ class GameResource extends AbstractResource
 
     protected function prepareDataOfGame(\PDOStatement $query, array $post)
     {
-        $query->bindValue("name", $post["name"], \PDO::PARAM_STR);
-        $query->bindValue("company", $post["company"], \PDO::PARAM_INT);
-        $query->bindValue("genre", $post["genre"], \PDO::PARAM_INT);
-        $query->bindValue("year_of_release", $post["year_of_release"], \PDO::PARAM_STR);
-        $query->bindValue("score", $post["score"], \PDO::PARAM_STR);
-        $query->bindValue("description", $post["description"], \PDO::PARAM_STR);
-        if (array_key_exists("id", $post)) {
-            $query->bindValue("ID", $post["id"], \PDO::PARAM_INT);
+        $query->bindValue('name', $post['name'], \PDO::PARAM_STR);
+        $query->bindValue('company', $post['company'], \PDO::PARAM_INT);
+        $query->bindValue('genre', $post['genre'], \PDO::PARAM_INT);
+        $query->bindValue('year_of_release', $post['year_of_release'], \PDO::PARAM_STR);
+        $query->bindValue('score', $post['score'], \PDO::PARAM_STR);
+        $query->bindValue('description', $post['description'], \PDO::PARAM_STR);
+        if (array_key_exists('id', $post)) {
+            $query->bindValue('ID', $post['id'], \PDO::PARAM_INT);
         }
     }
 }

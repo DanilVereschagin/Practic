@@ -15,10 +15,10 @@ class UpdateCompanyController extends AbstractController
             $this->sendNotAllowedMethodError();
         }
 
-        $post = $this->getPostValues(["id", "name", "type", "address"]);
+        $post = $this->getPostValues(['id', 'name', 'type', 'address']);
         $resource = new CompanyResource();
         $resource->update($post);
 
-        $this->redirectTo("/companies");
+        $this->redirectTo('/companies');
     }
 }

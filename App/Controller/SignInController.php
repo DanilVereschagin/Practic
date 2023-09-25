@@ -16,17 +16,17 @@ class SignInController extends AbstractController
             $this->sendNotAllowedMethodError();
         }
 
-        $post = $this->getPostValues(["mail", "password"]);
+        $post = $this->getPostValues(['mail', 'password']);
         $resource = new PlayerResource();
-        $player = $resource->getByMail($post["mail"]);
+        $player = $resource->getByMail($post['mail']);
         $password = new Password();
 
-        if ($password->verifyPassword($post["password"], $player->getPassword())) {
+        if ($password->verifyPassword($post['password'], $player->getPassword())) {
             Session::setClientId($player->getId());
             Session::setIsAdmin($player->getIsAdmin());
-            $this->redirectTo("/main");
+            $this->redirectTo('/main');
         } else {
-            $this->redirectTo("/login");
+            $this->redirectTo('/login');
         }
     }
 }

@@ -22,9 +22,6 @@ class AdminEditPlayerBlock extends AbstractAdminBlock
         require_once APP_ROOT . '/view/template/admin-edit-player.phtml';
     }
 
-    /**
-     * @return Player
-     */
     public function getPlayerInfo(): Player
     {
         $playerResource = new PlayerResource();

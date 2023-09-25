@@ -14,6 +14,6 @@ class DeletePlayerController extends AbstractController
         $resource = new PlayerResource();
         $resource->delete($id);
 
-        $this->redirectTo("/admin-players");
+        $this->redirectTo('/admin-players');
     }
 }

@@ -22,9 +22,6 @@ class EditPlayerBlock extends AbstractBlock
         require_once APP_ROOT . '/view/template/edit-player.phtml';
     }
 
-    /**
-     * @return Player
-     */
     public function getPlayerInfo(): Player
     {
         $playerResource = new PlayerResource();

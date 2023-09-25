@@ -18,7 +18,7 @@ class EditPlayerController extends AbstractController
         if ($id == $clientId) {
             $block = new EditPlayerBlock($id);
             $block->render();
-        } elseif (Session::IsAdmin() == 1) {
+        } elseif (Session::IsAdmin()) {
             $block = new AdminEditPlayerBlock($id);
             $block->render();
         } else {

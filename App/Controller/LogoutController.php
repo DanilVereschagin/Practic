@@ -11,6 +11,6 @@ class LogoutController extends AbstractController
     public function execute()
     {
         Session::destroy();
-        $this->redirectTo("/login");
+        $this->redirectTo('/login');
     }
 }

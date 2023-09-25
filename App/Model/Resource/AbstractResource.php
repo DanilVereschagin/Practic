@@ -8,7 +8,7 @@ use App\Model\Database;
 
 class AbstractResource
 {
-    protected string $table = "";
+    protected string $table = '';
 
     /**
      * @return array
@@ -34,7 +34,7 @@ class AbstractResource
         $connection = Database::getInstance();
         $sql = "select * from " . $this->table . " where `id` = :ID;";
         $query = $connection->prepare($sql);
-        $query->execute(["ID" => $id]);
+        $query->execute(['ID' => $id]);
         $info = $query->fetch();
 
         $entity = new $entityModel($info);
@@ -47,7 +47,7 @@ class AbstractResource
         $connection = Database::getInstance();
         $sql = "delete from " . $this->table . " where `id` = :ID";
         $query = $connection->prepare($sql);
-        $query->bindValue("ID", $id, \PDO::PARAM_INT);
+        $query->bindValue('ID', $id, \PDO::PARAM_INT);
         $query->execute();
     }
 }

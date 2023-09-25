@@ -9,7 +9,7 @@ use App\Model\Player;
 
 class PlayerResource extends AbstractResource
 {
-    protected string $table = "player";
+    protected string $table = 'player';
 
     /**
      * @return Player[]
@@ -54,7 +54,7 @@ class PlayerResource extends AbstractResource
         $connection = Database::getInstance();
         $sql = "select * from player where `mail` = :mail";
         $query = $connection->prepare($sql);
-        $query->execute(["mail" => $mail]);
+        $query->execute(['mail' => $mail]);
         $info = $query->fetch();
 
         return new Player($info);
@@ -97,32 +97,32 @@ class PlayerResource extends AbstractResource
 
     protected function prepareDataOfPlayer(\PDOStatement $query, array $post)
     {
-        if (array_key_exists("name", $post)) {
-            $query->bindValue("name", $post["name"], \PDO::PARAM_STR);
+        if (array_key_exists('name', $post)) {
+            $query->bindValue('name', $post['name'], \PDO::PARAM_STR);
         }
-        if (array_key_exists("surname", $post)) {
-            $query->bindValue("surname", $post["surname"], \PDO::PARAM_STR);
+        if (array_key_exists('surname', $post)) {
+            $query->bindValue('surname', $post['surname'], \PDO::PARAM_STR);
         }
-        if (array_key_exists("username", $post)) {
-            $query->bindValue("username", $post["username"], \PDO::PARAM_STR);
+        if (array_key_exists('username', $post)) {
+            $query->bindValue('username', $post['username'], \PDO::PARAM_STR);
         }
-        if (array_key_exists("mail", $post)) {
-            $query->bindValue("mail", $post["mail"], \PDO::PARAM_STR);
+        if (array_key_exists('mail', $post)) {
+            $query->bindValue('mail', $post['mail'], \PDO::PARAM_STR);
         }
-        if (array_key_exists("date_of_registration", $post)) {
-            $query->bindValue("date", $post["date_of_registration"], \PDO::PARAM_STR);
+        if (array_key_exists('date_of_registration', $post)) {
+            $query->bindValue('date', $post['date_of_registration'], \PDO::PARAM_STR);
         }
-        if (array_key_exists("fake_hour", $post)) {
-            $query->bindValue("fake_hour", $post["fake_hour"], \PDO::PARAM_INT);
+        if (array_key_exists('fake_hour', $post)) {
+            $query->bindValue('fake_hour', $post['fake_hour'], \PDO::PARAM_INT);
         }
-        if (array_key_exists("is_admin", $post)) {
-            $query->bindValue("is_admin", $post["is_admin"], \PDO::PARAM_STR);
+        if (array_key_exists('is_admin', $post)) {
+            $query->bindValue('is_admin', $post['is_admin'], \PDO::PARAM_STR);
         }
-        if (array_key_exists("password", $post)) {
-            $query->bindValue("password", $post["password"], \PDO::PARAM_STR);
+        if (array_key_exists('password', $post)) {
+            $query->bindValue('password', $post['password'], \PDO::PARAM_STR);
         }
-        if (array_key_exists("id", $post)) {
-            $query->bindValue("ID", $post["id"], \PDO::PARAM_INT);
+        if (array_key_exists('id', $post)) {
+            $query->bindValue('ID', $post['id'], \PDO::PARAM_INT);
         }
     }
 }

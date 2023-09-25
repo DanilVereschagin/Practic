@@ -21,9 +21,6 @@ class EditGameBlock extends AbstractAdminBlock
         require_once APP_ROOT . '/view/template/edit-game.phtml';
     }
 
-    /**
-     * @return Game
-     */
     public function getGameInfo(): Game
     {
         $gameResource = new GameResource();

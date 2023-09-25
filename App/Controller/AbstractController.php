@@ -18,11 +18,7 @@ abstract class AbstractController implements ControllerInterface
 
     protected function isPost(): bool
     {
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            return true;
-        } else {
-            return false;
-        }
+        return $_SERVER['REQUEST_METHOD'] === 'POST';
     }
 
     protected function redirectTo(string $url)
@@ -43,7 +39,7 @@ abstract class AbstractController implements ControllerInterface
 
     protected function getIdParam()
     {
-        $id = $_GET["id"] ?? null;
+        $id = $_GET['id'] ?? null;
         return (int)$id;
     }
 

@@ -15,10 +15,10 @@ class AddCompanyController extends AbstractController
             $this->sendNotAllowedMethodError();
         }
 
-        $post = $this->getPostValues(["name", "type", "address"]);
+        $post = $this->getPostValues(['name', 'type', 'address']);
         $resource = new CompanyResource();
         $resource->add($post);
 
-        $this->redirectTo("/companies");
+        $this->redirectTo('/companies');
     }
 }

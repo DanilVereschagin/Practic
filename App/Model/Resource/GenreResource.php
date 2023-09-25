@@ -9,7 +9,7 @@ use App\Model\Genre;
 
 class GenreResource extends AbstractResource
 {
-    protected string $table = "genre";
+    protected string $table = 'genre';
 
     /**
      * @param string|null $name
@@ -20,7 +20,7 @@ class GenreResource extends AbstractResource
         $connection = Database::getInstance();
         $sql = "select * from genre where genre.name_of_genre = :name;";
         $query = $connection->prepare($sql);
-        $query->execute(["name" => $name]);
+        $query->execute(['name' => $name]);
         $genreInfo = $query->fetch();
 
         $genre = new Genre($genreInfo);

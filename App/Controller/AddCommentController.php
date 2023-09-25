@@ -19,10 +19,10 @@ class AddCommentController extends AbstractController
 
         $postParams = $this->getPostParams();
         $post = [
-            "text_of_comment"    => $postParams["message"],
-            "username"           => Session::getClientId(),
-            "game"               => $id,
-            "date_of_writing"    => date("Y-m-d h:i:s"),
+            'text_of_comment'    => $postParams['message'],
+            'username'           => Session::getClientId(),
+            'game'               => $id,
+            'date_of_writing'    => date('Y-m-d h:i:s'),
         ];
 
         $resource = new CommentResource();

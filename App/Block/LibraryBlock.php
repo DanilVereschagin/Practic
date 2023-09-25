@@ -24,9 +24,6 @@ class LibraryBlock extends AbstractBlock
         require_once APP_ROOT . '/view/template/library.phtml';
     }
 
-    /**
-     * @return Player
-     */
     public function getPlayerInfo(): Player
     {
         $playerResource = new PlayerResource();

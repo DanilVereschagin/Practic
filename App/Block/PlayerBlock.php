@@ -20,9 +20,6 @@ class PlayerBlock extends AbstractBlock
         require_once APP_ROOT . '/view/template/player.phtml';
     }
 
-    /**
-     * @return Player
-     */
     public function getPlayerInfo(): Player
     {
         $playerResource = new PlayerResource();

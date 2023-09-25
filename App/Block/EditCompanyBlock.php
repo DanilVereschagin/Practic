@@ -22,9 +22,6 @@ class EditCompanyBlock extends AbstractAdminBlock
         require_once APP_ROOT . '/view/template/edit-company.phtml';
     }
 
-    /**
-     * @return Company
-     */
     public function getCompanyInfo(): Company
     {
         $companyResource = new CompanyResource();

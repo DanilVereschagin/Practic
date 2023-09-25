@@ -23,9 +23,6 @@ class GameBlock extends AbstractBlock
         require_once APP_ROOT . '/view/template/game.phtml';
     }
 
-    /**
-     * @return Game
-     */
     public function getGameInfo(): Game
     {
         $gameResource = new GameResource();

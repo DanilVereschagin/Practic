@@ -41,32 +41,32 @@ class Session
 
     public static function setClientId(int $id)
     {
-        $_SESSION["client_id"] = $id;
+        $_SESSION['client_id'] = $id;
     }
 
     public static function setIsAdmin(int $is)
     {
-        $_SESSION["is_admin"] = $is;
+        $_SESSION['is_admin'] = $is;
     }
 
     public static function getClientId()
     {
-        return $_SESSION["client_id"] ?? null;
+        return $_SESSION['client_id'] ?? null;
     }
 
     public static function IsAdmin()
     {
-        return $_SESSION["is_admin"];
+        return $_SESSION['is_admin'];
     }
 
     public static function setMessage(string $message)
     {
-        $_SESSION["message"] = $message;
+        $_SESSION['message'] = $message;
     }
 
     public static function getMessage()
     {
-        return $_SESSION["message"] ?? null;
+        return $_SESSION['message'] ?? null;
     }
 
     private function __clone()

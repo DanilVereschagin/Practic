@@ -14,10 +14,10 @@ class UpdateGameController extends AbstractController
             $this->sendNotAllowedMethodError();
         }
 
-        $post = $this->getPostValues(["id", "name", "company", "genre", "year_of_release", "score", "description"]);
+        $post = $this->getPostValues(['id', 'name', 'company', 'genre', 'year_of_release', 'score', 'description']);
         $resource = new GameResource();
         $resource->update($post);
 
-        $this->redirectTo("/admin-games");
+        $this->redirectTo('/admin-games');
     }
 }

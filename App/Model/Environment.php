@@ -9,7 +9,7 @@ use App\Model\Resource\EnvironmentResource;
 class Environment
 {
     protected static $_instance;
-    protected static $sectionDb = "db";
+    protected static $sectionDb = 'db';
 
     private function __construct()
     {

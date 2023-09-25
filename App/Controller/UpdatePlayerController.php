@@ -16,22 +16,22 @@ class UpdatePlayerController extends AbstractController
             $this->sendNotAllowedMethodError();
         }
 
-        $post = $this->getPostValues(["id", "name", "surname", "username", "mail", "fake_hour", "is_admin"]);
+        $post = $this->getPostValues(['id', 'name', 'surname', 'username', 'mail', 'fake_hour', 'is_admin']);
         $resource = new PlayerResource();
-        $player = $resource->getByMail($post["mail"]);
+        $player = $resource->getByMail($post['mail']);
 
-        if ($player->getId() != $post["id"] && $player->getMail() == $post["mail"]) {
-            Session::setMessage("Данный email уже занят");
-            $this->redirectTo("/error");
+        if ($player->getId() != $post['id'] && $player->getMail() == $post['mail']) {
+            Session::setMessage('Данный email уже занят');
+            $this->redirectTo('/error');
         }
 
         if (!Session::IsAdmin() == 1) {
-            $post["is_admin"] = Session::IsAdmin();
+            $post['is_admin'] = Session::IsAdmin();
             $resource->update($post);
-            $this->redirectTo("/player");
+            $this->redirectTo('/player');
         }
         $resource->update($post);
 
-        $this->redirectTo("/admin-players");
+        $this->redirectTo('/admin-players');
     }
 }
