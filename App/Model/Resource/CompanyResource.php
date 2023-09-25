@@ -18,9 +18,9 @@ class CompanyResource extends AbstractResource
     public function getByName(?string $name): Company
     {
         $connection = Database::getInstance();
-        $sql = 'select * from company where company.name = :name;';
+        $sql = "select * from company where company.name = :name;";
         $query = $connection->prepare($sql);
-        $query->execute(['name' => $name]);
+        $query->execute(["name" => $name]);
         $companyInfo = $query->fetch();
 
         $company = new Company($companyInfo);
@@ -49,11 +49,11 @@ class CompanyResource extends AbstractResource
 
     protected function prepareDataOfCompany(\PDOStatement $query, array $post)
     {
-        $query->bindValue('name', $post['name'], \PDO::PARAM_STR);
-        $query->bindValue('type', $post['type'], \PDO::PARAM_INT);
-        $query->bindValue('address', $post['address'], \PDO::PARAM_STR);
-        if ($post['id'] != null) {
-            $query->bindValue('ID', $post['id'], \PDO::PARAM_INT);
+        $query->bindValue("name", $post["name"], \PDO::PARAM_STR);
+        $query->bindValue("type", $post["type"], \PDO::PARAM_INT);
+        $query->bindValue("address", $post["address"], \PDO::PARAM_STR);
+        if ($post["id"] != null) {
+            $query->bindValue("ID", $post["id"], \PDO::PARAM_INT);
         }
     }
 }

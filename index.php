@@ -17,5 +17,6 @@ use App\Model\Environment;
 
 $db = Database::getInstance();
 $en = Environment::getInstance();
+Session::getInstance();
 $requestUri = $_SERVER['REQUEST_URI'] ?? null;
 (new Router())->selectController($requestUri);

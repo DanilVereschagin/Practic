@@ -8,16 +8,16 @@ use App\Model\Database;
 
 class AbstractResource
 {
-    protected string $table = '';
+    protected string $table = "";
 
     /**
      * @return array
      */
     public function getAll(): array
     {
-        $entityModel = 'App\\Model\\' . ucfirst($this->table);
+        $entityModel = "App\\Model\\" . ucfirst($this->table);
         $connection = Database::getInstance();
-        $rowset = $connection->query('Select * from ' . $this->table);
+        $rowset = $connection->query("Select * from " . $this->table);
 
         $entities = [];
         foreach ($rowset as $row) {
@@ -30,11 +30,11 @@ class AbstractResource
 
     public function getById(?int $id)
     {
-        $entityModel = 'App\\Model\\' . ucfirst($this->table);
+        $entityModel = "App\\Model\\" . ucfirst($this->table);
         $connection = Database::getInstance();
-        $sql = 'select * from ' . $this->table . ' where `id` = :ID;';
+        $sql = "select * from " . $this->table . " where `id` = :ID;";
         $query = $connection->prepare($sql);
-        $query->execute(['ID' => $id]);
+        $query->execute(["ID" => $id]);
         $info = $query->fetch();
 
         $entity = new $entityModel($info);
@@ -47,7 +47,7 @@ class AbstractResource
         $connection = Database::getInstance();
         $sql = "delete from " . $this->table . " where `id` = :ID";
         $query = $connection->prepare($sql);
-        $query->bindValue('ID', $id, \PDO::PARAM_INT);
+        $query->bindValue("ID", $id, \PDO::PARAM_INT);
         $query->execute();
     }
 }

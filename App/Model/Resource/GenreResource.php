@@ -18,9 +18,9 @@ class GenreResource extends AbstractResource
     public function getByName(?string $name): Genre
     {
         $connection = Database::getInstance();
-        $sql = 'select * from genre where genre.name_of_genre = :name;';
+        $sql = "select * from genre where genre.name_of_genre = :name;";
         $query = $connection->prepare($sql);
-        $query->execute(['name' => $name]);
+        $query->execute(["name" => $name]);
         $genreInfo = $query->fetch();
 
         $genre = new Genre($genreInfo);

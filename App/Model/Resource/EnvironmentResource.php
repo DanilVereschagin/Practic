@@ -11,9 +11,9 @@ class EnvironmentResource
         $rowset = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
         $parsedRowset = [];
-        $section = '';
+        $section = "";
         foreach ($rowset as $row) {
-            $isGroupRow = mb_substr($row, 0, 1) == '[';
+            $isGroupRow = mb_substr($row, 0, 1) == "[";
             if ($isGroupRow) {
                 $section = mb_substr($row, 1, strlen($row) - 2);
                 $parsedRowset[$section] = [];

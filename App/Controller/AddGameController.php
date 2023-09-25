@@ -11,13 +11,13 @@ class AddGameController extends AbstractController
 {
     public function execute()
     {
-        if ($this->isPost()) {
-            $post = $this->getPostValues(['name', 'company', 'genre', 'year_of_release', 'score', 'description']);
-            $resource = new GameResource();
-            $resource->add($post);
-        } else {
+        if (!$this->isPost()) {
             $this->sendNotAllowedMethodError();
         }
+
+        $post = $this->getPostValues(["name", "company", "genre", "year_of_release", "score", "description"]);
+        $resource = new GameResource();
+        $resource->add($post);
 
         $this->redirectTo("/admin-games");
     }

@@ -11,13 +11,13 @@ class AddCompanyController extends AbstractController
 {
     public function execute()
     {
-        if ($this->isPost()) {
-            $post = $this->getPostValues(['name', 'type', 'address']);
-            $resource = new CompanyResource();
-            $resource->add($post);
-        } else {
+        if (!$this->isPost()) {
             $this->sendNotAllowedMethodError();
         }
+
+        $post = $this->getPostValues(["name", "type", "address"]);
+        $resource = new CompanyResource();
+        $resource->add($post);
 
         $this->redirectTo("/companies");
     }

@@ -11,13 +11,13 @@ class UpdateCompanyController extends AbstractController
 {
     public function execute()
     {
-        if ($this->isPost()) {
-            $post = $this->getPostValues(['id', 'name', 'type', 'address']);
-            $resource = new CompanyResource();
-            $resource->update($post);
-        } else {
+        if (!$this->isPost()) {
             $this->sendNotAllowedMethodError();
         }
+
+        $post = $this->getPostValues(["id", "name", "type", "address"]);
+        $resource = new CompanyResource();
+        $resource->update($post);
 
         $this->redirectTo("/companies");
     }

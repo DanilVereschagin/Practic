@@ -11,22 +11,23 @@ class AddCommentController extends AbstractController
 {
     public function execute()
     {
-        $id = $this->getIdParam();
-        if ($this->isPost()) {
-            $postParams = $this->getPostParams();
-            $post = [
-                'text_of_comment'    => $postParams['message'],
-                'username'           => Session::getClientId(),
-                'game'               => $id,
-                'date_of_writing'    => date('Y-m-d h:i:s'),
-            ];
-
-            $resource = new CommentResource();
-            $resource->add($post);
-        } else {
+        if (!$this->isPost()) {
             $this->sendNotAllowedMethodError();
         }
 
-        $this->redirectTo('/game?id=' . $id);
+        $id = $this->getIdParam();
+
+        $postParams = $this->getPostParams();
+        $post = [
+            "text_of_comment"    => $postParams["message"],
+            "username"           => Session::getClientId(),
+            "game"               => $id,
+            "date_of_writing"    => date("Y-m-d h:i:s"),
+        ];
+
+        $resource = new CommentResource();
+        $resource->add($post);
+
+        $this->redirectTo("/game?id=" . $id);
     }
 }

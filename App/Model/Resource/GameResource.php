@@ -18,18 +18,18 @@ class GameResource extends AbstractResource
     public function getLibraryGames(int $id): array
     {
         $connection = Database::getInstance();
-        $sql = 'select player.id as playerId, game.id, game.name
+        $sql = "select player.id as playerId, game.id, game.name
                    from player 
                    left join library on player.id = library.username 
                    left join game on library.name_of_game = game.id 
-                   where player.id = :ID order by player.id;';
+                   where player.id = :ID order by player.id;";
         $query = $connection->prepare($sql);
-        $query->execute(['ID' => $id]);
+        $query->execute(["ID" => $id]);
         $rowset = $query->fetchAll();
 
         $games = [];
         foreach ($rowset as $row) {
-            unset($row['playerId']);
+            unset($row["playerId"]);
             $game = new Game($row);
             $games[] = $game;
         }
@@ -44,7 +44,7 @@ class GameResource extends AbstractResource
     public function getComplexInfoById(?int $id): Game
     {
         $connection = Database::getInstance();
-        $sql = 'select game.id,
+        $sql = "select game.id,
                 game.name,
                 game.description,
                 company.name as CompanyObject,
@@ -54,9 +54,9 @@ class GameResource extends AbstractResource
                 from game
                 left join company on company.id = game.company
                 left join genre on genre.genre_id = game.genre
-                where game.id = :ID;';
+                where game.id = :ID;";
         $query = $connection->prepare($sql);
-        $query->execute(['ID' => $id]);
+        $query->execute(["ID" => $id]);
         $gameInfo = $query->fetch();
 
         $game = new Game($gameInfo);
@@ -99,14 +99,14 @@ class GameResource extends AbstractResource
 
     protected function prepareDataOfGame(\PDOStatement $query, array $post)
     {
-        $query->bindValue('name', $post['name'], \PDO::PARAM_STR);
-        $query->bindValue('company', $post['company'], \PDO::PARAM_INT);
-        $query->bindValue('genre', $post['genre'], \PDO::PARAM_INT);
-        $query->bindValue('year_of_release', $post['year_of_release'], \PDO::PARAM_STR);
-        $query->bindValue('score', $post['score'], \PDO::PARAM_STR);
-        $query->bindValue('description', $post['description'], \PDO::PARAM_STR);
-        if (array_key_exists('id', $post)) {
-            $query->bindValue('ID', $post['id'], \PDO::PARAM_INT);
+        $query->bindValue("name", $post["name"], \PDO::PARAM_STR);
+        $query->bindValue("company", $post["company"], \PDO::PARAM_INT);
+        $query->bindValue("genre", $post["genre"], \PDO::PARAM_INT);
+        $query->bindValue("year_of_release", $post["year_of_release"], \PDO::PARAM_STR);
+        $query->bindValue("score", $post["score"], \PDO::PARAM_STR);
+        $query->bindValue("description", $post["description"], \PDO::PARAM_STR);
+        if (array_key_exists("id", $post)) {
+            $query->bindValue("ID", $post["id"], \PDO::PARAM_INT);
         }
     }
 }
