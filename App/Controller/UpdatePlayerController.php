@@ -29,9 +29,9 @@ class UpdatePlayerController extends AbstractController
             $post['is_admin'] = Session::IsAdmin();
             $resource->update($post);
             $this->redirectTo('/player');
+        } else {
+            $resource->update($post);
+            $this->redirectTo('/admin-players');
         }
-        $resource->update($post);
-
-        $this->redirectTo('/admin-players');
     }
 }

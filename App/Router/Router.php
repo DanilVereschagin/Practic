@@ -6,6 +6,8 @@ namespace App\Router;
 
 use App\Controller\AbstractController;
 use App\Controller\NotFoundErrorController;
+use App\Model\Session;
+use App\Model\SessionObserver;
 
 class Router
 {
@@ -15,6 +17,13 @@ class Router
 
         if ($queryPos = stripos($route, '?')) {
             $route = substr($route, 0, $queryPos);
+        }
+
+        Session::start();
+
+        if (Session::getClientId() === null) {
+            $observer = new SessionObserver();
+            $route = $observer->getGuestPages($route);
         }
 
         $class = $controllerMap[$route] ?? null;

@@ -28,7 +28,7 @@ abstract class AbstractController implements ControllerInterface
 
     protected function getQueryParams(): array
     {
-        return $_GET ?? [];
+        return $this->protectFromXss($_GET) ?? [];
     }
 
     protected function getQueryParam(string $param): ?string
@@ -45,12 +45,12 @@ abstract class AbstractController implements ControllerInterface
 
     protected function getPostParams(): array
     {
-        return $_POST ?? [];
+        return $this->protectFromXss($_POST) ?? [];
     }
 
-    protected function getPostParam(string $param): array
+    protected function getPostParam(string $param): string
     {
-        return $_POST[$param] ?? [];
+        return strip_tags($_POST[$param]) ?? '';
     }
 
     protected function getPostValues(array $names)
@@ -62,12 +62,24 @@ abstract class AbstractController implements ControllerInterface
             $post[$name] = $postParams[$name];
         }
 
-        return $post;
+        return $this->protectFromXss($post);
     }
 
     protected function sendNotAllowedMethodError()
     {
         http_response_code(405);
         exit;
+    }
+
+    protected function protectFromXss(array $data)
+    {
+        $protectedData = [];
+
+        foreach ($data as $datum => $value) {
+            $value = strip_tags($value);
+            $protectedData[$datum] = htmlspecialchars($value);
+        }
+
+        return $protectedData;
     }
 }
