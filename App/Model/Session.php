@@ -69,6 +69,16 @@ class Session
         return $_SESSION['message'] ?? null;
     }
 
+    public static function setCsrfToken()
+    {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+
+    public static function getCsrfToken()
+    {
+        return $_SESSION['csrf_token'] ?? null;
+    }
+
     private function __clone()
     {
     }

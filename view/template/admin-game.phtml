@@ -136,12 +136,18 @@ $childComments = $this->getChildComments();
                 <h2>Оставить комментарий</h2>
                 <form <?= 'action=/add-comment?id=' . htmlspecialchars($game->getId()) ?> method="post">
                     <div class="comment-cont clearfix">
+                        <div class="youplay-input">
+                            <input
+                                    type="hidden"
+                                    name="csrf_token"
+                                    value="<?= htmlspecialchars($this->getCsrfToken()) ?>"
+                            >
+                        </div>
                         <div class="youplay-textarea">
                             <input
                                     name="message"
                                     placeholder="Your Comment..."
                             >
-                            </input>
                         </div>
                     </div>
                     <button class="btn btn-default pull-right">Отправить</button>

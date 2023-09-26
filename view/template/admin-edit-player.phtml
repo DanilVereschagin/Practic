@@ -31,6 +31,13 @@ $player = $this->getPlayerInfo();
                 <div class="youplay-input">
                     <input
                             type="hidden"
+                            name="csrf_token"
+                            value="<?= htmlspecialchars($this->getCsrfToken()) ?>"
+                    >
+                </div>
+                <div class="youplay-input">
+                    <input
+                            type="hidden"
                             name="id"
                             value="<?= htmlspecialchars($player->getId()) ?>"
                     >

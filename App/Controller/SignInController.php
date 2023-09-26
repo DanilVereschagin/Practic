@@ -24,6 +24,7 @@ class SignInController extends AbstractController
         if ($password->verifyPassword($post['password'], $player->getPassword())) {
             Session::setClientId($player->getId());
             Session::setIsAdmin($player->getIsAdmin());
+            Session::setCsrfToken();
             $this->redirectTo('/main');
         } else {
             $this->redirectTo('/login');

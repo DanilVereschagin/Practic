@@ -41,6 +41,13 @@
             <p>
             <form action="/addgame" method="post">
                 <div class="youplay-input">
+                    <input
+                            type="hidden"
+                            name="csrf_token"
+                            value="<?= htmlspecialchars($this->getCsrfToken()) ?>"
+                    >
+                </div>
+                <div class="youplay-input">
                     <input type="text" name="name" placeholder="Название">
                 </div>
                 <div class="youplay-input">
