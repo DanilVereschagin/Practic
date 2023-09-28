@@ -15,7 +15,7 @@
 <body class="error-404__background">
     <div class="error-404__header">Ошибка</div>
     <div class="error-404__text">
-        <?= htmlspecialchars($this->getMessage()) ?>
+        <?= $this->protectFromXss($this->getMessage()) ?>
     </div>
     <br>
     <div class="error-404__text">

@@ -15,4 +15,12 @@ class AbstractAdminBlock
     {
         return Session::getCsrfToken();
     }
+
+    public function protectFromXss($data): string
+    {
+        $data = strip_tags($data);
+        $data = htmlspecialchars($data);
+
+        return $data;
+    }
 }

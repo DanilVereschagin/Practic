@@ -17,13 +17,19 @@ $player = $this->getPlayerInfo();
             <div class="container">
                 <ul>
                     <li class="active">
-                        <a <?= 'href=/player?id=' . htmlspecialchars($player->getId()) ?>>Профиль</a>
+                        <a href="/player?id=<?= $this->protectFromXss($player->getId()) ?>">
+                            Профиль
+                        </a>
                     </li>
                     <li>
-                        <a <?= 'href=/library?id=' . htmlspecialchars($player->getId()) ?>>Библиотека</a>
+                        <a href="/library?id=<?= $this->protectFromXss($player->getId()) ?>">
+                            Библиотека
+                        </a>
                     </li>
                     <li>
-                        <a <?= 'href=/edit-player?id=' . htmlspecialchars($player->getId()) ?>>Изменить информацию</a>
+                        <a href="/edit-player?id=<?= $this->protectFromXss($player->getId()) ?>">
+                            Изменить информацию
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -40,13 +46,13 @@ $player = $this->getPlayerInfo();
                     </a>
 
                     <div class="user-data">
-                        <h2><?= htmlspecialchars($player->getUsername()) ?></h2>
+                        <h2><?= $this->protectFromXss($player->getUsername()) ?></h2>
                         <div class="location">
-                            <?= htmlspecialchars($player->getName() . ' ' . $player->getSurname()) ?>
+                            <?= $this->protectFromXss($player->getName() . ' ' . $player->getSurname()) ?>
                         </div>
                         <div class="activity">
                             <div>
-                                <div class="num"><?= htmlspecialchars($player->getFakeHour()) ?></div>
+                                <div class="num"><?= $this->protectFromXss($player->getFakeHour()) ?></div>
                                 <div class="title">Игровых часов</div>
                             </div>
                         </div>
@@ -68,7 +74,7 @@ $player = $this->getPlayerInfo();
                         </td>
                         <td>
                             <p>
-                                <?= htmlspecialchars($player->getName() . ' ' . $player->getSurname()) ?>
+                                <?= $this->protectFromXss($player->getName() . ' ' . $player->getSurname()) ?>
                             </p>
                         </td>
                     </tr>
@@ -78,7 +84,7 @@ $player = $this->getPlayerInfo();
                         </td>
                         <td>
                             <p>
-                                <?= htmlspecialchars($player->getUsername()) ?>
+                                <?= $this->protectFromXss($player->getUsername()) ?>
                             </p>
                         </td>
                     </tr>
@@ -88,7 +94,7 @@ $player = $this->getPlayerInfo();
                         </td>
                         <td>
                             <p>
-                                <?= htmlspecialchars($player->getDateOfRegistration()) ?>
+                                <?= $this->protectFromXss($player->getDateOfRegistration()) ?>
                             </p>
                         </td>
                     </tr>
@@ -98,7 +104,7 @@ $player = $this->getPlayerInfo();
                         </td>
                         <td>
                             <p>
-                                <?= htmlspecialchars($player->getFakeHour()) ?>
+                                <?= $this->protectFromXss($player->getFakeHour()) ?>
                             </p>
                         </td>
                     </tr>

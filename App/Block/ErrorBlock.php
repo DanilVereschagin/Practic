@@ -21,4 +21,12 @@ class ErrorBlock
     {
         require APP_ROOT . '/view/template/error.phtml';
     }
+
+    public function protectFromXss($data): string
+    {
+        $data = strip_tags($data);
+        $data = htmlspecialchars($data);
+
+        return $data;
+    }
 }

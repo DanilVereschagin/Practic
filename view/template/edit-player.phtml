@@ -27,17 +27,17 @@ $player = $this->getPlayerInfo();
                 <div class="container">
                     <ul>
                         <li>
-                            <a <?= 'href=/player?id=' . htmlspecialchars($player->getId()) ?>>
+                            <a href="/player?id=<?= $this->protectFromXss($player->getId()) ?>">
                                 Профиль
                             </a>
                         </li>
                         <li>
-                            <a <?= 'href=/library?id=' . htmlspecialchars($player->getId()) ?>>
+                            <a href="/library?id=<?= $this->protectFromXss($player->getId()) ?>">
                                 Библиотека
                             </a>
                         </li>
                         <li class="active">
-                            <a <?= 'href=/edit-player?id=' . htmlspecialchars($player->getId()) ?>>
+                            <a href="/edit-player?id=<?= $this->protectFromXss($player->getId()) ?>">
                                 Изменить информацию
                             </a>
                         </li>
@@ -54,21 +54,21 @@ $player = $this->getPlayerInfo();
                     <input
                             type="hidden"
                             name="csrf_token"
-                            value="<?= htmlspecialchars($this->getCsrfToken()) ?>"
+                            value="<?= $this->getCsrfToken() ?>"
                     >
                 </div>
                 <div class="youplay-input">
                     <input
                             type="hidden"
                             name="id"
-                            value="<?= htmlspecialchars($player->getId()) ?>"
+                            value="<?= $this->protectFromXss($player->getId()) ?>"
                     >
                 </div>
                 <div class="youplay-input">
                     <input
                             type="text"
                             name="name"
-                            value="<?= htmlspecialchars($player->getName()) ?>"
+                            value="<?= $this->protectFromXss($player->getName()) ?>"
                             placeholder="Имя"
                     >
                 </div>
@@ -76,7 +76,7 @@ $player = $this->getPlayerInfo();
                     <input
                             type="text"
                             name="surname"
-                            value="<?= htmlspecialchars($player->getSurname()) ?>"
+                            value="<?= $this->protectFromXss($player->getSurname()) ?>"
                             placeholder="Фамилия"
                     >
                 </div>
@@ -84,7 +84,7 @@ $player = $this->getPlayerInfo();
                     <input
                             type="text"
                             name="username"
-                            value="<?= htmlspecialchars($player->getUsername()) ?>"
+                            value="<?= $this->protectFromXss($player->getUsername()) ?>"
                             placeholder="Ник"
                     >
                 </div>
@@ -92,7 +92,7 @@ $player = $this->getPlayerInfo();
                     <input
                             type="email"
                             name="mail"
-                            value="<?= htmlspecialchars($player->getMail()) ?>"
+                            value="<?= $this->protectFromXss($player->getMail()) ?>"
                             placeholder="Email"
                     >
                 </div>
@@ -100,21 +100,21 @@ $player = $this->getPlayerInfo();
                     <input
                             type="hidden"
                             name="fake_hour"
-                            value="<?= htmlspecialchars($player->getFakeHour()) ?>"
+                            value="<?= $this->protectFromXss($player->getFakeHour()) ?>"
                     >
                 </div>
                 <div class="youplay-input">
                     <input
                             type="hidden"
                             name="is_admin"
-                            value="<?= htmlspecialchars($player->getIsAdmin()) ?>"
+                            value="<?= $this->protectFromXss($player->getIsAdmin()) ?>"
                     >
                 </div>
                 <button class="btn btn-default db">Сохранить</button>
             </form>
             <button
                     class="btn btn-default db"
-                <?= "href=/delete-player?id=" . htmlspecialchars($player->getId()) ?>
+                    href="/delete-player?id=<?= $this->protectFromXss($player->getId()) ?>"
             >
                 Удалить
             </button>

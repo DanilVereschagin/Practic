@@ -18,7 +18,7 @@ $childComments = $this->getChildComments();
             <div>
                 <div class="container">
                     <div class="main-text neon-text">
-                        <?= htmlspecialchars($game->getName()) ?>
+                        <?= $this->protectFromXss($game->getName()) ?>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@ $childComments = $this->getChildComments();
                         <a href="/admin-game">Информация</a>
                     </li>
                     <li>
-                        <a <?= 'href=/edit-game?id=' . htmlspecialchars($game->getId()) ?>>Изменить информацию</a>
+                        <a href="/edit-game?id=<?= $this->protectFromXss($game->getId()) ?>">Изменить информацию</a>
                     </li>
                 </ul>
             </div>
@@ -53,23 +53,23 @@ $childComments = $this->getChildComments();
                         <i class="fa fa-play icon"></i>
                     </a>
                     <p>
-                        <?= htmlspecialchars($game->getDescription()) ?>
+                        <?= $this->protectFromXss($game->getDescription()) ?>
                     </p>
                 </div>
                 <div class="tags">
                     <i class="fa fa-tags"></i>
                     <a href="#">Release</a>,
-                    <a href="#"><?= htmlspecialchars($game->getName()) ?></a>,
+                    <a href="#"><?= $this->protectFromXss($game->getName()) ?></a>,
                     <a href="#">Windows</a>
                 </div>
                 <div class="meta">
                     <div class="item">
                         <i class="fa fa-user meta-icon"></i>
-                        Автор: <a href="#!"><?= htmlspecialchars($game->getName()) ?></a>
+                        Автор: <a href="#!"><?= $this->protectFromXss($game->getName()) ?></a>
                     </div>
                     <div class="item">
                         <i class="fa fa-calendar meta-icon"></i>
-                        Вышла: <a href="#!"><?= htmlspecialchars($game->getYearOfRelease()) ?></a>
+                        Вышла: <a href="#!"><?= $this->protectFromXss($game->getYearOfRelease()) ?></a>
                     </div>
                     <div class="item">
                         <i class="fa fa-bookmark meta-icon"></i>
@@ -93,14 +93,14 @@ $childComments = $this->getChildComments();
                                 </div>
                                 <div class="comment-cont clearfix">
                                     <a class="comment-author h4" href="#!">
-                                        <?= htmlspecialchars($comment->getUsername()) ?>
+                                        <?= $this->protectFromXss($comment->getUsername()) ?>
                                     </a>
                                     <div class="date">
-                                        <?= htmlspecialchars($comment->getDateOfWriting()) ?>
+                                        <?= $this->protectFromXss($comment->getDateOfWriting()) ?>
                                         <a href="#!" class="pull-right"><i class="fa fa-reply"></i> Ответить</a>
                                     </div>
                                     <div class="comment-text">
-                                        <?= htmlspecialchars($comment->getTextOfComment()) ?>
+                                        <?= $this->protectFromXss($comment->getTextOfComment()) ?>
                                     </div>
                                 </div>
                             </article>
@@ -115,13 +115,13 @@ $childComments = $this->getChildComments();
                                                 </div>
                                                 <div class="comment-cont clearfix">
                                                     <a class="comment-author h4" href="#!">
-                                                        <?= htmlspecialchars($childComment->getUsername()) ?>
+                                                        <?= $this->protectFromXss($childComment->getUsername()) ?>
                                                     </a>
                                                     <div class="date">
-                                                        <?= htmlspecialchars($childComment->getDateOfWriting()) ?>
+                                                        <?= $this->protectFromXss($childComment->getDateOfWriting()) ?>
                                                     </div>
                                                     <div class="comment-text">
-                                                        <?= htmlspecialchars($childComment->getTextOfComment()) ?>
+                                                        <?= $this->protectFromXss($childComment->getTextOfComment()) ?>
                                                     </div>
                                                 </div>
                                             </article>
@@ -134,13 +134,13 @@ $childComments = $this->getChildComments();
                 </ul>
 
                 <h2>Оставить комментарий</h2>
-                <form <?= 'action=/add-comment?id=' . htmlspecialchars($game->getId()) ?> method="post">
+                <form action="/add-comment?id=<?= $this->protectFromXss($game->getId()) ?>" method="post">
                     <div class="comment-cont clearfix">
                         <div class="youplay-input">
                             <input
                                     type="hidden"
                                     name="csrf_token"
-                                    value="<?= htmlspecialchars($this->getCsrfToken()) ?>"
+                                    value="<?= $this->getCsrfToken() ?>"
                             >
                         </div>
                         <div class="youplay-textarea">
@@ -159,7 +159,7 @@ $childComments = $this->getChildComments();
             <div class="side-block">
                 <h4 class="block-title">Компания</h4>
                 <ul class="block-content">
-                    <li><a href="#!"><?= htmlspecialchars($game->getCompanyObject()->getName()) ?></a>
+                    <li><a href="#!"><?= $this->protectFromXss($game->getCompanyObject()->getName()) ?></a>
                     </li>
                 </ul>
             </div>
@@ -168,7 +168,7 @@ $childComments = $this->getChildComments();
                 <h4 class="block-title">Жанр</h4>
                 <ul class="block-content">
                     <li>
-                        <a href="#!"><?= htmlspecialchars($game->getGenreObject()->getNameOfGenre()) ?></a>
+                        <a href="#!"><?= $this->protectFromXss($game->getGenreObject()->getNameOfGenre()) ?></a>
                     </li>
                 </ul>
             </div>
@@ -177,7 +177,7 @@ $childComments = $this->getChildComments();
                 <h4 class="block-title">Оценка на MetaCritic</h4>
                 <ul class="block-content">
                     <li>
-                        <a href="#!"><?= htmlspecialchars($game->getScore()) ?></a>
+                        <a href="#!"><?= $this->protectFromXss($game->getScore()) ?></a>
                     </li>
                 </ul>
             </div>

@@ -32,41 +32,41 @@ $company = $this->getCompanyInfo();
                     <input
                             type="hidden"
                             name="csrf_token"
-                            value="<?= htmlspecialchars($this->getCsrfToken()) ?>"
+                            value="<?= $this->getCsrfToken() ?>"
                     >
                 </div>
                 <div class="youplay-input">
                     <input
                             type="hidden"
                             name="id"
-                            value="<?= htmlspecialchars($company->getId()) ?>">
+                            value="<?= $this->protectFromXss($company->getId()) ?>">
                 </div>
                 <div class="youplay-input">
                     <input
                             type="text"
                             name="name"
-                            value="<?= htmlspecialchars($company->getName()) ?>"
+                            value="<?= $this->protectFromXss($company->getName()) ?>"
                             placeholder="Название">
                 </div>
                 <div class="youplay-input">
                     <input
                             type="text"
                             name="type"
-                            value="<?= htmlspecialchars($company->getType()) ?>"
+                            value="<?= $this->protectFromXss($company->getType()) ?>"
                             placeholder="Тип компании">
                 </div>
                 <div class="youplay-input">
                     <input
                             type="text"
                             name="address"
-                            value="<?= htmlspecialchars($company->getAddress()) ?>"
+                            value="<?= $this->protectFromXss($company->getAddress()) ?>"
                             placeholder="Адрес">
                 </div>
                 <button class="btn btn-default db">Сохранить</button>
             </form>
             <a
                     class="btn btn-default db"
-                    <?= "href=/delete-company?id=" . htmlspecialchars($company->getId()) ?>
+                    href="/delete-company?id=<?= $this->protectFromXss($company->getId()) ?>"
             >
                 Удалить
             </a>

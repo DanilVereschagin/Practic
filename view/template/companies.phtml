@@ -42,10 +42,10 @@
                     </section>
                     <section class="youplay-features container shop">
                 <?php $i = 0; endif; ?>
-                <a <?= "href=/edit-company?id=" . htmlspecialchars($company->getId()) ?>>
+                <a href="/edit-company?id=<?=$this->protectFromXss($company->getId()) ?>">
                 <div class="col-md-3 col-xs-12 shop__element">
                     <div class="feature angled-bg">
-                        <h3><?= htmlspecialchars($company->getName()) ?></h3>
+                        <h3><?= $this->protectFromXss($company->getName()) ?></h3>
                     </div>
                 </div>
                 </a>
