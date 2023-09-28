@@ -4,10 +4,22 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-use App\Api\HandleInterface;
+use App\Middleware\MiddlewareInterface;
 
-class AuthCheckMiddleware
+class AuthCheckMiddleware implements MiddlewareInterface
 {
+    protected AuthCheckMiddleware $next;
+
+    public function getNext()
+    {
+        return $this->next;
+    }
+
+    public function setNext(MiddlewareInterface $handle)
+    {
+        $this->next = $handle;
+    }
+
     public function handle(string $route)
     {
         Session::start();
@@ -16,10 +28,7 @@ class AuthCheckMiddleware
             return $route;
         }
 
-        $observer = new SessionHandle(0);
-        $observer->setNext(new SessionHandle(1));
-        $observer->getNext()->setNext(new SessionHandle(2));
-        $observer->getNext()->getNext()->setNext(new SessionHandle(3));
+        $observer = new SessionChecker();
         $isGuessPage = $observer->isGuestPages($route);
 
         if ($isGuessPage) {

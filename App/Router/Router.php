@@ -10,7 +10,7 @@ use App\Model\AuthCheckMiddleware;
 use App\Model\HttpMethodNotAllowedException;
 use App\Model\HttpRedirectException;
 use App\Model\Session;
-use App\Model\SessionHandle;
+use App\Model\SessionChecker;
 
 class Router
 {
