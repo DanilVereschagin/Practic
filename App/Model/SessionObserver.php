@@ -8,20 +8,22 @@ class SessionObserver
 
     public function __construct()
     {
-        $this->guessPages[] = '/login';
-        $this->guessPages[] = '/registration';
-        $this->guessPages[] = '/add-player';
-        $this->guessPages[] = '/sign-in';
+        $this->guessPages = [
+            '/login',
+            '/registration',
+            '/add-player',
+            '/sign-in',
+        ];
     }
 
-    public function getGuestPages(string $url)
+    public function isGuestPages(string $url)
     {
         foreach ($this->guessPages as $page) {
             if ($page === $url) {
-                return $page;
+                return true;
             }
         }
 
-        return $this->guessPages[0];
+        return false;
     }
 }

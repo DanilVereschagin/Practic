@@ -6,6 +6,7 @@ namespace App\Router;
 
 use App\Controller\AbstractController;
 use App\Controller\NotFoundErrorController;
+use App\Model\AuthCheckMiddleware;
 use App\Model\HttpMethodNotAllowedException;
 use App\Model\HttpRedirectException;
 use App\Model\Session;
@@ -21,24 +22,21 @@ class Router
             $route = substr($route, 0, $queryPos);
         }
 
-        Session::start();
-
-        if (Session::getClientId() === null) {
-            $observer = new SessionObserver();
-            $route = $observer->getGuestPages($route);
-        }
-
         $class = $controllerMap[$route] ?? null;
 
         if ($class) {
-            /** @var AbstractController $controller */
-            $controller = new $class();
             try {
+                $authchecker = new AuthCheckMiddleware();
+                $authchecker->checkAuth($route);
+                /** @var AbstractController $controller */
+                $controller = new $class();
                 $controller->execute();
             } catch (HttpRedirectException $e) {
                 header('Location: ' . $e->getMessage(), true, 302);
+                return;
             } catch (HttpMethodNotAllowedException $e) {
                 http_response_code(405);
+                return;
             }
         }
 
