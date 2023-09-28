@@ -10,7 +10,7 @@ use App\Model\AuthCheckMiddleware;
 use App\Model\HttpMethodNotAllowedException;
 use App\Model\HttpRedirectException;
 use App\Model\Session;
-use App\Model\SessionObserver;
+use App\Model\SessionHandle;
 
 class Router
 {
@@ -27,7 +27,7 @@ class Router
         if ($class) {
             try {
                 $authchecker = new AuthCheckMiddleware();
-                $authchecker->checkAuth($route);
+                $authchecker->handle($route);
                 /** @var AbstractController $controller */
                 $controller = new $class();
                 $controller->execute();
