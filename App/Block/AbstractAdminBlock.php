@@ -13,7 +13,6 @@ class AbstractAdminBlock
 
     public function getCsrfToken()
     {
-        Session::start();
         return Session::getCsrfToken();
     }
 }

@@ -71,7 +71,8 @@ class Session
 
     public static function setCsrfToken()
     {
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        $securityService = new SecurityService();
+        $_SESSION['csrf_token'] = $securityService->generateCsrf();
     }
 
     public static function getCsrfToken()

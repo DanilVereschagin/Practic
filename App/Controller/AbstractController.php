@@ -12,7 +12,7 @@ abstract class AbstractController implements ControllerInterface
     public function __construct()
     {
         Session::start();
-        $this->protectFromCSRF();
+        $this->protectFromCsrf();
     }
 
     abstract public function execute();
@@ -84,16 +84,18 @@ abstract class AbstractController implements ControllerInterface
         return $protectedData;
     }
 
-    protected function protectFromCSRF()
+    protected function protectFromCsrf()
     {
-        if (Session::getClientId() && $this->isPost()) {
-            $csrfToken = Session::getCsrfToken();
-            $postCsrfToken = $this->getPostParam('csrf_token');
+        if (!(Session::getClientId() && $this->isPost())) {
+            return;
+        }
 
-            if ($postCsrfToken !== $csrfToken) {
-                Session::setMessage('Да ты тут самый умный, я смотрю...');
-                $this->redirectTo('/error');
-            }
+        $csrfToken = Session::getCsrfToken();
+        $postCsrfToken = $this->getPostParam('csrf_token');
+
+        if ($postCsrfToken !== $csrfToken) {
+            Session::setMessage('Да ты тут самый умный, я смотрю...');
+            $this->redirectTo('/error');
         }
     }
 }

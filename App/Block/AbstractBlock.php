@@ -13,7 +13,6 @@ class AbstractBlock
 
     public function getCsrfToken()
     {
-        Session::start();
         return Session::getCsrfToken();
     }
 }
