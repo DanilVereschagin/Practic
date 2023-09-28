@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Api\ControllerInterface;
+use App\Model\HttpMethodNotAllowedException;
+use App\Model\HttpRedirectException;
 use App\Model\Session;
 
 abstract class AbstractController implements ControllerInterface
@@ -24,7 +26,7 @@ abstract class AbstractController implements ControllerInterface
 
     protected function redirectTo(string $url)
     {
-        header('Location: ' . $url, true, 302);
+        throw new HttpRedirectException($url);
     }
 
     protected function getQueryParams(): array
@@ -68,8 +70,7 @@ abstract class AbstractController implements ControllerInterface
 
     protected function sendNotAllowedMethodError()
     {
-        http_response_code(405);
-        exit;
+        throw new HttpMethodNotAllowedException();
     }
 
     protected function protectFromXss(array $data)

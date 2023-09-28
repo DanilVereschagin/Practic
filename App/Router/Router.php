@@ -6,6 +6,8 @@ namespace App\Router;
 
 use App\Controller\AbstractController;
 use App\Controller\NotFoundErrorController;
+use App\Model\HttpMethodNotAllowedException;
+use App\Model\HttpRedirectException;
 use App\Model\Session;
 use App\Model\SessionObserver;
 
@@ -31,9 +33,16 @@ class Router
         if ($class) {
             /** @var AbstractController $controller */
             $controller = new $class();
-            $controller->execute();
-        } else {
-            (new NotFoundErrorController())->execute();
+            try {
+                $controller->execute();
+            } catch (HttpRedirectException $e) {
+                header('Location: ' . $e->getMessage(), true, 302);
+            } catch (HttpMethodNotAllowedException $e) {
+                http_response_code(405);
+            }
         }
+
+        $controller = new NotFoundErrorController();
+        $controller->execute();
     }
 }
