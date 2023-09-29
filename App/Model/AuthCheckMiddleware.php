@@ -12,7 +12,7 @@ class AuthCheckMiddleware implements MiddlewareInterface
 
     public function getNext()
     {
-        return $this->next;
+        return $this->next ?? null;
     }
 
     public function setNext(MiddlewareInterface $handle)
@@ -31,10 +31,20 @@ class AuthCheckMiddleware implements MiddlewareInterface
         $observer = new SessionChecker();
         $isGuessPage = $observer->isGuestPages($route);
 
-        if ($isGuessPage) {
-            return $route;
-        } else {
+        if (!$isGuessPage) {
             throw new HttpRedirectException('/login');
+        }
+
+        if ($this->getNext() !== null) {
+            $this->next($route);
+        }
+    }
+
+    protected function next(string $route)
+    {
+        $nextHandler = $this->getNext();
+        if ($nextHandler) {
+            $nextHandler->handle($route);
         }
     }
 }
