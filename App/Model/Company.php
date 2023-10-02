@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class Company extends AbstractModel
+class Company extends AbstractModel implements \JsonSerializable
 {
     protected ?int $id;
     protected ?string $name;
@@ -59,5 +59,10 @@ class Company extends AbstractModel
     {
         $this->address = $address;
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 }

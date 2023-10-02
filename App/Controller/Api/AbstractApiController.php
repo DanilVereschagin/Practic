@@ -13,4 +13,14 @@ abstract class AbstractApiController extends AbstractController implements Contr
     {
         parent::__construct();
     }
+
+    public function isPut(): bool
+    {
+        return $_SERVER['REQUEST_METHOD'] === 'PUT';
+    }
+
+    public function isDelete(): bool
+    {
+        return $_SERVER['REQUEST_METHOD'] === 'DELETE';
+    }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class Genre extends AbstractModel
+class Genre extends AbstractModel implements \JsonSerializable
 {
     protected ?int $genreId;
     protected ?string $nameOfGenre;
@@ -35,5 +35,10 @@ class Genre extends AbstractModel
     {
         $this->nameOfGenre = $nameOfGenre;
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 }

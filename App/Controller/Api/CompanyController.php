@@ -6,23 +6,20 @@ namespace App\Controller\Api;
 
 use App\Block\PlayerBlock;
 use App\Controller\Web\AbstractWebController;
+use App\Model\Resource\CompanyResource;
 use App\Model\Resource\PlayerResource;
 use App\Model\Session;
 
-class PlayerController extends AbstractApiController
+class CompanyController extends AbstractApiController
 {
     public function execute()
     {
         $id = $this->getIdParam();
 
-        if ($id == 0) {
-            $id = Session::getClientId();
-        }
-
-        $resource = new PlayerResource();
-        $player = $resource->getById($id);
+        $resource = new CompanyResource();
+        $company = $resource->getById($id);
 
         header('Content-Type: application/json');
-        echo json_encode(($player));
+        echo json_encode($company);
     }
 }

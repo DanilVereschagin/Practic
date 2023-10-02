@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class Comment extends AbstractModel
+class Comment extends AbstractModel implements \JsonSerializable
 {
     protected ?int $id;
     protected ?int $game;
@@ -83,5 +83,10 @@ class Comment extends AbstractModel
     {
         $this->parentComment = $parentComment;
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 }

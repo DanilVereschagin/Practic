@@ -9,7 +9,7 @@ use App\Model\Genre;
 use App\Model\Resource\CompanyResource;
 use App\Model\Resource\GenreResource;
 
-class Game extends AbstractModel
+class Game extends AbstractModel implements \JsonSerializable
 {
     protected ?int $id;
     protected ?string $name;
@@ -135,5 +135,10 @@ class Game extends AbstractModel
     {
         $this->description = $description;
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 }
