@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class Player extends AbstractModel
+class Player extends AbstractModel implements \JsonSerializable
 {
     protected ?int $id;
     protected ?string $name;
@@ -120,5 +120,10 @@ class Player extends AbstractModel
     {
         $this->password = $password;
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
     }
 }

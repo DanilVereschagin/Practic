@@ -31,7 +31,7 @@
                         </section>
                         <section class="youplay-features container shop">
                     <?php $i = 0; endif; ?>
-                    <a href=/player?id=<?= $this->protectFromXss($player->getId()) ?>">
+                    <a href="/player?id=<?= $this->protectFromXss($player->getId()) ?>">
                         <div class="col-md-3 col-xs-12 shop__element">
                             <div class="feature angled-bg">
                                 <h3><?= $this->protectFromXss($player->getUsername()) ?></h3>
