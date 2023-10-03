@@ -52,7 +52,7 @@ class CompanyResource extends AbstractResource
         $query->bindValue('name', $post['name'], \PDO::PARAM_STR);
         $query->bindValue('type', $post['type'], \PDO::PARAM_INT);
         $query->bindValue('address', $post['address'], \PDO::PARAM_STR);
-        if ($post['id'] != null) {
+        if (array_key_exists('id', $post)) {
             $query->bindValue('ID', $post['id'], \PDO::PARAM_INT);
         }
     }

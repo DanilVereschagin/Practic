@@ -18,9 +18,4 @@ abstract class AbstractApiController extends AbstractController implements Contr
     {
         return $_SERVER['REQUEST_METHOD'] === 'PUT';
     }
-
-    public function isDelete(): bool
-    {
-        return $_SERVER['REQUEST_METHOD'] === 'DELETE';
-    }
 }

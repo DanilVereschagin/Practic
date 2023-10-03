@@ -17,9 +17,4 @@ abstract class AbstractWebController extends AbstractController implements Contr
     }
 
     abstract public function execute();
-
-    protected function redirectTo(string $url)
-    {
-        throw new HttpRedirectException($url);
-    }
 }

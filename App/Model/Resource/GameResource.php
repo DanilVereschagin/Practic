@@ -37,6 +37,17 @@ class GameResource extends AbstractResource
         return $games;
     }
 
+    public function getByName($name): Game
+    {
+        $connection = Database::getInstance();
+        $sql = 'select * from game where `name` = :name';
+        $query = $connection->prepare($sql);
+        $query->execute(['name' => $name]);
+        $info = $query->fetch();
+
+        return new Game($info);
+    }
+
     /**
      * @param int|null $id
      * @return Game

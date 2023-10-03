@@ -23,6 +23,21 @@ abstract class AbstractController implements ControllerInterface
         return $_SERVER['REQUEST_METHOD'] === 'POST';
     }
 
+    protected function isGet(): bool
+    {
+        return $_SERVER['REQUEST_METHOD'] === 'GET';
+    }
+
+    public function isDelete(): bool
+    {
+        return $_SERVER['REQUEST_METHOD'] === 'DELETE';
+    }
+
+    protected function redirectTo(string $url)
+    {
+        throw new HttpRedirectException($url);
+    }
+
     protected function getQueryParams(): array
     {
         return $this->protectFromXss($_GET) ?? [];
@@ -81,12 +96,17 @@ abstract class AbstractController implements ControllerInterface
 
     protected function protectFromCsrf()
     {
-        if (!(Session::getClientId() && $this->isPost())) {
+        if (!(Session::getClientId() && !($this->isGet() || $this->isDelete()))) {
             return;
         }
 
         $csrfToken = Session::getCsrfToken();
         $postCsrfToken = $this->getPostParam('csrf_token');
+
+        if ($postCsrfToken === '') {
+            $post = json_decode(file_get_contents('php://input'), true);
+            $postCsrfToken = $post['csrf_token'];
+        }
 
         if ($postCsrfToken !== $csrfToken) {
             Session::setMessage('Да ты тут самый умный, я смотрю...');

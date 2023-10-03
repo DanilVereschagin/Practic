@@ -29,6 +29,7 @@ class Router
                 /** @var AbstractController $controller */
                 $controller = new $class();
                 $controller->execute();
+                return;
             } catch (HttpRedirectException $e) {
                 header('Location: ' . $e->getMessage(), true, 302);
                 return;

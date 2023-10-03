@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Controller\Web\AbstractWebController;
+use App\Model\Password;
 use App\Model\Resource\PlayerResource;
-use App\Model\Session;
 
-class UpdatePlayerController extends AbstractApiController
+class AddPlayerController extends AbstractApiController
 {
     public function execute()
     {
-        if (!$this->isPut()) {
+        if (!$this->isPost()) {
             $this->sendNotAllowedMethodError();
         }
 
@@ -25,11 +24,17 @@ class UpdatePlayerController extends AbstractApiController
             return;
         }
 
-        $resource->update($post);
+        $post['date_of_registration'] = date('Y-m-d h:i:s');
+        $post['is_admin'] = 0;
+        $post['fake_hour'] = 0;
+        $password = new Password();
+        $post['password'] = $password->hashPassword($post['password']);
+        $resource->add($post);
 
         $player = $resource->getByMail($post['mail']);
 
         header('Content-Type: application/json');
+        http_response_code(201);
         echo json_encode(($player));
     }
 }
