@@ -14,14 +14,12 @@ class AddCompanyController extends AbstractApiController
             $this->sendNotAllowedMethodError();
         }
 
-        $post = json_decode(file_get_contents('php://input'), true);
+        $post = $this->getRowBody();
         $resource = new CompanyResource();
         $resource->add($post);
 
         $company = $resource->getByName($post['name']);
 
-        header('Content-Type: application/json');
-        http_response_code(201);
-        echo json_encode(($company));
+        $this->responseSuccessJson($company, 201);
     }
 }

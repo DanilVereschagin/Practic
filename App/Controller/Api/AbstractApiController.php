@@ -9,13 +9,4 @@ use App\Ui\ControllerInterface;
 
 abstract class AbstractApiController extends AbstractController implements ControllerInterface
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function isPut(): bool
-    {
-        return $_SERVER['REQUEST_METHOD'] === 'PUT';
-    }
 }

@@ -16,12 +16,12 @@ class UpdatePlayerController extends AbstractApiController
             $this->sendNotAllowedMethodError();
         }
 
-        $post = json_decode(file_get_contents('php://input'), true);
+        $post = $this->getRowBody();
         $resource = new PlayerResource();
         $player = $resource->getByMail($post['mail']);
 
-        if ($player->getId() != $post['id'] && $player->getMail() == $post['mail']) {
-            echo 'mail уже занят!';
+        if ($player->getId() != $post['id'] && !is_null($player->getMail())) {
+            http_response_code(400);
             return;
         }
 
@@ -29,7 +29,6 @@ class UpdatePlayerController extends AbstractApiController
 
         $player = $resource->getByMail($post['mail']);
 
-        header('Content-Type: application/json');
-        echo json_encode(($player));
+        $this->responseSuccessJson($player);
     }
 }

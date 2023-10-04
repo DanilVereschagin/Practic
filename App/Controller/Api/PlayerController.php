@@ -15,14 +15,13 @@ class PlayerController extends AbstractApiController
     {
         $id = $this->getIdParam();
 
-        if ($id == 0) {
+        if (!$id) {
             $id = Session::getClientId();
         }
 
         $resource = new PlayerResource();
         $player = $resource->getById($id);
 
-        header('Content-Type: application/json');
-        echo json_encode(($player));
+        $this->responseSuccessJson($player);
     }
 }

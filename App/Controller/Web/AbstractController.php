@@ -33,6 +33,11 @@ abstract class AbstractController implements ControllerInterface
         return $_SERVER['REQUEST_METHOD'] === 'DELETE';
     }
 
+    public function isPut(): bool
+    {
+        return $_SERVER['REQUEST_METHOD'] === 'PUT';
+    }
+
     protected function redirectTo(string $url)
     {
         throw new HttpRedirectException($url);
@@ -77,6 +82,20 @@ abstract class AbstractController implements ControllerInterface
         return $this->protectFromXss($post);
     }
 
+    protected function getRowBody()
+    {
+        return json_decode(file_get_contents('php://input'), true);
+    }
+
+    protected function responseSuccessJson($data, $status = 200)
+    {
+        header('Content-Type: application/json');
+        if ($status !== 200) {
+            http_response_code($status);
+        }
+        echo json_encode(($data));
+    }
+
     protected function sendNotAllowedMethodError()
     {
         throw new HttpMethodNotAllowedException();
@@ -96,17 +115,18 @@ abstract class AbstractController implements ControllerInterface
 
     protected function protectFromCsrf()
     {
-        if (!(Session::getClientId() && !($this->isGet() || $this->isDelete()))) {
+        $postCsrfToken = $this->getPostParam('csrf_token');
+
+        if ($postCsrfToken === '') {
+            $post = $this->getRowBody();
+            $postCsrfToken = $post['csrf_token'];
+        }
+
+        if (!$postCsrfToken) {
             return;
         }
 
         $csrfToken = Session::getCsrfToken();
-        $postCsrfToken = $this->getPostParam('csrf_token');
-
-        if ($postCsrfToken === '') {
-            $post = json_decode(file_get_contents('php://input'), true);
-            $postCsrfToken = $post['csrf_token'];
-        }
 
         if ($postCsrfToken !== $csrfToken) {
             Session::setMessage('Да ты тут самый умный, я смотрю...');

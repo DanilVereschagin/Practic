@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Web;
 
-use App\Model\Password;
+use App\Model\PasswordService;
 use App\Model\Resource\PlayerResource;
 
 class AddPlayerController extends AbstractWebController
@@ -19,7 +19,7 @@ class AddPlayerController extends AbstractWebController
         $post['date_of_registration'] = date('Y-m-d h:i:s');
         $post['is_admin'] = 0;
         $post['fake_hour'] = 0;
-        $password = new Password();
+        $password = new PasswordService();
         $post['password'] = $password->hashPassword($post['password']);
         $resource = new PlayerResource();
         $resource->add($post);

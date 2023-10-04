@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Web;
 
-use App\Model\Password;
+use App\Model\PasswordService;
 use App\Model\Resource\PlayerResource;
 use App\Model\Session;
 
@@ -19,7 +19,7 @@ class SignInController extends AbstractWebController
         $post = $this->getPostValues(['mail', 'password']);
         $resource = new PlayerResource();
         $player = $resource->getByMail($post['mail']);
-        $password = new Password();
+        $password = new PasswordService();
 
         if ($password->verifyPassword($post['password'], $player->getPassword())) {
             Session::setClientId($player->getId());

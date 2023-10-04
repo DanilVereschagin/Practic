@@ -19,7 +19,6 @@ class CompanyController extends AbstractApiController
         $resource = new CompanyResource();
         $company = $resource->getById($id);
 
-        header('Content-Type: application/json');
-        echo json_encode($company);
+        $this->responseSuccessJson($company);
     }
 }

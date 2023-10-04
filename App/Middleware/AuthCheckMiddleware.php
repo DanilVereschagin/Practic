@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Model;
+namespace App\Middleware;
 
-use App\Middleware\MiddlewareInterface;
+use App\Model\Session;
+use App\Model\SessionChecker;
 
 class AuthCheckMiddleware implements MiddlewareInterface
 {

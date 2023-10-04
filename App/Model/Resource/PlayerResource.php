@@ -57,6 +57,10 @@ class PlayerResource extends AbstractResource
         $query->execute(['mail' => $mail]);
         $info = $query->fetch();
 
+        if (!$info) {
+            $info = [];
+        }
+
         return new Player($info);
     }
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Model;
 
-class Password
+class PasswordService
 {
-    function hashPassword(string $password): string
+    public function hashPassword(string $password): string
     {
         return password_hash($password, PASSWORD_DEFAULT);
     }

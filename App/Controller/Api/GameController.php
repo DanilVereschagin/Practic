@@ -23,7 +23,6 @@ class GameController extends AbstractApiController
         $comment = $resource->getParentComments($id);
         $childComment = $resource->getChildComments($id);
 
-        header('Content-Type: application/json');
-        echo json_encode(['game' => $game, 'comment' => $comment, 'childComment' => $childComment]);
+        $this->responseSuccessJson(['game' => $game, 'comment' => $comment, 'childComment' => $childComment]);
     }
 }

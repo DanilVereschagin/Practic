@@ -14,14 +14,12 @@ class AddGameController extends AbstractApiController
             $this->sendNotAllowedMethodError();
         }
 
-        $post = json_decode(file_get_contents('php://input'), true);
+        $post = $this->getRowBody();
         $resource = new GameResource();
         $resource->add($post);
 
         $game = $resource->getByName($post['name']);
 
-        header('Content-Type: application/json');
-        http_response_code(201);
-        echo json_encode(($game));
+        $this->responseSuccessJson($game, 201);
     }
 }
