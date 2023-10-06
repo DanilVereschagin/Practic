@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Web;
 
-use App\Model\HttpMethodNotAllowedException;
-use App\Model\HttpRedirectException;
+use App\Controller\AbstractController;
 use App\Model\Session;
 use App\Ui\ControllerInterface;
 

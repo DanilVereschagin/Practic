@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
+use App\Model\HttpRedirectException;
 use App\Model\Session;
 use App\Model\SessionChecker;
 

@@ -12,6 +12,7 @@ use App\Controller\Api\DeleteCompanyController;
 use App\Controller\Api\AddPlayerController;
 use App\Controller\Api\AddGameController;
 use App\Controller\Api\AddCompanyController;
+use App\Controller\Api\MainController;
 
 return [
     '/player'         => PlayerController::class,
@@ -26,4 +27,5 @@ return [
     '/add-player'     => AddPlayerController::class,
     '/add-game'       => AddGameController::class,
     '/add-company'    => AddCompanyController::class,
+    '/main'           => MainController::class,
 ];

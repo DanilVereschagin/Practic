@@ -2,8 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Web;
+namespace App\Controller;
 
+use App\Model\Cache\CacheMiddlewareInterface;
+use App\Model\Cache\FileCacheMiddleware;
+use App\Model\Cache\PredisCacheMiddleware;
+use App\Model\Environment;
 use App\Model\HttpMethodNotAllowedException;
 use App\Model\HttpRedirectException;
 use App\Model\Session;
@@ -11,8 +15,11 @@ use App\Ui\ControllerInterface;
 
 abstract class AbstractController implements ControllerInterface
 {
+    protected CacheMiddlewareInterface $cacheMiddleware;
+
     public function __construct()
     {
+        $this->cacheMiddleware = $this->getTypeCacheService();
         $this->protectFromCsrf();
     }
 
@@ -119,7 +126,7 @@ abstract class AbstractController implements ControllerInterface
 
         if ($postCsrfToken === '') {
             $post = $this->getRowBody();
-            $postCsrfToken = $post['csrf_token'];
+            $postCsrfToken = $post['csrf_token'] ?? null;
         }
 
         if (!$postCsrfToken) {
@@ -132,5 +139,18 @@ abstract class AbstractController implements ControllerInterface
             Session::setMessage('Да ты тут самый умный, я смотрю...');
             $this->redirectTo('/error');
         }
+    }
+
+    protected function getTypeCacheService(): CacheMiddlewareInterface
+    {
+        $cacheService = new FileCacheMiddleware();
+        $cacheService->setNext(new PredisCacheMiddleware());
+        $cacheMiddleware = $cacheService->handle(Environment::getCacheSetting('TYPE'));
+
+        if ($cacheMiddleware === null) {
+            return new FileCacheMiddleware();
+        }
+
+        return $cacheMiddleware;
     }
 }

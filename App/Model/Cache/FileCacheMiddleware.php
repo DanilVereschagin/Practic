@@ -7,10 +7,30 @@ namespace App\Model\Cache;
 use App\Model\Resource\GameResource;
 use App\Model\Resource\PlayerResource;
 
-class FileCacheMiddleware
+class FileCacheMiddleware implements CacheMiddlewareInterface
 {
+    protected CacheMiddlewareInterface $next;
     protected string $players = 'players.json';
     protected string $games = 'games.json';
+
+    public function setNext(CacheMiddlewareInterface $handle)
+    {
+        $this->next = $handle;
+    }
+
+    public function getNext()
+    {
+        return $this->next ?? null;
+    }
+
+    public function handle(string $type)
+    {
+        if ($this->getNext()) {
+            return $this->getNext()->handle($type);
+        }
+
+        return null;
+    }
 
     public function getPlayersCache()
     {

@@ -11,4 +11,6 @@ interface CacheMiddlewareInterface
     public function getNext();
 
     public function handle(string $type);
+
+    public function getPlayersCache();
 }

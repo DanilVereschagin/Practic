@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Router;
 
-use App\Controller\Web\AbstractController;
+use App\Controller\AbstractController;
 use App\Controller\Web\NotFoundErrorController;
 use App\Middleware\AuthCheckMiddleware;
 use App\Model\HttpMethodNotAllowedException;
