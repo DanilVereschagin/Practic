@@ -1,19 +1,21 @@
 {
-    "name": "user/module-7-php-mvc",
-    "autoload": {
-        "psr-4": {
-            "App\\": "App/"
-        }
-    },
-    "authors": [
-        {
-            "name": "dvereschagin",
-            "email": "dvereschagin@lachestry.com"
-        }
-    ],
-    "require": {
-        "phpoffice/phpspreadsheet": "^1.29",
-      "ext-pdo": "*",
-      "ext-json": "*"
+  "name": "user/module-7-php-mvc",
+  "autoload": {
+    "psr-4": {
+      "App\\": "App/"
     }
+  },
+  "authors": [
+    {
+      "name": "dvereschagin",
+      "email": "dvereschagin@lachestry.com"
+    }
+  ],
+  "require": {
+    "phpoffice/phpspreadsheet": "^1.29",
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "ext-redis": "*"
+  }
 }
+

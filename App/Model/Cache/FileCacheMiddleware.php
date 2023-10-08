@@ -10,6 +10,7 @@ use App\Model\Resource\PlayerResource;
 class FileCacheMiddleware implements CacheMiddlewareInterface
 {
     protected CacheMiddlewareInterface $next;
+    protected string $cacheType = 'file';
     protected string $players = 'players.json';
     protected string $games = 'games.json';
 
@@ -25,11 +26,15 @@ class FileCacheMiddleware implements CacheMiddlewareInterface
 
     public function handle(string $type)
     {
-        if ($this->getNext()) {
-            return $this->getNext()->handle($type);
+        if ($type !== $this->cacheType) {
+            if ($this->getNext()) {
+                return $this->getNext()->handle($type);
+            }
+
+            return null;
         }
 
-        return null;
+        return $this;
     }
 
     public function getPlayersCache()

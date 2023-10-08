@@ -113,7 +113,7 @@ class Player extends AbstractModel implements \JsonSerializable
 
     public function getPassword(): ?string
     {
-        return $this->password;
+        return $this->password ?? null;
     }
 
     public function setPassword(?string $password)
