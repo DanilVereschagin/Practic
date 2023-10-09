@@ -29,6 +29,8 @@ class AddPlayerController extends AbstractApiController
         $post = $playerRepository->setDefaultValues($post);
         $resource->add($post);
 
+        $this->cacheMiddleware->updatePlayersCache();
+
         $player = $resource->getByMail($post['mail']);
 
         $this->responseSuccessJson($player, 201);

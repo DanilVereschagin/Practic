@@ -79,7 +79,7 @@ class FileCacheMiddleware implements CacheMiddlewareInterface
         file_put_contents($cacheFile, json_encode($players));
     }
 
-    public function updateGameCache()
+    public function updateGamesCache()
     {
         $cacheFile = APP_ROOT . '/var/cache/' . $this->games;
 
@@ -87,5 +87,19 @@ class FileCacheMiddleware implements CacheMiddlewareInterface
         $games = $resource->getAll();
 
         file_put_contents($cacheFile, json_encode($games));
+    }
+
+    public function deletePlayersCache()
+    {
+        $cacheFile = APP_ROOT . '/var/cache/' . $this->players;
+        unlink($cacheFile);
+        $this->updatePlayersCache();
+    }
+
+    public function deleteGamesCache()
+    {
+        $cacheFile = APP_ROOT . '/var/cache/' . $this->games;
+        unlink($cacheFile);
+        $this->updateGamesCache();
     }
 }

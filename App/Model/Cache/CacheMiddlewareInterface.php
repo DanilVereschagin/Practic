@@ -13,4 +13,14 @@ interface CacheMiddlewareInterface
     public function handle(string $type);
 
     public function getPlayersCache();
+
+    public function getGamesCache();
+
+    public function updatePlayersCache();
+
+    public function updateGamesCache();
+
+    public function deletePlayersCache();
+
+    public function deleteGamesCache();
 }

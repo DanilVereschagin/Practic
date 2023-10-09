@@ -18,6 +18,8 @@ class AddGameController extends AbstractApiController
         $resource = new GameResource();
         $resource->add($post);
 
+        $this->cacheMiddleware->updateGamesCache();
+
         $game = $resource->getByName($post['name']);
 
         $this->responseSuccessJson($game, 201);

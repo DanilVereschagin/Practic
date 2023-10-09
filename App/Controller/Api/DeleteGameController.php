@@ -18,6 +18,8 @@ class DeleteGameController extends AbstractApiController
         $resource = new GameResource();
         $resource->delete($id);
 
+        $this->cacheMiddleware->deleteGamesCache();
+
         header('Content-Type: application/json');
     }
 }

@@ -82,11 +82,23 @@ class PredisCacheMiddleware implements CacheMiddlewareInterface
         $this->redis->set($this->players, json_encode($players));
     }
 
-    public function updateGameCache()
+    public function updateGamesCache()
     {
         $resource = new GameResource();
         $games = $resource->getAll();
 
         $this->redis->set($this->games, json_encode($games));
+    }
+
+    public function deletePlayersCache()
+    {
+        $this->redis->del($this->players);
+        $this->updatePlayersCache();
+    }
+
+    public function deleteGamesCache()
+    {
+        $this->redis->del($this->games);
+        $this->updateGamesCache();
     }
 }

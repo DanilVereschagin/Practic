@@ -13,6 +13,7 @@ use App\Controller\Api\AddPlayerController;
 use App\Controller\Api\AddGameController;
 use App\Controller\Api\AddCompanyController;
 use App\Controller\Api\MainController;
+use App\Controller\Api\ShopController;
 
 return [
     '/player'         => PlayerController::class,
@@ -28,4 +29,5 @@ return [
     '/add-game'       => AddGameController::class,
     '/add-company'    => AddCompanyController::class,
     '/main'           => MainController::class,
+    '/shop'           => ShopController::class,
 ];

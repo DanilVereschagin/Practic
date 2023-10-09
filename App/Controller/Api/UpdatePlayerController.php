@@ -27,6 +27,8 @@ class UpdatePlayerController extends AbstractApiController
 
         $resource->update($post);
 
+        $this->cacheMiddleware->updatePlayersCache();
+
         $player = $resource->getByMail($post['mail']);
 
         $this->responseSuccessJson($player);
