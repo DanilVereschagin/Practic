@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
+use App\Model\Repository\GameRepository;
 use App\Model\Resource\GameResource;
 
 class DeleteGameController extends AbstractApiController
@@ -18,7 +19,8 @@ class DeleteGameController extends AbstractApiController
         $resource = new GameResource();
         $resource->delete($id);
 
-        $this->cacheMiddleware->deleteGamesCache();
+        $gameRepository = new GameRepository();
+        $gameRepository->deleteCache($this->getUri());
 
         header('Content-Type: application/json');
     }

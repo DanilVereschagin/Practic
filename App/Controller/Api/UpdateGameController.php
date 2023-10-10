@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
+use App\Model\Repository\GameRepository;
 use App\Model\Resource\GameResource;
 
 class UpdateGameController extends AbstractApiController
@@ -18,8 +19,8 @@ class UpdateGameController extends AbstractApiController
         $resource = new GameResource();
         $resource->update($post);
 
-        $games = $resource->getAll();
-        $this->cacheRepository->update($this->getUri(), $games);
+        $gameRepository = new GameRepository();
+        $gameRepository->setCache($this->getUri());
 
         $game = $resource->getById($post['id']);
 

@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Model\Resource\GameResource;
+use App\Model\Repository\GameRepository;
 
 class ShopController extends AbstractApiController
 {
     public function execute()
     {
-        $gameResource = new GameResource();
-        $games = $gameResource->getAll();
+        $gameRepository = new GameRepository();
+        $gameRepository->getCache($this->getUri());
 
-        $this->cacheRepository->set($this->getUri(), json_encode($games));
-
-        $this->responseSuccessJson($games);
+        $this->responseSuccessJson($gameRepository->getAll());
     }
 }

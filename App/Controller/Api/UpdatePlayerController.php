@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Api;
 
 use App\Controller\Web\AbstractWebController;
+use App\Model\Repository\PlayerRepository;
 use App\Model\Resource\PlayerResource;
 use App\Model\Session;
 
@@ -27,8 +28,8 @@ class UpdatePlayerController extends AbstractApiController
 
         $resource->update($post);
 
-        $players = $resource->getAllPlayers();
-        $this->cacheRepository->update($this->getUri(), $players);
+        $playerRepository = new PlayerRepository();
+        $playerRepository->setCache($this->getUri());
 
         $player = $resource->getByMail($post['mail']);
 

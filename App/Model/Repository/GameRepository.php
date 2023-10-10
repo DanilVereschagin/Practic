@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Model\Repository;
 
 use App\Factory\CacheFactory;
+use App\Model\Resource\GameResource;
 use Psr\SimpleCache\CacheInterface;
 
-class CacheRepository
+class GameRepository
 {
     protected CacheInterface $cacheService;
 
@@ -17,24 +18,24 @@ class CacheRepository
         $this->cacheService = $cacheFactory->create();
     }
 
-    public function get(string $url)
+    public function getCache(string $url)
     {
         return $this->cacheService->get($url);
     }
 
-    public function set(string $url, $data)
+    public function setCache(string $url)
     {
-        $this->cacheService->set($url, $data);
+        $this->cacheService->set($url, $this->getAll());
     }
 
-    public function update(string $url, $data)
+    public function deleteCache(string $url)
     {
         $this->cacheService->delete($url);
-        $this->cacheService->set($url, $data);
     }
 
-    public function delete(string $url)
+    public function getAll()
     {
-        $this->cacheService->delete($url);
+        $resource = new GameResource();
+        return json_encode($resource->getAll());
     }
 }

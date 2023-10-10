@@ -14,13 +14,11 @@ use App\Ui\ControllerInterface;
 
 abstract class AbstractController implements ControllerInterface
 {
-    protected CacheRepository $cacheRepository;
 
     public function __construct()
     {
         $cacheMiddleware = new CacheMiddleware();
         $cacheMiddleware->handle($this->getUri());
-        $this->cacheRepository = new CacheRepository();
         $this->protectFromCsrf();
     }
 
