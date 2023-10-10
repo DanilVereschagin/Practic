@@ -11,7 +11,7 @@ class MainController extends AbstractApiController
     public function execute()
     {
         $playerRepository = new PlayerRepository();
-        $playerRepository->getCache($this->getUri());
+        $playerRepository->setCache($this->getUri());
 
         $this->responseSuccessJson($playerRepository->getAll());
     }
