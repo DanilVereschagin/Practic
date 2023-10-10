@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Model\PasswordService;
 use App\Model\Repository\PlayerRepository;
 use App\Model\Resource\PlayerResource;
 
@@ -29,7 +28,8 @@ class AddPlayerController extends AbstractApiController
         $post = $playerRepository->setDefaultValues($post);
         $resource->add($post);
 
-        $this->cacheMiddleware->updatePlayersCache();
+        $players = $resource->getAllPlayers();
+        $this->cacheRepository->update($this->getUri(), $players);
 
         $player = $resource->getByMail($post['mail']);
 

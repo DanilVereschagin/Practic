@@ -4,26 +4,32 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Model\Cache\CacheMiddlewareInterface;
-use App\Model\Cache\FileCacheMiddleware;
-use App\Model\Cache\PredisCacheMiddleware;
-use App\Model\Environment;
+use App\Middleware\CacheMiddleware;
+use App\Middleware\MiddlewareInterface;
 use App\Model\HttpMethodNotAllowedException;
 use App\Model\HttpRedirectException;
+use App\Model\Repository\CacheRepository;
 use App\Model\Session;
 use App\Ui\ControllerInterface;
 
 abstract class AbstractController implements ControllerInterface
 {
-    protected CacheMiddlewareInterface $cacheMiddleware;
+    protected CacheRepository $cacheRepository;
 
     public function __construct()
     {
-        $this->cacheMiddleware = $this->getTypeCacheService();
+        $cacheMiddleware = new CacheMiddleware();
+        $cacheMiddleware->handle($this->getUri());
+        $this->cacheRepository = new CacheRepository();
         $this->protectFromCsrf();
     }
 
     abstract public function execute();
+
+    protected function getUri()
+    {
+        return $_SERVER['REQUEST_URI'];
+    }
 
     protected function isPost(): bool
     {
@@ -100,7 +106,8 @@ abstract class AbstractController implements ControllerInterface
         if ($status !== 200) {
             http_response_code($status);
         }
-        echo json_encode(($data));
+        echo json_encode($data);
+        exit;
     }
 
     protected function sendNotAllowedMethodError()
@@ -139,18 +146,5 @@ abstract class AbstractController implements ControllerInterface
             Session::setMessage('Да ты тут самый умный, я смотрю...');
             $this->redirectTo('/error');
         }
-    }
-
-    protected function getTypeCacheService(): CacheMiddlewareInterface
-    {
-        $cacheService = new FileCacheMiddleware();
-        $cacheService->setNext(new PredisCacheMiddleware());
-        $cacheMiddleware = $cacheService->handle(Environment::getCacheSetting('TYPE'));
-
-        if ($cacheMiddleware === null) {
-            return new FileCacheMiddleware();
-        }
-
-        return $cacheMiddleware;
     }
 }

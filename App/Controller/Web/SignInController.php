@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Web;
 
-use App\Model\PasswordService;
 use App\Model\Resource\PlayerResource;
+use App\Model\Service\PasswordService;
 use App\Model\Session;
 
 class SignInController extends AbstractWebController

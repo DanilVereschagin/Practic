@@ -18,7 +18,8 @@ class UpdateGameController extends AbstractApiController
         $resource = new GameResource();
         $resource->update($post);
 
-        $this->cacheMiddleware->updateGamesCache();
+        $games = $resource->getAll();
+        $this->cacheRepository->update($this->getUri(), $games);
 
         $game = $resource->getById($post['id']);
 
