@@ -29,7 +29,7 @@ class UpdatePlayerController extends AbstractApiController
         $resource->update($post);
 
         $playerRepository = new PlayerRepository();
-        $playerRepository->setCache($this->getUri());
+        $playerRepository->initCache($this->getUri());
 
         $player = $resource->getByMail($post['mail']);
 

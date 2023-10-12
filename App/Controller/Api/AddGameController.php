@@ -20,7 +20,7 @@ class AddGameController extends AbstractApiController
         $resource->add($post);
 
         $gameRepository = new GameRepository();
-        $gameRepository->setCache($this->getUri());
+        $gameRepository->initCache($this->getUri());
 
         $game = $resource->getByName($post['name']);
 

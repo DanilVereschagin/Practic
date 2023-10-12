@@ -11,8 +11,8 @@ class ShopController extends AbstractApiController
     public function execute()
     {
         $gameRepository = new GameRepository();
-        $gameRepository->setCache($this->getUri());
+        $games = $gameRepository->initCache($this->getUri());
 
-        $this->responseSuccessJson($gameRepository->getAll());
+        $this->responseSuccessJson($games);
     }
 }

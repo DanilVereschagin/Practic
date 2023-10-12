@@ -18,14 +18,21 @@ class GameRepository
         $this->cacheService = $cacheFactory->create();
     }
 
+    public function initCache(string $url)
+    {
+        $data = json_encode($this->getAll());
+        $this->cacheService->set($url, $data);
+        return $data;
+    }
+
     public function getCache(string $url)
     {
         return $this->cacheService->get($url);
     }
 
-    public function setCache(string $url)
+    public function setCache(string $url, $data)
     {
-        $this->cacheService->set($url, $this->getAll());
+        $this->cacheService->set($url, $data);
     }
 
     public function deleteCache(string $url)
@@ -36,6 +43,6 @@ class GameRepository
     public function getAll()
     {
         $resource = new GameResource();
-        return json_encode($resource->getAll());
+        return $resource->getAll();
     }
 }
