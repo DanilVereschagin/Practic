@@ -18,13 +18,13 @@ class FileCacheService implements CacheInterface
         $key = $this->getKey($key);
         $cacheData = file_get_contents($key);
 
-        return $cacheData;
+        return json_decode($cacheData);
     }
 
     public function set($key, $value, $ttl = null)
     {
         $key = $this->getKey($key);
-        file_put_contents($key, $value);
+        file_put_contents($key, json_encode($value));
     }
 
     public function delete($key)

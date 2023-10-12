@@ -13,6 +13,6 @@ class MainController extends AbstractApiController
         $playerRepository = new PlayerRepository();
         $players = $playerRepository->initCache($this->getUri());
 
-        $this->responseSuccessJson($players);
+        $this->responseSuccessJson(json_encode($players));
     }
 }

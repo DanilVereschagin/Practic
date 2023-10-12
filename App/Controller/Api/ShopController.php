@@ -13,6 +13,6 @@ class ShopController extends AbstractApiController
         $gameRepository = new GameRepository();
         $games = $gameRepository->initCache($this->getUri());
 
-        $this->responseSuccessJson($games);
+        $this->responseSuccessJson(json_encode($games));
     }
 }

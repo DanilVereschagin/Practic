@@ -21,7 +21,7 @@ class PlayerRepository
 
     public function initCache(string $url)
     {
-        $data = json_encode($this->getAll());
+        $data = $this->getAll();
         $this->cacheService->set($url, $data);
         return $data;
     }
