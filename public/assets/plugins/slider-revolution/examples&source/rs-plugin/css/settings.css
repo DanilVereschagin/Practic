@@ -2355,7 +2355,7 @@ zoom: 1;
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'revicons';
-    src: url('../font/revicons.svg?5510888#revicons') format('svg');
+    public: url('../font/revicons.svg?5510888#revicons') format('svg');
   }
 }
 */

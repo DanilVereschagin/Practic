@@ -5,9 +5,9 @@ declare(strict_types=1);
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-define('APP_ROOT', __DIR__);
+define('APP_ROOT', __DIR__ . '/..');
 
-require 'vendor/autoload.php';
+require APP_ROOT . '/vendor/autoload.php';
 
 use App\Model\Database;
 use App\Model\Session;
