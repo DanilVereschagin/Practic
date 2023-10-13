@@ -141,4 +141,9 @@ class Game extends AbstractModel implements \JsonSerializable
     {
         return get_object_vars($this);
     }
+
+    public function __toArray()
+    {
+        return call_user_func('get_object_vars', $this);
+    }
 }
