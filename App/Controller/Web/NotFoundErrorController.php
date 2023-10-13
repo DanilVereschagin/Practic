@@ -8,6 +8,6 @@ class NotFoundErrorController
 {
     public function execute()
     {
-        require_once APP_ROOT . '/html/404.html';
+        require_once APP_ROOT . '/view/template/404.phtml';
     }
 }
