@@ -13,14 +13,13 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class GetComplexGameInfo
 {
-    protected string $fileFormat = 'csv';
-    public function __construct()
+    public function __construct(?string $fileFormat = 'csv')
     {
         Environment::getInstance(SCRIPT_ROOT);
         Database::getInstance();
-        $this->getInfo();
+        $this->getInfo($fileFormat);
     }
-    public function getInfo()
+    public function getInfo(string $fileFormat)
     {
         $resource = new GameResource();
         $games = $resource->getAll();
@@ -37,7 +36,7 @@ class GetComplexGameInfo
             $gamesComplexInfo[] = $complexInfo;
         }
 
-        switch ($this->fileFormat) {
+        switch ($fileFormat) {
             case 'csv':
                 $this->writeToCsv($gamesComplexInfo);
                 break;
@@ -68,5 +67,3 @@ class GetComplexGameInfo
         $writer->save($path);
     }
 }
-
-$class = new GetComplexGameInfo();
