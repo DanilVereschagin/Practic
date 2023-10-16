@@ -8,9 +8,12 @@ require SCRIPT_ROOT . '/vendor/autoload.php';
 use App\Model\Database;
 use App\Model\Environment;
 use App\Model\Resource\GameResource;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class GetComplexGameInfo
 {
+    protected string $fileFormat = 'csv';
     public function __construct()
     {
         Environment::getInstance(SCRIPT_ROOT);
@@ -24,26 +27,45 @@ class GetComplexGameInfo
         $gamesComplexInfo = [];
 
         foreach ($games as $game) {
-            $gamesComplexInfo[] = $resource->getComplexInfoById($game->getId());
+            $complexInfo = $resource->getComplexInfoById($game->getId());
+            $companyData = (array)$complexInfo->getCompanyObject();
+            $genreData = (array)$complexInfo->getGenreObject();
+            $complexInfo = (array)$complexInfo;
+            array_pop($complexInfo);
+            array_pop($complexInfo);
+            $complexInfo = array_merge($complexInfo, $companyData, $genreData);
+            $gamesComplexInfo[] = $complexInfo;
         }
 
-        $this->writeToFile($gamesComplexInfo);
+        switch ($this->fileFormat) {
+            case 'csv':
+                $this->writeToCsv($gamesComplexInfo);
+                break;
+            case 'xls':
+                $this->writeToExcel($gamesComplexInfo);
+                break;
+        }
     }
 
-    protected function writeToFile(array $dataset)
+    protected function writeToCsv(array $dataset)
     {
         $path = SCRIPT_ROOT .  '/var/output/games_complex_info_' . date('Y-m-d_h:i:s') . '.csv';
         $file = fopen($path, 'w');
         foreach ($dataset as $data) {
-            $companyData = (array)$data->getCompanyObject();
-            $genreData = (array)$data->getGenreObject();
-            $data = (array)$data;
-            array_pop($data);
-            array_pop($data);
-            $data = array_merge($data, $companyData, $genreData);
             fputcsv($file, $data);
         }
         fclose($file);
+    }
+
+    protected function writeToExcel(array $dataset)
+    {
+        $path = SCRIPT_ROOT .  '/var/output/games_complex_info_' . date('Y-m-d_h:i:s') . '.xls';
+        $spreadsheet = new Spreadsheet();
+        $activeWorksheet = $spreadsheet->getActiveSheet();
+        $activeWorksheet->fromArray($dataset, null);
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($path);
     }
 }
 
