@@ -12,19 +12,16 @@ class Environment
     protected static $sectionDb = 'db';
     protected static $sectionCache = 'cache';
 
-    private function __construct(?string $path = APP_ROOT)
+    private function __construct()
     {
         $resource = new EnvironmentResource();
-        self::$_instance = $resource->parseEnvFile($path . '/.env');
+        self::$_instance = $resource->parseEnvFile(APP_ROOT . '/.env');
     }
 
-    public static function getInstance(?string $path = null)
+    public static function getInstance()
     {
         if (self::$_instance === null) {
-            if ($path == null) {
-                $path = APP_ROOT;
-            }
-            new self($path);
+            new self();
         }
 
         return self::$_instance;
