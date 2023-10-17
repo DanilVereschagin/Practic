@@ -14,4 +14,8 @@ $db = Database::getInstance();
 $en = Environment::getInstance();
 
 $router = new CliRouter();
-$router->selectConsoleCommand();
+try {
+    $router->selectConsoleCommand();
+} catch (\App\Model\Exception\ConsoleCommandException $exception) {
+    exit($exception->getMessage());
+}

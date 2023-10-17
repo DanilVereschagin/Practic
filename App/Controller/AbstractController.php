@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Middleware\CacheMiddleware;
-use App\Middleware\MiddlewareInterface;
-use App\Model\HttpMethodNotAllowedException;
-use App\Model\HttpRedirectException;
+use App\Model\Exception\HttpMethodNotAllowedException;
+use App\Model\Exception\HttpRedirectException;
 use App\Model\Repository\CacheRepository;
 use App\Model\Session;
 use App\Ui\ControllerInterface;

@@ -7,8 +7,8 @@ namespace App\Router;
 use App\Controller\AbstractController;
 use App\Controller\Web\NotFoundErrorController;
 use App\Middleware\AuthCheckMiddleware;
-use App\Model\HttpMethodNotAllowedException;
-use App\Model\HttpRedirectException;
+use App\Model\Exception\HttpMethodNotAllowedException;
+use App\Model\Exception\HttpRedirectException;
 
 class Router
 {
