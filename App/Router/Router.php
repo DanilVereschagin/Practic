@@ -9,11 +9,14 @@ use App\Controller\Web\NotFoundErrorController;
 use App\Middleware\AuthCheckMiddleware;
 use App\Model\Exception\HttpMethodNotAllowedException;
 use App\Model\Exception\HttpRedirectException;
+use App\Model\Service\LoggerService;
 
 class Router
 {
     public function selectController(string $route)
     {
+        $log = LoggerService::getInstance();
+
         $controllerMap = require APP_ROOT . '/etc/routes.php';
 
         if ($queryPos = stripos($route, '?')) {
@@ -32,9 +35,11 @@ class Router
                 return;
             } catch (HttpRedirectException $e) {
                 header('Location: ' . $e->getMessage(), true, 302);
+                $log->warning('Web');
                 return;
             } catch (HttpMethodNotAllowedException $e) {
                 http_response_code(405);
+                $log->error('Web');
                 return;
             }
         }

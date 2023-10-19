@@ -15,6 +15,7 @@ use App\Router\ApiRouter;
 use App\Router\Router;
 use App\Model\Environment;
 
+
 $db = Database::getInstance();
 $en = Environment::getInstance();
 Session::getInstance();

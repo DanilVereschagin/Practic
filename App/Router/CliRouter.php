@@ -21,6 +21,7 @@ class CliRouter
 
         if ($class) {
             $consoleCommand = new $class();
+            return;
         }
 
         throw new ConsoleCommandException('incorrect console command');

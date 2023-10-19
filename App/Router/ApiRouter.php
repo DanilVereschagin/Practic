@@ -8,11 +8,14 @@ use App\Controller\AbstractController;
 use App\Controller\Web\NotFoundErrorController;
 use App\Model\Exception\HttpMethodNotAllowedException;
 use App\Model\Exception\HttpRedirectException;
+use App\Model\Service\LoggerService;
 
 class ApiRouter
 {
     public function selectController(string $route)
     {
+        $log = LoggerService::getInstance();
+
         $controllerMap = require APP_ROOT . '/etc/ApiRoutes.php';
 
         $routeParts = explode('/', $route);
@@ -29,9 +32,11 @@ class ApiRouter
                 return;
             } catch (HttpRedirectException $e) {
                 header('Location: ' . $e->getMessage(), true, 302);
+                $log->warning('Api');
                 return;
             } catch (HttpMethodNotAllowedException $e) {
                 http_response_code(405);
+                $log->error('Api');
                 return;
             }
         }

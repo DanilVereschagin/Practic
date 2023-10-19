@@ -27,6 +27,7 @@ use App\Controller\Web\PlayerController;
 use App\Controller\Web\RegistrationController;
 use App\Controller\Web\ShopController;
 use App\Controller\Web\SignInController;
+use App\Controller\Web\SteamApiController;
 use App\Controller\Web\UpdateCompanyController;
 use App\Controller\Web\UpdateGameController;
 use App\Controller\Web\UpdatePlayerController;
@@ -63,4 +64,5 @@ return [
     '/sign-in'        => SignInController::class,
     '/logout'         => LogoutController::class,
     '/error'          => ErrorController::class,
+    '/steam-api'      => SteamApiController::class,
 ];

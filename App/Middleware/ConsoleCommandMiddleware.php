@@ -21,6 +21,12 @@ class ConsoleCommandMiddleware implements MiddlewareInterface
 
     public function handle(string $url)
     {
+        $isCli = substr(php_sapi_name(), 0, 3) === 'cli';
+
+        if (!$isCli) {
+            throw new ConsoleCommandException('Cli executable only');
+        }
+
         $argument = $_SERVER['argv'][1] ?? null;
 
         if (!$argument) {
