@@ -14,8 +14,8 @@ class LoggerService
     private function __construct()
     {
         $log = new Logger('name');
-        $log->pushHandler(new StreamHandler(APP_ROOT . 'var/log/warning.log', Logger::WARNING));
-        $log->pushHandler(new StreamHandler(APP_ROOT . 'var/log/error.log', Logger::ERROR));
+        $log->pushHandler(new StreamHandler(APP_ROOT . '/var/log/warning.log', Logger::WARNING));
+        $log->pushHandler(new StreamHandler(APP_ROOT . '/var/log/error.log', Logger::ERROR));
         self::$log = $log;
     }
 

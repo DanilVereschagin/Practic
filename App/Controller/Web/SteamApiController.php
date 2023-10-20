@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller\Web;
 
-use App\Block\ShopBlock;
 use App\Block\SteamApiBlock;
 use App\Factory\CacheFactory;
 use App\Model\Game;
-use App\Model\Resource\GameResource;
-use App\Model\Service\FakeApiService;
-use GuzzleHttp\Client;
+use App\Model\Service\WebApiSevice\SteamApiService;
 
 class SteamApiController extends AbstractWebController
 {
@@ -20,6 +17,7 @@ class SteamApiController extends AbstractWebController
         $cacheService = $cacheFactory->create();
         $uri = $this->getUri();
 
+        $cacheService->delete($uri);
         if ($cache = $cacheService->get($uri)) {
             $games = [];
             foreach ($cache as $item) {
@@ -27,7 +25,7 @@ class SteamApiController extends AbstractWebController
                 $games[] = $game;
             }
         } else {
-            $fakeApiService = new FakeApiService();
+            $fakeApiService = new SteamApiService();
             $games = $fakeApiService->getGames();
             $cacheService->set($uri, $games);
         }

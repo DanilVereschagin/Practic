@@ -35,11 +35,11 @@ class Router
                 return;
             } catch (HttpRedirectException $e) {
                 header('Location: ' . $e->getMessage(), true, 302);
-                $log->warning('Web');
+                $log->warning('Web', [$e->getMessage()]);
                 return;
             } catch (HttpMethodNotAllowedException $e) {
                 http_response_code(405);
-                $log->error('Web');
+                $log->error('Web', [$e->getMessage()]);
                 return;
             }
         }

@@ -32,11 +32,11 @@ class ApiRouter
                 return;
             } catch (HttpRedirectException $e) {
                 header('Location: ' . $e->getMessage(), true, 302);
-                $log->warning('Api');
+                $log->warning('Api', [$e->getMessage()]);
                 return;
             } catch (HttpMethodNotAllowedException $e) {
                 http_response_code(405);
-                $log->error('Api');
+                $log->error('Api', [$e->getMessage()]);
                 return;
             }
         }

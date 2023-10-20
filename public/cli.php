@@ -18,7 +18,7 @@ $router = new CliRouter();
 try {
     $router->selectConsoleCommand();
 } catch (\App\Model\Exception\ConsoleCommandException $exception) {
-    $log->warning('Cli');
-    $log->error('Cli');
+    $log->warning('Cli', [$exception->getMessage()]);
+    $log->error('Cli', [$exception->getMessage()]);
     exit($exception->getMessage());
 }
