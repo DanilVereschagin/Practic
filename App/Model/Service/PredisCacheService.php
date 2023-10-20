@@ -21,7 +21,11 @@ class PredisCacheService implements CacheInterface
     {
         $cacheData = $this->redis->get($key);
 
-        return json_decode($cacheData);
+        if ($cacheData !== null) {
+            return json_decode($cacheData);
+        }
+
+        return null;
     }
 
     public function set($key, $value, $ttl = null)

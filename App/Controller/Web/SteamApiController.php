@@ -5,33 +5,34 @@ declare(strict_types=1);
 namespace App\Controller\Web;
 
 use App\Block\ShopBlock;
+use App\Block\SteamApiBlock;
+use App\Factory\CacheFactory;
+use App\Model\Game;
+use App\Model\Resource\GameResource;
+use App\Model\Service\FakeApiService;
 use GuzzleHttp\Client;
 
 class SteamApiController extends AbstractWebController
 {
     public function execute()
     {
-        $client = new Client();
-        $res = $client->get('https://api.steampowered.com/ISteamApps/GetAppList/v2/?format=json');
+        $cacheFactory = new CacheFactory();
+        $cacheService = $cacheFactory->create();
+        $uri = $this->getUri();
 
-        if ($res->getStatusCode() === 200) {
-            $res = json_decode($res->getBody()->getContents(), true);
-
+        if ($cache = $cacheService->get($uri)) {
             $games = [];
-            $j = 0;
-            for ($i = 0; $i < 10;) {
-                $resourceInfo = $res['applist']['apps'][$j];
-                if ($resourceInfo['name'] !== '') {
-                    $games[] = $resourceInfo;
-                    $i++;
-                }
-                $j++;
+            foreach ($cache as $item) {
+                $game = new Game(['id' => $item->id, 'name' => $item->name]);
+                $games[] = $game;
             }
-
-            die;
+        } else {
+            $fakeApiService = new FakeApiService();
+            $games = $fakeApiService->getGames();
+            $cacheService->set($uri, $games);
         }
 
-        $block = new ShopBlock();
+        $block = new SteamApiBlock($games);
         $block->render();
     }
 }
