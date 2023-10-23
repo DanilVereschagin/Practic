@@ -2,6 +2,7 @@
 /**
  * @var \App\Block\MainBlock $this
  */
+$dog = $this->getDog();
 ?>
 <html lang="en">
 <head>
@@ -23,6 +24,9 @@
         </section>
 
         <div class="youplay-content">
+            <div class="img">
+                <img src="<?= $dog['url'] ?>" style="max-width: 30%; max-height: 30%" alt="">
+            </div><p></p>
                 <?php $i = 0; foreach($this->getAllPlayer() as $player): ?>
                     <?php if ($i == 0): ?>
                         <section class="youplay-features container shop">

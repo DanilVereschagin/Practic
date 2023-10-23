@@ -17,7 +17,6 @@ class SteamApiController extends AbstractWebController
         $cacheService = $cacheFactory->create();
         $uri = $this->getUri();
 
-        $cacheService->delete($uri);
         if ($cache = $cacheService->get($uri)) {
             $games = [];
             foreach ($cache as $item) {

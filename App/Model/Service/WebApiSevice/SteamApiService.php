@@ -5,22 +5,9 @@ declare(strict_types=1);
 namespace App\Model\Service\WebApiSevice;
 
 use App\Model\Game;
-use GuzzleHttp\Client;
 
-class SteamApiService
+class SteamApiService extends AbstractWebApiService
 {
-    protected function getApiResponse(string $uri)
-    {
-        $client = new Client();
-        $res = $client->get($uri);
-
-        if ($res->getStatusCode() === 200) {
-            return json_decode($res->getBody()->getContents(), true);
-        }
-
-        return null;
-    }
-
     public function getGames()
     {
         $res = $this->getApiResponse('https://api.steampowered.com/ISteamApps/GetAppList/v2/?format=json');
