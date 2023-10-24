@@ -31,6 +31,7 @@ use App\Controller\Web\SteamApiController;
 use App\Controller\Web\UpdateCompanyController;
 use App\Controller\Web\UpdateGameController;
 use App\Controller\Web\UpdatePlayerController;
+use App\Controller\Service\MailingController;
 
 return [
     '/'               => MainController::class,
@@ -65,4 +66,5 @@ return [
     '/logout'         => LogoutController::class,
     '/error'          => ErrorController::class,
     '/steam-api'      => SteamApiController::class,
+    '/mailing'        => MailingController::class,
 ];
