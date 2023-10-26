@@ -10,6 +10,7 @@ define('APP_ROOT', __DIR__ . '/..');
 require APP_ROOT . '/vendor/autoload.php';
 
 use App\Model\Database;
+use App\Model\Service\WebApiSevice\SendinBlueApiService;
 use App\Model\Session;
 use App\Router\ApiRouter;
 use App\Router\Router;
@@ -18,6 +19,7 @@ use App\Model\Environment;
 
 $db = Database::getInstance();
 $en = Environment::getInstance();
+SendinBlueApiService::getInstance();
 Session::getInstance();
 
 $requestUri = $_SERVER['REQUEST_URI'] ?? null;

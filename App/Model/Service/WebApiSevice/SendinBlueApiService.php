@@ -7,10 +7,11 @@ namespace App\Model\Service\WebApiSevice;
 use GuzzleHttp\Client;
 use SendinBlue\Client\Api\TransactionalEmailsApi;
 use SendinBlue\Client\Configuration;
+use SendinBlue\Client\Model\SendSmtpEmail;
 
 class SendinBlueApiService
 {
-    protected static TransactionalEmailsApi $apiInstance;
+    protected static $apiInstance = null;
 
     protected function __construct()
     {
@@ -40,8 +41,35 @@ class SendinBlueApiService
         $sendSmtpEmail['subject'] = $subject;
         $sendSmtpEmail['htmlContent'] = $htmlContent;
         $sendSmtpEmail['sender'] = ['name' => 'Orion Games', 'email' => 'orion.games@gmail.com'];
-        $sendSmtpEmail['to'] = $to;
+        $sendSmtpEmail['to'] = [$to];
 
         return $sendSmtpEmail;
+    }
+
+    public static function getSmtpEmails(string $subject, string $htmlContent, array $to)
+    {
+        $sendSmtpEmails = [];
+        foreach ($to as $player) {
+            $html = str_replace('Товарищ', $player['name'], $htmlContent);
+            $sendSmtpEmails[] = self::getSmtpEmail($subject, $html, $player);
+        }
+
+        return $sendSmtpEmails;
+    }
+
+    public static function sendSmtpEmail(SendSmtpEmail $email)
+    {
+        try {
+            $result = self::$apiInstance->sendTransacEmail($email);
+        } catch (\Exception $e) {
+            echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
+        }
+    }
+
+    public static function sendSmtpEmails(array $emails)
+    {
+        foreach ($emails as $email) {
+            self::sendSmtpEmail($email);
+        }
     }
 }
