@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Service\WebApiSevice;
 
+use App\Model\Environment;
 use GuzzleHttp\Client;
 use SendinBlue\Client\Api\TransactionalEmailsApi;
 use SendinBlue\Client\Configuration;
@@ -40,7 +41,10 @@ class SendinBlueApiService
         $sendSmtpEmail = new \SendinBlue\Client\Model\SendSmtpEmail();
         $sendSmtpEmail['subject'] = $subject;
         $sendSmtpEmail['htmlContent'] = $htmlContent;
-        $sendSmtpEmail['sender'] = ['name' => 'Orion Games', 'email' => 'orion.games@gmail.com'];
+        $sendSmtpEmail['sender'] = [
+            'name' => Environment::getMailSetting('NAME'),
+            'email' => Environment::getMailSetting('EMAIL')
+        ];
         $sendSmtpEmail['to'] = [$to];
 
         return $sendSmtpEmail;

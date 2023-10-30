@@ -11,6 +11,7 @@ class Environment
     protected static $_instance;
     protected static $sectionDb = 'db';
     protected static $sectionCache = 'cache';
+    protected static $sectionMail = 'mail';
 
     private function __construct()
     {
@@ -35,6 +36,11 @@ class Environment
     public static function getCacheSetting(string $setting)
     {
         return self::getInstance()[self::$sectionCache][$setting] ?? null;
+    }
+
+    public static function getMailSetting(string $setting)
+    {
+        return self::getInstance()[self::$sectionMail][$setting] ?? null;
     }
 
     private function __clone()
