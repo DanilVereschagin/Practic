@@ -55,7 +55,6 @@ class EmailService
     protected function getHtmlContent()
     {
         $block = new EmailBlock();
-        $block->render();
         return $block->getRenderedTemplate();
     }
 }

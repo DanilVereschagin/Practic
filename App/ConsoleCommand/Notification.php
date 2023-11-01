@@ -11,7 +11,7 @@ class Notification
     protected ?string $email;
     public function __construct()
     {
-        $this->email = $_SERVER['argv'][2] ?: null;
+        $this->email = $_SERVER['argv'][2] ?? null;
         $this->sendMail();
     }
 

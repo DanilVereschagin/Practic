@@ -18,7 +18,7 @@ class SendinBlueApiService
     {
         $config = Configuration::getDefaultConfiguration()->setApiKey(
             'api-key',
-            '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'
+            Environment::getMailSetting('SENDINBLUE')
         );
 
         self::$apiInstance = new TransactionalEmailsApi(
