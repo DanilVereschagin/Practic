@@ -10,11 +10,13 @@ define('APP_ROOT', __DIR__ . '/..');
 require APP_ROOT . '/vendor/autoload.php';
 
 use App\Model\Database;
+use App\Model\DiContainer;
 use App\Model\Service\WebApiSevice\SendinBlueApiService;
 use App\Model\Session;
 use App\Router\ApiRouter;
-use App\Router\Router;
+use App\Router\WebRouter;
 use App\Model\Environment;
+use Laminas\Di\Di;
 
 
 $db = Database::getInstance();
@@ -24,10 +26,14 @@ Session::getInstance();
 
 $requestUri = $_SERVER['REQUEST_URI'] ?? null;
 
+$di = new Di();
+$dic = new DiContainer($di);
+$dic->assemble();
+
 if (strripos($requestUri, '/api/') !== false) {
-    $router = new ApiRouter();
+    $router = $di->get(ApiRouter::class);
     $router->selectController($requestUri);
 } else {
-    $router = new Router();
+    $router = $di->get(WebRouter::class);
     $router->selectController($requestUri);
 }

@@ -9,15 +9,20 @@ use App\Model\Exception\ConsoleCommandException;
 
 class CliRouter
 {
+    protected $cliRoutes;
+
+    public function __construct(array $cliRoutes)
+    {
+        $this->cliRoutes = $cliRoutes;
+    }
+
     public function selectConsoleCommand()
     {
-        $consoleMap = require APP_ROOT . '/etc/ConsoleRoutes.php';
-
         $consoleCommand = new ConsoleCommandMiddleware();
         $consoleCommand->handle('argv');
 
         $argument = $_SERVER['argv'][1];
-        $class = $consoleMap[$argument] ?? null;
+        $class = $this->cliRoutes[$argument] ?? null;
 
         if ($class) {
             $consoleCommand = new $class();

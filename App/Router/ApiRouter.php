@@ -12,17 +12,22 @@ use App\Model\Service\LoggerService;
 
 class ApiRouter
 {
+    protected $apiRoutes;
+
+    public function __construct(array $apiRoutes)
+    {
+        $this->apiRoutes = $apiRoutes;
+    }
+
     public function selectController(string $route)
     {
         $log = LoggerService::getInstance();
-
-        $controllerMap = require APP_ROOT . '/etc/ApiRoutes.php';
 
         $routeParts = explode('/', $route);
 
         $route = '/' . $routeParts[2];
 
-        $class = $controllerMap[$route] ?? null;
+        $class = $this->apiRoutes[$route] ?? null;
 
         if ($class) {
             try {

@@ -19,6 +19,8 @@
     "monolog/monolog": "^2.9",
     "guzzlehttp/guzzle": "^7.0",
     "predis/predis": "^2.2",
-    "sendinblue/api-v3-sdk": "8.x.x"
+    "sendinblue/api-v3-sdk": "8.x.x",
+    "laminas/laminas-di": "^2.0",
+    "laminas/laminas-code": "~3.4.1"
   }
 }

@@ -10,27 +10,35 @@ use App\Middleware\AuthCheckMiddleware;
 use App\Model\Exception\HttpMethodNotAllowedException;
 use App\Model\Exception\HttpRedirectException;
 use App\Model\Service\LoggerService;
+use Laminas\Di\Di;
 
-class Router
+class WebRouter
 {
+    protected $routes;
+    protected $di;
+
+    public function __construct(Di $di, array $routes = [])
+    {
+        $this->di = $di;
+        $this->routes = $routes;
+    }
+
     public function selectController(string $route)
     {
         $log = LoggerService::getInstance();
-
-        $controllerMap = require APP_ROOT . '/etc/routes.php';
 
         if ($queryPos = stripos($route, '?')) {
             $route = substr($route, 0, $queryPos);
         }
 
-        $class = $controllerMap[$route] ?? null;
+        $class = $this->routes[$route] ?? null;
 
         if ($class) {
             try {
                 $authchecker = new AuthCheckMiddleware();
                 $authchecker->handle($route);
                 /** @var AbstractController $controller */
-                $controller = new $class();
+                $controller = $this->di->get($class);
                 $controller->execute();
                 return;
             } catch (HttpRedirectException $e) {
