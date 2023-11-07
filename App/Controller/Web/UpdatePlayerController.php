@@ -6,9 +6,16 @@ namespace App\Controller\Web;
 
 use App\Model\Resource\PlayerResource;
 use App\Model\Session;
+use Laminas\Di\Di;
 
 class UpdatePlayerController extends AbstractWebController
 {
+    public function __construct(Di $di)
+    {
+        parent::__construct($di);
+        $this->di = $di;
+    }
+
     public function execute()
     {
         if (!$this->isPost()) {

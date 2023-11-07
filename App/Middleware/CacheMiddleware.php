@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
-use App\Factory\CacheFactory;
+use Psr\SimpleCache\CacheInterface;
 
 class CacheMiddleware implements MiddlewareInterface
 {
     protected MiddlewareInterface $next;
+    protected $cacheService;
+
+    public function __construct(CacheInterface $cacheService)
+    {
+        $this->cacheService = $cacheService;
+    }
 
     public function setNext(MiddlewareInterface $handle)
     {
@@ -22,12 +28,9 @@ class CacheMiddleware implements MiddlewareInterface
 
     public function handle(string $url)
     {
-        $cacheFactory = new CacheFactory();
-        $cacheService = $cacheFactory->create();
-
-        if ($cache = $cacheService->get($url)) {
+        if ($cache = $this->cacheService->get($url)) {
             header('Content-Type: application/json');
-            echo $cache;
+            echo json_encode($cache);
             exit;
         }
     }

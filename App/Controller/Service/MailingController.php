@@ -7,9 +7,16 @@ namespace App\Controller\Service;
 use App\Block\MailingBlock;
 use App\Controller\AbstractController;
 use App\Model\Service\EmailService;
+use Laminas\Di\Di;
 
 class MailingController extends AbstractController
 {
+    public function __construct(Di $di)
+    {
+        parent::__construct($di);
+        $this->di = $di;
+    }
+
     public function execute()
     {
         $subject = 'Have you forgotten about us?';

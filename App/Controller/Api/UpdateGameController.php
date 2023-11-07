@@ -6,9 +6,16 @@ namespace App\Controller\Api;
 
 use App\Model\Repository\GameRepository;
 use App\Model\Resource\GameResource;
+use Laminas\Di\Di;
 
 class UpdateGameController extends AbstractApiController
 {
+    public function __construct(Di $di)
+    {
+        parent::__construct($di);
+        $this->di = $di;
+    }
+
     public function execute()
     {
         if (!$this->isPut()) {

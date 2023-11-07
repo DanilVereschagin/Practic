@@ -38,7 +38,7 @@ class WebRouter
                 $authchecker = new AuthCheckMiddleware();
                 $authchecker->handle($route);
                 /** @var AbstractController $controller */
-                $controller = $this->di->get($class);
+                $controller = $this->di->get($class, ['di' => $this->di]);
                 $controller->execute();
                 return;
             } catch (HttpRedirectException $e) {

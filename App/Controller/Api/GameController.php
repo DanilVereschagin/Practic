@@ -9,9 +9,16 @@ use App\Controller\Web\AbstractWebController;
 use App\Model\Resource\CommentResource;
 use App\Model\Resource\CompanyResource;
 use App\Model\Resource\GameResource;
+use Laminas\Di\Di;
 
 class GameController extends AbstractApiController
 {
+    public function __construct(Di $di)
+    {
+        parent::__construct($di);
+        $this->di = $di;
+    }
+
     public function execute()
     {
         $id = $this->getIdParam();

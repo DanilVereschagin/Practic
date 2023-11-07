@@ -8,9 +8,16 @@ use App\Block\SteamApiBlock;
 use App\Factory\CacheFactory;
 use App\Model\Game;
 use App\Model\Service\WebApiSevice\SteamApiService;
+use Laminas\Di\Di;
 
 class SteamApiController extends AbstractWebController
 {
+    public function __construct(Di $di)
+    {
+        parent::__construct($di);
+        $this->di = $di;
+    }
+
     public function execute()
     {
         $cacheFactory = new CacheFactory();

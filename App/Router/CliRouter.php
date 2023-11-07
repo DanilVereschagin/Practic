@@ -6,13 +6,16 @@ namespace App\Router;
 
 use App\Middleware\ConsoleCommandMiddleware;
 use App\Model\Exception\ConsoleCommandException;
+use Laminas\Di\Di;
 
 class CliRouter
 {
     protected $cliRoutes;
+    protected $di;
 
-    public function __construct(array $cliRoutes)
+    public function __construct(Di $di, array $cliRoutes)
     {
+        $this->di = $di;
         $this->cliRoutes = $cliRoutes;
     }
 
@@ -25,7 +28,7 @@ class CliRouter
         $class = $this->cliRoutes[$argument] ?? null;
 
         if ($class) {
-            $consoleCommand = new $class();
+            $consoleCommand = $this->di->get($class, ['di' => $this->di]);
             return;
         }
 

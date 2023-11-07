@@ -10,12 +10,12 @@ define('APP_ROOT', __DIR__ . '/..');
 require APP_ROOT . '/vendor/autoload.php';
 
 use App\Model\Database;
-use App\Model\DiContainer;
+use App\Model\DiC\DiContainer;
+use App\Model\Environment;
 use App\Model\Service\WebApiSevice\SendinBlueApiService;
 use App\Model\Session;
 use App\Router\ApiRouter;
 use App\Router\WebRouter;
-use App\Model\Environment;
 use Laminas\Di\Di;
 
 

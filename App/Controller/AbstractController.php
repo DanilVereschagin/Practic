@@ -7,21 +7,33 @@ namespace App\Controller;
 use App\Middleware\CacheMiddleware;
 use App\Model\Exception\HttpMethodNotAllowedException;
 use App\Model\Exception\HttpRedirectException;
-use App\Model\Repository\CacheRepository;
 use App\Model\Session;
 use App\Ui\ControllerInterface;
+use Laminas\Di\Di;
 
 abstract class AbstractController implements ControllerInterface
 {
-
-    public function __construct()
+    protected $di;
+    public function __construct(Di $di)
     {
-        $cacheMiddleware = new CacheMiddleware();
-        $cacheMiddleware->handle($this->getUri());
+        $this->di = $di;
+        $this->getCache();
         $this->protectFromCsrf();
     }
 
     abstract public function execute();
+
+    protected function getCache()
+    {
+        $url = $this->getUri();
+
+        if (strpos($url, 'api') === false) {
+            return;
+        }
+
+        $cacheMiddleware = $this->di->get(CacheMiddleware::class, ['di' => $this->di]);
+        $cacheMiddleware->handle($this->getUri());
+    }
 
     protected function getUri()
     {

@@ -6,9 +6,16 @@ namespace App\Controller\Web;
 
 use App\Block\ErrorBlock;
 use App\Model\Session;
+use Laminas\Di\Di;
 
 class ErrorController extends AbstractWebController
 {
+    public function __construct(Di $di)
+    {
+        parent::__construct($di);
+        $this->di = $di;
+    }
+
     public function execute()
     {
         $message = Session::getMessage();

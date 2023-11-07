@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Model;
+namespace App\Model\DiC;
 
 use App\Router\ApiRouter;
 use App\Router\CliRouter;
 use App\Router\WebRouter;
 use Laminas\Di\Di;
 
-class DiContainer
+class DiRouters
 {
     protected $di;
     protected $instanceManager;
@@ -22,22 +22,11 @@ class DiContainer
 
     public function assemble()
     {
-        $reflection = new \ReflectionClass($this);
-
-        foreach ($reflection->getMethods(\ReflectionMethod::IS_PROTECTED) as $method) {
-            if (strpos($method->getName(), 'assemble') == 0) {
-                $method->setAccessible(true);
-                $method->invoke($this);
-            }
-        }
-    }
-
-    protected function assembleRouters()
-    {
         $this->instanceManager->setParameters(
             WebRouter::class,
             [
                 'routes' => require APP_ROOT . '/etc/routes.php',
+                'di'     => $this->di,
             ]
         );
 
@@ -45,6 +34,7 @@ class DiContainer
             ApiRouter::class,
             [
                 'apiRoutes' => require APP_ROOT . '/etc/ApiRoutes.php',
+                'di'     => $this->di,
             ]
         );
 
@@ -52,12 +42,8 @@ class DiContainer
             CliRouter::class,
             [
                 'cliRoutes' => require APP_ROOT . '/etc/ConsoleRoutes.php',
+                'di'     => $this->di,
             ]
         );
-    }
-
-    protected function assembleAbstract()
-    {
-
     }
 }

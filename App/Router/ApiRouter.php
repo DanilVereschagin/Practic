@@ -9,13 +9,16 @@ use App\Controller\Web\NotFoundErrorController;
 use App\Model\Exception\HttpMethodNotAllowedException;
 use App\Model\Exception\HttpRedirectException;
 use App\Model\Service\LoggerService;
+use Laminas\Di\Di;
 
 class ApiRouter
 {
     protected $apiRoutes;
+    protected $di;
 
-    public function __construct(array $apiRoutes)
+    public function __construct(Di $di, array $apiRoutes)
     {
+        $this->di = $di;
         $this->apiRoutes = $apiRoutes;
     }
 
@@ -32,7 +35,7 @@ class ApiRouter
         if ($class) {
             try {
                 /** @var AbstractController $controller */
-                $controller = new $class();
+                $controller = $this->di->get($class, ['di' => $this->di]);
                 $controller->execute();
                 return;
             } catch (HttpRedirectException $e) {

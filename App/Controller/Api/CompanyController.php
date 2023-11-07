@@ -9,9 +9,16 @@ use App\Controller\Web\AbstractWebController;
 use App\Model\Resource\CompanyResource;
 use App\Model\Resource\PlayerResource;
 use App\Model\Session;
+use Laminas\Di\Di;
 
 class CompanyController extends AbstractApiController
 {
+    public function __construct(Di $di)
+    {
+        parent::__construct($di);
+        $this->di = $di;
+    }
+
     public function execute()
     {
         $id = $this->getIdParam();
