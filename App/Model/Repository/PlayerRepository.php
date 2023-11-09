@@ -5,18 +5,29 @@ declare(strict_types=1);
 namespace App\Model\Repository;
 
 use App\Factory\CacheFactory;
+use App\Factory\ResourceFactory;
+use App\Factory\ServiceFactory;
 use App\Model\Resource\PlayerResource;
 use App\Model\Service\PasswordService;
+use Laminas\Di\Di;
 use Psr\SimpleCache\CacheInterface;
 
-class PlayerRepository
+class PlayerRepository extends AbstractRepository
 {
     protected CacheInterface $cacheService;
+    protected $resourceFactory;
+    protected $serviceFactory;
 
-    public function __construct()
-    {
-        $cacheFactory = new CacheFactory();
-        $this->cacheService = $cacheFactory->create();
+    public function __construct(
+        CacheInterface $cacheService,
+        Di $di,
+        ResourceFactory $resourceFactory,
+        ServiceFactory $serviceFactory
+    ) {
+        $this->cacheService = $cacheService;
+        $this->di = $di;
+        $this->resourceFactory = $resourceFactory;
+        $this->serviceFactory = $serviceFactory;
     }
 
     public function initCache(string $url)
@@ -46,14 +57,14 @@ class PlayerRepository
         $data['date_of_registration'] = date('Y-m-d h:i:s');
         $data['is_admin'] = 0;
         $data['fake_hour'] = 0;
-        $password = new PasswordService();
+        $password = $this->serviceFactory->create('password', ['di' => $this->di]);
         $data['password'] = $password->hashPassword($data['password']);
         return $data;
     }
 
     public function getAll()
     {
-        $resource = new PlayerResource();
+        $resource = $this->resourceFactory->create('player', ['di' => $this->di]);
         return $resource->getAllPlayers();
     }
 }

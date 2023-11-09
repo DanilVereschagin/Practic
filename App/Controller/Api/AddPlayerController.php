@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Model\Repository\PlayerRepository;
-use App\Model\Resource\PlayerResource;
+use App\Factory\RepositoryFactory;
+use App\Factory\ResourceFactory;
 use Laminas\Di\Di;
 
 class AddPlayerController extends AbstractApiController
 {
-    public function __construct(Di $di)
+    protected $resourceFactory;
+    protected $repositoryFactory;
+
+    public function __construct(Di $di, ResourceFactory $resourceFactory, RepositoryFactory $repositoryFactory)
     {
         parent::__construct($di);
         $this->di = $di;
+        $this->resourceFactory = $resourceFactory;
+        $this->repositoryFactory = $repositoryFactory;
     }
 
     public function execute()
@@ -23,7 +28,7 @@ class AddPlayerController extends AbstractApiController
         }
 
         $post = $this->getRowBody();
-        $resource = new PlayerResource();
+        $resource = $this->resourceFactory->create('player', ['di' => $this->di]);
         $player = $resource->getByMail($post['mail']);
 
         if (!is_null($player->getMail())) {
@@ -31,7 +36,7 @@ class AddPlayerController extends AbstractApiController
             return;
         }
 
-        $playerRepository = new PlayerRepository();
+        $playerRepository = $this->repositoryFactory->create('player', ['di' => $this->di]);
         $post = $playerRepository->setDefaultValues($post);
         $resource->add($post);
 

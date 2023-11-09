@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Model\Resource\CompanyResource;
+use App\Factory\ResourceFactory;
 use Laminas\Di\Di;
 
 class UpdateCompanyController extends AbstractApiController
 {
-    public function __construct(Di $di)
+    protected $resourceFactory;
+
+    public function __construct(Di $di, ResourceFactory $resourceFactory)
     {
         parent::__construct($di);
         $this->di = $di;
+        $this->resourceFactory = $resourceFactory;
     }
 
     public function execute()
@@ -22,7 +25,7 @@ class UpdateCompanyController extends AbstractApiController
         }
 
         $post = $this->getRowBody();
-        $resource = new CompanyResource();
+        $resource = $this->resourceFactory->create('company', ['di' => $this->di]);
         $resource->update($post);
 
         $company = $resource->getById($post['id']);

@@ -5,17 +5,21 @@ declare(strict_types=1);
 namespace App\Model\Repository;
 
 use App\Factory\CacheFactory;
+use App\Factory\ResourceFactory;
 use App\Model\Resource\GameResource;
+use Laminas\Di\Di;
 use Psr\SimpleCache\CacheInterface;
 
-class GameRepository
+class GameRepository extends AbstractRepository
 {
     protected CacheInterface $cacheService;
+    protected $resourceFactory;
 
-    public function __construct()
+    public function __construct(CacheInterface $cacheService, Di $di, ResourceFactory $resourceFactory)
     {
-        $cacheFactory = new CacheFactory();
-        $this->cacheService = $cacheFactory->create();
+        $this->cacheService = $cacheService;
+        $this->di = $di;
+        $this->resourceFactory = $resourceFactory;
     }
 
     public function initCache(string $url)
@@ -42,7 +46,7 @@ class GameRepository
 
     public function getAll()
     {
-        $resource = new GameResource();
+        $resource = $this->resourceFactory->create('game', ['di' => $this->di]);
         return $resource->getAll();
     }
 }
