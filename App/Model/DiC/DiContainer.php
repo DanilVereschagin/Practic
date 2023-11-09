@@ -49,4 +49,11 @@ class DiContainer
         $diCaches = $this->di->get(DiCaches::class, ['di' => $this->di]);
         $diCaches->assemble();
     }
+
+    protected function assembleInstance()
+    {
+        /** @var DiInstance $diInstance */
+        $diCaches = $this->di->get(DiInstance::class, ['di' => $this->di]);
+        $diCaches->assemble();
+    }
 }
