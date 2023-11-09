@@ -6,9 +6,15 @@ namespace App\Block;
 
 use App\Model\Company;
 use App\Model\Resource\CompanyResource;
+use Laminas\Di\Di;
 
 class CompaniesBlock extends AbstractAdminBlock
 {
+    public function __construct(Di $di)
+    {
+        $this->di = $di;
+    }
+
     public function renderTemplate()
     {
         require APP_ROOT . '/view/template/companies.phtml';
@@ -19,7 +25,7 @@ class CompaniesBlock extends AbstractAdminBlock
      */
     public function getAllCompanies(): array
     {
-        $companyResource = new CompanyResource();
+        $companyResource = $this->di->get(CompanyResource::class, ['di' => $this->di]);
         return $companyResource->getAll();
     }
 }

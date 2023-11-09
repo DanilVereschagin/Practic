@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace App\Controller\Web;
 
-use App\Model\Resource\PlayerResource;
-use App\Model\Service\PasswordService;
+use App\Factory\ResourceFactory;
+use App\Factory\ServiceFactory;
 use App\Model\Session;
 use Laminas\Di\Di;
 
 class SignInController extends AbstractWebController
 {
-    public function __construct(Di $di)
+    protected $resourceFactory;
+    protected $serviceFactory;
+
+    public function __construct(Di $di, ResourceFactory $resourceFactory, ServiceFactory $serviceFactory)
     {
         parent::__construct($di);
+        $this->serviceFactory = $serviceFactory;
+        $this->resourceFactory = $resourceFactory;
         $this->di = $di;
     }
 
@@ -24,9 +29,9 @@ class SignInController extends AbstractWebController
         }
 
         $post = $this->getPostValues(['mail', 'password']);
-        $resource = new PlayerResource();
+        $resource = $this->resourceFactory->create('player', ['di' => $this->di]);
         $player = $resource->getByMail($post['mail']);
-        $password = new PasswordService();
+        $password = $this->serviceFactory->create('password', ['di' => $this->di]);
 
         if ($password->verifyPassword($post['password'], $player->getPassword())) {
             Session::setClientId($player->getId());

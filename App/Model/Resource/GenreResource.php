@@ -6,10 +6,18 @@ namespace App\Model\Resource;
 
 use App\Model\Database;
 use App\Model\Genre;
+use Laminas\Di\Di;
 
 class GenreResource extends AbstractResource
 {
     protected string $table = 'genre';
+    protected $di;
+
+    public function __construct(Di $di)
+    {
+        parent::__construct($di);
+        $this->di = $di;
+    }
 
     /**
      * @param string|null $name
@@ -23,7 +31,7 @@ class GenreResource extends AbstractResource
         $query->execute(['name' => $name]);
         $genreInfo = $query->fetch();
 
-        $genre = new Genre($genreInfo);
+        $genre = $this->di->get(Genre::class, ['data' => $genreInfo]);
 
         return $genre;
     }

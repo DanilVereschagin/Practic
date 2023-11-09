@@ -9,13 +9,15 @@ use App\Model\Database;
 use App\Model\Game;
 use App\Model\Resource\CommentResource;
 use App\Model\Resource\GameResource;
+use Laminas\Di\Di;
 
 class AdminGameBlock extends AbstractAdminBlock
 {
     protected ?int $id;
 
-    public function __construct(?int $id)
+    public function __construct(?int $id, Di $di)
     {
+        $this->di = $di;
         $this->id = $id;
     }
 
@@ -26,7 +28,7 @@ class AdminGameBlock extends AbstractAdminBlock
 
     public function getGameInfo(): Game
     {
-        $gameResource = new GameResource();
+        $gameResource = $this->di->get(GameResource::class, ['di' => $this->di]);
         return $gameResource->getComplexInfoById($this->id);
     }
 
@@ -35,7 +37,7 @@ class AdminGameBlock extends AbstractAdminBlock
      */
     public function getParentComments(): array
     {
-        $commentResource = new CommentResource();
+        $commentResource = $this->di->get(CommentResource::class, ['di' => $this->di]);
         return $commentResource->getParentComments($this->id);
     }
 
@@ -44,7 +46,7 @@ class AdminGameBlock extends AbstractAdminBlock
      */
     public function getChildComments(): array
     {
-        $commentResource = new CommentResource();
+        $commentResource = $this->di->get(CommentResource::class, ['di' => $this->di]);
         return $commentResource->getChildComments($this->id);
     }
 }

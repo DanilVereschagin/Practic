@@ -5,10 +5,17 @@ declare(strict_types=1);
 namespace App\Model\Resource;
 
 use App\Model\Database;
+use Laminas\Di\Di;
 
 class AbstractResource
 {
     protected string $table = '';
+    protected $di;
+
+    public function __construct(Di $di)
+    {
+        $this->di = $di;
+    }
 
     /**
      * @return array
@@ -21,7 +28,7 @@ class AbstractResource
 
         $entities = [];
         foreach ($rowset as $row) {
-            $entity = new $entityModel($row);
+            $entity = $this->di->get($entityModel, ['data' => $row]);
             $entities[] = $entity;
         }
 
@@ -37,7 +44,7 @@ class AbstractResource
         $query->execute(['ID' => $id]);
         $info = $query->fetch();
 
-        $entity = new $entityModel($info);
+        $entity = $this->di->get($entityModel, ['data' => $info]);
 
         return $entity;
     }

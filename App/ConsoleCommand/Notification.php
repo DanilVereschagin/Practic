@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace App\ConsoleCommand;
 
+use App\Factory\ServiceFactory;
 use App\Model\Service\EmailService;
+use Laminas\Di\Di;
 
 class Notification
 {
     protected ?string $email;
-    public function __construct()
+    protected $serviceFactory;
+    protected $di;
+    public function __construct(Di $di, ServiceFactory $serviceFactory)
     {
+        $this->di = $di;
+        $this->serviceFactory = $serviceFactory;
         $this->email = $_SERVER['argv'][2] ?? null;
         $this->sendMail();
     }
@@ -25,7 +31,7 @@ class Notification
 
         $subject = 'Have you forgotten about us?';
 
-        $service = new EmailService();
+        $service = $this->serviceFactory->create('email', ['di' => $this->di]);
         $service->sendMailing($subject, $this->email);
     }
 }

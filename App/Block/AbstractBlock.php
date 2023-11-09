@@ -3,11 +3,14 @@
 namespace App\Block;
 
 use App\Model\Session;
+use Laminas\Di\Di;
 
 class AbstractBlock
 {
     protected $template;
     protected $renderedTemplate;
+    protected Di $di;
+
     public function render()
     {
         require_once APP_ROOT . '/view/layout/player-layout.phtml';

@@ -6,9 +6,15 @@ namespace App\Block;
 
 use App\Model\Player;
 use App\Model\Resource\PlayerResource;
+use Laminas\Di\Di;
 
 class AdminBlock extends AbstractAdminBlock
 {
+    public function __construct(Di $di)
+    {
+        $this->di = $di;
+    }
+
     public function renderTemplate()
     {
         require APP_ROOT . '/view/template/admin.phtml';
@@ -19,7 +25,7 @@ class AdminBlock extends AbstractAdminBlock
      */
     public function getAllAdmins(): array
     {
-        $playerResource = new PlayerResource();
+        $playerResource = $this->di->get(PlayerResource::class, ['di' => $this->di]);
         return $playerResource->getAllAdmins();
     }
 }

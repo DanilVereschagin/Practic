@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model;
 
 use App\Model\Resource\EnvironmentResource;
+use Laminas\Di\Di;
 
 class Environment
 {
@@ -13,16 +14,21 @@ class Environment
     protected static $sectionCache = 'cache';
     protected static $sectionMail = 'mail';
 
-    private function __construct()
+    private function __construct(Di $di = null)
     {
-        $resource = new EnvironmentResource();
+        if ($di) {
+            $resource = $di->get(EnvironmentResource::class, ['di' => $di]);
+        } else {
+            $resource = new EnvironmentResource();
+        }
+
         self::$_instance = $resource->parseEnvFile(APP_ROOT . '/.env');
     }
 
-    public static function getInstance()
+    public static function getInstance(Di $di = null)
     {
         if (self::$_instance === null) {
-            new self();
+            new self($di);
         }
 
         return self::$_instance;

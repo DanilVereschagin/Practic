@@ -8,13 +8,15 @@ use App\Model\Game;
 use App\Model\Player;
 use App\Model\Resource\GameResource;
 use App\Model\Resource\PlayerResource;
+use Laminas\Di\Di;
 
 class LibraryBlock extends AbstractBlock
 {
     protected int $id;
 
-    public function __construct(int $id)
+    public function __construct(int $id, Di $di)
     {
+        $this->di = $di;
         $this->id = $id;
     }
 
@@ -26,7 +28,7 @@ class LibraryBlock extends AbstractBlock
 
     public function getPlayerInfo(): Player
     {
-        $playerResource = new PlayerResource();
+        $playerResource = $this->di->get(PlayerResource::class, ['di' => $this->di]);
         return $playerResource->getById($this->id);
     }
 
@@ -35,7 +37,7 @@ class LibraryBlock extends AbstractBlock
      */
     public function getGames(): array
     {
-        $gameResource = new GameResource();
+        $gameResource = $this->di->get(GameResource::class, ['di' => $this->di]);
         return $gameResource->getLibraryGames($this->id);
     }
 }

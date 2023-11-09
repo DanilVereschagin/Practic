@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use Laminas\Di\Di;
+
 class AbstractModel
 {
+    protected Di $di;
     protected function setData(?array $data = [])
     {
         foreach ($data as $datum => $value) {

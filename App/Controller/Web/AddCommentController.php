@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace App\Controller\Web;
 
-use App\Model\Resource\CommentResource;
+use App\Factory\ResourceFactory;
 use App\Model\Session;
 use Laminas\Di\Di;
 
 class AddCommentController extends AbstractWebController
 {
-    public function __construct(Di $di)
+    protected $factory;
+    public function __construct(Di $di, ResourceFactory $factory)
     {
         parent::__construct($di);
+        $this->factory = $factory;
         $this->di = $di;
     }
 
@@ -32,7 +34,7 @@ class AddCommentController extends AbstractWebController
             'date_of_writing'    => date('Y-m-d h:i:s'),
         ];
 
-        $resource = new CommentResource();
+        $resource = $this->factory->create('comment', ['di' => $this->di]);
         $resource->add($post);
 
         $this->redirectTo('/game?id=' . $id);

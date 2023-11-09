@@ -5,20 +5,23 @@ declare(strict_types=1);
 namespace App\Model;
 
 use App\Model\Service\SecurityService;
+use Laminas\Di\Di;
 
 class Session
 {
     protected static $_instance;
+    protected static $di;
 
-    private function __construct()
+    private function __construct(Di $di = null)
     {
+        self::$di = $di;
         session_save_path(APP_ROOT . '/var/sessions');
     }
 
-    public static function getInstance()
+    public static function getInstance(Di $di = null)
     {
         if (self::$_instance === null) {
-            self::$_instance = new self();
+            self::$_instance = new self($di);
         }
 
         return self::$_instance;
@@ -73,7 +76,7 @@ class Session
 
     public static function setCsrfToken()
     {
-        $securityService = new SecurityService();
+        $securityService = self::$di->get(SecurityService::class, ['di' => self::$di]);
         $_SESSION['csrf_token'] = $securityService->generateCsrf();
     }
 

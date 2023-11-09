@@ -3,19 +3,28 @@
 namespace App\ConsoleCommand;
 
 use App\Factory\FileHandlerFactory;
+use App\Factory\ResourceFactory;
 use App\Model\Resource\GameResource;
+use Laminas\Di\Di;
 
 class ExportGameInfo
 {
     protected string $fileFormat;
-    public function __construct()
+    protected $resourceFactory;
+    protected $fileHandlerFactory;
+    protected $di;
+
+    public function __construct(ResourceFactory $resourceFactory, Di $di, FileHandlerFactory $fileFactory)
     {
+        $this->resourceFactory = $resourceFactory;
+        $this->fileHandlerFactory = $fileFactory;
+        $this->di = $di;
         $this->fileFormat = getopt('filetype:') ?: 'csv';
         $this->getInfo();
     }
     public function getInfo()
     {
-        $resource = new GameResource();
+        $resource = $this->resourceFactory->create('game', ['di' => $this->di]);
         $games = $resource->getAll();
         $gamesComplexInfo = [];
 
@@ -30,8 +39,7 @@ class ExportGameInfo
             $gamesComplexInfo[] = $complexInfo;
         }
 
-        $fileHandlerFactory = new FileHandlerFactory();
-        $fileHandler = $fileHandlerFactory->create($this->fileFormat);
+        $fileHandler = $this->fileHandlerFactory->create($this->fileFormat);
         $fileHandler->writeToFile($gamesComplexInfo);
     }
 }

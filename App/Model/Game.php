@@ -8,6 +8,7 @@ use App\Model\Company;
 use App\Model\Genre;
 use App\Model\Resource\CompanyResource;
 use App\Model\Resource\GenreResource;
+use Laminas\Di\Di;
 
 class Game extends AbstractModel implements \JsonSerializable
 {
@@ -21,8 +22,9 @@ class Game extends AbstractModel implements \JsonSerializable
     protected ?Company $companyObject;
     protected ?Genre $genreObject;
 
-    public function __construct(?array $data = [])
+    public function __construct(Di $di, ?array $data = [])
     {
+        $this->di = $di;
         $this->setData($data);
     }
 
@@ -103,7 +105,7 @@ class Game extends AbstractModel implements \JsonSerializable
             $this->companyObject = null;
             return $this;
         }
-        $companyResource = new CompanyResource();
+        $companyResource = $this->di->get(CompanyResource::class, ['di' => $this->di]);
         $this->companyObject = $companyResource->getByName($companyName);
 
         return $this;
@@ -120,7 +122,7 @@ class Game extends AbstractModel implements \JsonSerializable
             $this->genreObject = null;
             return $this;
         }
-        $genreResource = new GenreResource();
+        $genreResource = $this->di->get(GenreResource::class, ['di' => $this->di]);
         $this->genreObject = $genreResource->getByName($nameOfGenre);
 
         return $this;

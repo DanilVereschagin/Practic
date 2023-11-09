@@ -6,9 +6,15 @@ namespace App\Block;
 
 use App\Model\Game;
 use App\Model\Resource\GameResource;
+use Laminas\Di\Di;
 
 class AdminGamesBlock extends AbstractAdminBlock
 {
+    public function __construct(Di $di)
+    {
+        $this->di = $di;
+    }
+
     public function renderTemplate()
     {
         require_once APP_ROOT . '/view/template/admin-games.phtml';
@@ -19,7 +25,7 @@ class AdminGamesBlock extends AbstractAdminBlock
      */
     public function getGames(): array
     {
-        $gameResource = new GameResource();
+        $gameResource = $this->di->get(GameResource::class, ['di' => $this->di]);
         return $gameResource->getAll();
     }
 }

@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace App\Controller\Web;
 
 use App\Block\PlayerBlock;
+use App\Factory\BlockFactory;
 use App\Model\Session;
 use Laminas\Di\Di;
 
 class PlayerController extends AbstractWebController
 {
-    public function __construct(Di $di)
+    protected $factory;
+
+    public function __construct(Di $di, BlockFactory $factory)
     {
         parent::__construct($di);
+        $this->factory = $factory;
         $this->di = $di;
     }
 
@@ -24,7 +28,7 @@ class PlayerController extends AbstractWebController
             $id = Session::getClientId();
         }
 
-        $block = new PlayerBlock($id);
+        $block = $this->factory->create('player', ['id' => $id, ['di' => $this->di]]);
         $block->render();
     }
 }

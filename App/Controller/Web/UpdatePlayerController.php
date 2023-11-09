@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace App\Controller\Web;
 
-use App\Model\Resource\PlayerResource;
+use App\Factory\ResourceFactory;
 use App\Model\Session;
 use Laminas\Di\Di;
 
 class UpdatePlayerController extends AbstractWebController
 {
-    public function __construct(Di $di)
+    protected $factory;
+    public function __construct(Di $di, ResourceFactory $factory)
     {
         parent::__construct($di);
+        $this->factory = $factory;
         $this->di = $di;
     }
 
@@ -23,7 +25,7 @@ class UpdatePlayerController extends AbstractWebController
         }
 
         $post = $this->getPostValues(['id', 'name', 'surname', 'username', 'mail', 'fake_hour', 'is_admin']);
-        $resource = new PlayerResource();
+        $resource = $this->factory->create('player', ['di' => $this->di]);
         $player = $resource->getByMail($post['mail']);
 
         if ($player->getId() != $post['id'] && $player->getMail() == $post['mail']) {

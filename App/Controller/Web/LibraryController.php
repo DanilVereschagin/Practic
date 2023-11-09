@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace App\Controller\Web;
 
 use App\Block\LibraryBlock;
+use App\Factory\BlockFactory;
 use App\Model\Session;
 use Laminas\Di\Di;
 
 class LibraryController extends AbstractWebController
 {
-    public function __construct(Di $di)
+    protected $factory;
+
+    public function __construct(Di $di, BlockFactory $factory)
     {
         parent::__construct($di);
+        $this->factory = $factory;
         $this->di = $di;
     }
 
@@ -24,7 +28,7 @@ class LibraryController extends AbstractWebController
             $id = Session::getClientId();
         }
 
-        $block = new LibraryBlock($id);
+        $block = $this->factory->create('library', ['id' => $id, 'di' => $this->di]);
         $block->render();
     }
 }

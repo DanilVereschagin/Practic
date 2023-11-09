@@ -6,10 +6,18 @@ namespace App\Model\Resource;
 
 use App\Model\Database;
 use App\Model\Player;
+use Laminas\Di\Di;
 
 class PlayerResource extends AbstractResource
 {
     protected string $table = 'player';
+    protected $di;
+
+    public function __construct(Di $di)
+    {
+        parent::__construct($di);
+        $this->di = $di;
+    }
 
     /**
      * @return Player[]
@@ -21,7 +29,7 @@ class PlayerResource extends AbstractResource
 
         $players = [];
         foreach ($rowset as $row) {
-            $player = new Player($row);
+            $player = $this->di->get(Player::class, ['data' => $row]);
             $players[] = $player;
         }
 
@@ -38,7 +46,7 @@ class PlayerResource extends AbstractResource
 
         $players = [];
         foreach ($rowset as $row) {
-            $player = new Player($row);
+            $player = $this->di->get(Player::class, ['data' => $row]);
             $players[] = $player;
         }
 
@@ -61,7 +69,7 @@ class PlayerResource extends AbstractResource
             $info = [];
         }
 
-        return new Player($info);
+        return $this->di->get(Player::class, ['data' => $info]);
     }
 
     public function update(array $post)

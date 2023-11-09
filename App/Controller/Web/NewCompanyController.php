@@ -5,19 +5,23 @@ declare(strict_types=1);
 namespace App\Controller\Web;
 
 use App\Block\NewCompanyBlock;
+use App\Factory\BlockFactory;
 use Laminas\Di\Di;
 
 class NewCompanyController extends AbstractWebController
 {
-    public function __construct(Di $di)
+    protected $factory;
+
+    public function __construct(Di $di, BlockFactory $factory)
     {
         parent::__construct($di);
+        $this->factory = $factory;
         $this->di = $di;
     }
 
     public function execute()
     {
-        $block = new NewCompanyBlock();
+        $block = $this->factory->create('newCompany', ['di' => $this->di]);
         $block->render();
     }
 }

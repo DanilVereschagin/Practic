@@ -7,13 +7,15 @@ namespace App\Block;
 use App\Model\Database;
 use App\Model\Player;
 use App\Model\Resource\PlayerResource;
+use Laminas\Di\Di;
 
 class AdminEditPlayerBlock extends AbstractAdminBlock
 {
     protected ?int $id;
 
-    public function __construct(?int $id)
+    public function __construct(?int $id, Di $di)
     {
+        $this->di = $di;
         $this->id = $id;
     }
 
@@ -24,7 +26,7 @@ class AdminEditPlayerBlock extends AbstractAdminBlock
 
     public function getPlayerInfo(): Player
     {
-        $playerResource = new PlayerResource();
+        $playerResource = $this->di->get(PlayerResource::class, ['di' => $this->di]);
         return $playerResource->getById($this->id);
     }
 }

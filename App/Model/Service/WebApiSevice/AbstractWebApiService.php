@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace App\Model\Service\WebApiSevice;
 
 use GuzzleHttp\Client;
+use Laminas\Di\Di;
 
 abstract class AbstractWebApiService
 {
+    protected Di $di;
+
     protected function getApiResponse(string $uri)
     {
         $client = new Client();

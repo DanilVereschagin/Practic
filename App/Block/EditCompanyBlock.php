@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Block;
 
 use App\Model\Company;
-use App\Model\Database;
 use App\Model\Resource\CompanyResource;
+use Laminas\Di\Di;
 
 class EditCompanyBlock extends AbstractAdminBlock
 {
     protected ?int $id;
 
-    public function __construct(?int $id)
+    public function __construct(?int $id, Di $di)
     {
         $this->id = $id;
     }
@@ -24,7 +24,7 @@ class EditCompanyBlock extends AbstractAdminBlock
 
     public function getCompanyInfo(): Company
     {
-        $companyResource = new CompanyResource();
+        $companyResource = $this->di->get(CompanyResource::class, ['di' => $this->di]);
         return $companyResource->getById($this->id);
     }
 }

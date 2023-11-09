@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Controller\Web;
 
-use App\Model\Resource\CompanyResource;
+use App\Factory\ResourceFactory;
 use Laminas\Di\Di;
 
 class AddCompanyController extends AbstractWebController
 {
-    public function __construct(Di $di)
+    protected $factory;
+    public function __construct(Di $di, ResourceFactory $factory)
     {
         parent::__construct($di);
+        $this->factory = $factory;
         $this->di = $di;
     }
 
@@ -22,7 +24,7 @@ class AddCompanyController extends AbstractWebController
         }
 
         $post = $this->getPostValues(['name', 'type', 'address']);
-        $resource = new CompanyResource();
+        $resource = $this->factory->create('company', ['di' => $this->di]);
         $resource->add($post);
 
         $this->redirectTo('/companies');

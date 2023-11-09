@@ -6,14 +6,18 @@ namespace App\Controller\Web;
 
 use App\Block\AdminEditPlayerBlock;
 use App\Block\EditPlayerBlock;
+use App\Factory\BlockFactory;
 use App\Model\Session;
 use Laminas\Di\Di;
 
 class EditPlayerController extends AbstractWebController
 {
-    public function __construct(Di $di)
+    protected $factory;
+
+    public function __construct(Di $di, BlockFactory $factory)
     {
         parent::__construct($di);
+        $this->factory = $factory;
         $this->di = $di;
     }
 
@@ -23,10 +27,10 @@ class EditPlayerController extends AbstractWebController
         $clientId = Session::getClientId();
 
         if ($id == $clientId) {
-            $block = new EditPlayerBlock($id);
+            $block = $this->factory->create('editPlayer', ['id' => $id, 'di' => $this->di]);
             $block->render();
         } elseif (Session::IsAdmin()) {
-            $block = new AdminEditPlayerBlock($id);
+            $block = $this->factory->create('adminEditPlayer', ['id' => $id, 'di' => $this->di]);
             $block->render();
         } else {
             $this->redirectTo('/player?id=' . $id);

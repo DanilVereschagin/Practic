@@ -4,10 +4,18 @@ namespace App\Model\Resource;
 
 use App\Model\Comment;
 use App\Model\Database;
+use Laminas\Di\Di;
 
 class CommentResource extends AbstractResource
 {
     protected string $table = 'comment';
+    protected $di;
+
+    public function __construct(Di $di)
+    {
+        parent::__construct($di);
+        $this->di = $di;
+    }
 
     public function getParentComments($id): array
     {
@@ -22,7 +30,7 @@ class CommentResource extends AbstractResource
 
         $comments = [];
         foreach ($rowset as $row) {
-            $comment = new Comment($row);
+            $comment = $this->di->get(Comment::class, ['data' => $row]);
             $comments[] = $comment;
         }
 
@@ -48,7 +56,7 @@ class CommentResource extends AbstractResource
 
         $comments = [];
         foreach ($rowset as $row) {
-            $comment = new Comment($row);
+            $comment = $this->di->get(Comment::class, ['data' => $row]);
             $comments[] = $comment;
         }
 

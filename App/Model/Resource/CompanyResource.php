@@ -6,10 +6,18 @@ namespace App\Model\Resource;
 
 use App\Model\Company;
 use App\Model\Database;
+use Laminas\Di\Di;
 
 class CompanyResource extends AbstractResource
 {
     protected string $table = 'company';
+    protected $di;
+
+    public function __construct(Di $di)
+    {
+        parent::__construct($di);
+        $this->di = $di;
+    }
 
     /**
      * @param string|null $name
@@ -23,7 +31,7 @@ class CompanyResource extends AbstractResource
         $query->execute(['name' => $name]);
         $companyInfo = $query->fetch();
 
-        $company = new Company($companyInfo);
+        $company = $this->di->get(Company::class, ['data' => $companyInfo]);
 
         return $company;
     }

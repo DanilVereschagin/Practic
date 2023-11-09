@@ -7,9 +7,17 @@ namespace App\Model\Service;
 use App\Block\EmailBlock;
 use App\Model\Resource\PlayerResource;
 use App\Model\Service\WebApiSevice\SendinBlueApiService;
+use Laminas\Di\Di;
 
 class EmailService
 {
+    protected $di;
+
+    public function __construct(Di $di)
+    {
+        $this->di = $di;
+    }
+
     public function sendMailing(string $subject, ?string $email = '')
     {
         if ($email) {
@@ -23,7 +31,7 @@ class EmailService
 
     protected function prepareLetter(string $subject, string $email)
     {
-        $resource = new PlayerResource();
+        $resource = $this->di->get(PlayerResource::class);
         $player = $resource->getByMail($email);
 
         $name = $player->getName();
@@ -40,7 +48,7 @@ class EmailService
 
     protected function prepareMailing(string $subject)
     {
-        $resource = new PlayerResource();
+        $resource = $this->di->get(PlayerResource::class);
         $players = $resource->getAllPlayers();
 
         foreach ($players as $player) {
@@ -54,7 +62,7 @@ class EmailService
 
     protected function getHtmlContent()
     {
-        $block = new EmailBlock();
+        $block = $this->di->get(EmailBlock::class);
         return $block->getRenderedTemplate();
     }
 }

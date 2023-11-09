@@ -6,10 +6,18 @@ namespace App\Model\Resource;
 
 use App\Model\Database;
 use App\Model\Game;
+use Laminas\Di\Di;
 
 class GameResource extends AbstractResource
 {
     protected string $table = 'game';
+    protected $di;
+
+    public function __construct(Di $di)
+    {
+        parent::__construct($di);
+        $this->di = $di;
+    }
 
     /**
      * @param int $id
@@ -30,7 +38,7 @@ class GameResource extends AbstractResource
         $games = [];
         foreach ($rowset as $row) {
             unset($row['playerId']);
-            $game = new Game($row);
+            $game = $this->di->get(Game::class, ['data' => $row]);
             $games[] = $game;
         }
 
@@ -45,7 +53,7 @@ class GameResource extends AbstractResource
         $query->execute(['name' => $name]);
         $info = $query->fetch();
 
-        return new Game($info);
+        return $this->di->get(Game::class, ['data' => $info]);
     }
 
     /**
@@ -70,7 +78,7 @@ class GameResource extends AbstractResource
         $query->execute(['ID' => $id]);
         $gameInfo = $query->fetch();
 
-        $game = new Game($gameInfo);
+        $game = $this->di->get(Game::class, ['data' => $gameInfo]);
 
         return $game;
     }

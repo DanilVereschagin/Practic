@@ -3,9 +3,12 @@
 namespace App\Block;
 
 use App\Model\Session;
+use Laminas\Di\Di;
 
 class AbstractAdminBlock
 {
+    protected Di $di;
+
     public function render()
     {
         require_once APP_ROOT . '/view/layout/admin-layout.phtml';
