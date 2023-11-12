@@ -7,6 +7,7 @@ namespace App\Block;
 use App\Model\Player;
 use App\Model\Resource\PlayerResource;
 use App\Model\Service\WebApiSevice\DogApiService;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class MainBlock extends AbstractBlock
@@ -14,11 +15,11 @@ class MainBlock extends AbstractBlock
     protected $playerResource;
     protected $dogApiService;
 
-    public function __construct(Di $di, PlayerResource $playerResource, DogApiService $dogApiService)
+    public function __construct(Di $di, PlayerResource $playerResource, DogApiService $dogApiService, Session $session)
     {
         $this->playerResource = $playerResource;
         $this->dogApiService = $dogApiService;
-        parent::__construct($di);
+        parent::__construct($di, $session);
     }
 
     public function renderTemplate()

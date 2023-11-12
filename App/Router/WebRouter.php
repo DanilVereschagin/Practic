@@ -16,17 +16,17 @@ class WebRouter
 {
     protected $routes;
     protected $di;
+    protected $log;
 
-    public function __construct(Di $di, array $routes = [])
+    public function __construct(Di $di, LoggerService $loggerService, array $routes = [])
     {
         $this->di = $di;
         $this->routes = $routes;
+        $this->log = $loggerService;
     }
 
     public function selectController(string $route)
     {
-        $log = LoggerService::getInstance();
-
         if ($queryPos = stripos($route, '?')) {
             $route = substr($route, 0, $queryPos);
         }
@@ -43,11 +43,11 @@ class WebRouter
                 return;
             } catch (HttpRedirectException $e) {
                 header('Location: ' . $e->getMessage(), true, 302);
-                $log->warning('Web', [$e->getMessage()]);
+                $this->log->warning('Web', [$e->getMessage()]);
                 return;
             } catch (HttpMethodNotAllowedException $e) {
                 http_response_code(405);
-                $log->error('Web', [$e->getMessage()]);
+                $this->log->error('Web', [$e->getMessage()]);
                 return;
             }
         }

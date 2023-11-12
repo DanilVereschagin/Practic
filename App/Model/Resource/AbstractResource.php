@@ -11,10 +11,12 @@ class AbstractResource
 {
     protected string $table = '';
     protected $di;
+    protected $connection;
 
-    public function __construct(Di $di)
+    public function __construct(Di $di, Database $connection)
     {
         $this->di = $di;
+        $this->connection = $connection->getConnection();
     }
 
     /**
@@ -23,8 +25,7 @@ class AbstractResource
     public function getAll(): array
     {
         $entityModel = 'App\\Model\\' . ucfirst($this->table);
-        $connection = Database::getInstance();
-        $rowset = $connection->query('Select * from ' . $this->table);
+        $rowset = $this->connection->query('Select * from ' . $this->table);
 
         $entities = [];
         foreach ($rowset as $row) {
@@ -38,9 +39,8 @@ class AbstractResource
     public function getById(?int $id)
     {
         $entityModel = 'App\\Model\\' . ucfirst($this->table);
-        $connection = Database::getInstance();
         $sql = 'select * from ' . $this->table . ' where `id` = :ID;';
-        $query = $connection->prepare($sql);
+        $query = $this->connection->prepare($sql);
         $query->execute(['ID' => $id]);
         $info = $query->fetch();
 
@@ -51,9 +51,8 @@ class AbstractResource
 
     public function delete(int $id)
     {
-        $connection = Database::getInstance();
         $sql = 'delete from ' . $this->table . ' where `id` = :ID';
-        $query = $connection->prepare($sql);
+        $query = $this->connection->prepare($sql);
         $query->bindValue('ID', $id, \PDO::PARAM_INT);
         $query->execute();
     }

@@ -11,9 +11,9 @@ use Laminas\Di\Di;
 class UpdatePlayerController extends AbstractWebController
 {
     protected $factory;
-    public function __construct(Di $di, ResourceFactory $factory)
+    public function __construct(Di $di, ResourceFactory $factory, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->factory = $factory;
     }
 
@@ -28,12 +28,12 @@ class UpdatePlayerController extends AbstractWebController
         $player = $resource->getByMail($post['mail']);
 
         if ($player->getId() != $post['id'] && $player->getMail() == $post['mail']) {
-            Session::setMessage('Данный email уже занят');
+            $this->session->setMessage('Данный email уже занят');
             $this->redirectTo('/error');
         }
 
-        if (!Session::IsAdmin() == 1) {
-            $post['is_admin'] = Session::IsAdmin();
+        if (!$this->session->IsAdmin() == 1) {
+            $post['is_admin'] = $this->session->IsAdmin();
             $resource->update($post);
             $this->redirectTo('/player');
         } else {

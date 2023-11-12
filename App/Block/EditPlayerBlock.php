@@ -7,6 +7,7 @@ namespace App\Block;
 use App\Model\Database;
 use App\Model\Player;
 use App\Model\Resource\PlayerResource;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class EditPlayerBlock extends AbstractBlock
@@ -14,9 +15,9 @@ class EditPlayerBlock extends AbstractBlock
     protected ?int $id;
     protected $playerResource;
 
-    public function __construct(?int $id, Di $di, PlayerResource $playerResource)
+    public function __construct(?int $id, Di $di, PlayerResource $playerResource, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->id = $id;
         $this->playerResource = $playerResource;
     }

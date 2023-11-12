@@ -8,10 +8,12 @@ use Laminas\Di\Di;
 class AbstractAdminBlock
 {
     protected Di $di;
+    protected $session;
 
-    public function __construct(Di $di)
+    public function __construct(Di $di, Session $session)
     {
         $this->di = $di;
+        $this->session = $session;
     }
 
     public function render()
@@ -21,7 +23,7 @@ class AbstractAdminBlock
 
     public function getCsrfToken()
     {
-        return Session::getCsrfToken();
+        return $this->session->getCsrfToken();
     }
 
     public function protectFromXss($data): string

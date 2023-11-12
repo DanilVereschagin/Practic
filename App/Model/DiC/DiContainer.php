@@ -50,10 +50,10 @@ class DiContainer
         $diCaches->assemble();
     }
 
-    protected function assembleInstance()
+    protected function assembleService()
     {
-        /** @var DiInstance $diInstance */
-        $diCaches = $this->di->get(DiInstance::class, ['di' => $this->di]);
-        $diCaches->assemble();
+        /** @var DiServices $diServices */
+        $diServices = $this->di->get(DiServices::class, ['di' => $this->di]);
+        $diServices->assemble();
     }
 }

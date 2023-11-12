@@ -11,11 +11,11 @@ use App\Router\CliRouter;
 use Laminas\Di\Di;
 
 
-$log = LoggerService::getInstance();
-
 $di = new Di();
 $dic = new DiContainer($di);
 $dic->assemble();
+
+$log = $di->get(LoggerService::class);
 
 $router = $di->get(CliRouter::class);
 try {

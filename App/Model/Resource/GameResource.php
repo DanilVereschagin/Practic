@@ -14,9 +14,9 @@ class GameResource extends AbstractResource
     protected string $table = 'game';
     protected $entityFactory;
 
-    public function __construct(Di $di, EntityFactory $entityFactory)
+    public function __construct(Di $di, Database $database, EntityFactory $entityFactory)
     {
-        parent::__construct($di);
+        parent::__construct($di, $database);
         $this->entityFactory = $entityFactory;
     }
 
@@ -26,13 +26,12 @@ class GameResource extends AbstractResource
      */
     public function getLibraryGames(int $id): array
     {
-        $connection = Database::getInstance();
         $sql = 'select player.id as playerId, game.id, game.name
                    from player 
                    left join library on player.id = library.username 
                    left join game on library.name_of_game = game.id 
                    where player.id = :ID order by player.id;';
-        $query = $connection->prepare($sql);
+        $query = $this->connection->prepare($sql);
         $query->execute(['ID' => $id]);
         $rowset = $query->fetchAll();
 
@@ -48,9 +47,8 @@ class GameResource extends AbstractResource
 
     public function getByName($name): Game
     {
-        $connection = Database::getInstance();
         $sql = 'select * from game where `name` = :name';
-        $query = $connection->prepare($sql);
+        $query = $this->connection->prepare($sql);
         $query->execute(['name' => $name]);
         $info = $query->fetch();
 
@@ -63,7 +61,6 @@ class GameResource extends AbstractResource
      */
     public function getComplexInfoById(?int $id): Game
     {
-        $connection = Database::getInstance();
         $sql = 'select game.id,
                 game.name,
                 game.description,
@@ -75,7 +72,7 @@ class GameResource extends AbstractResource
                 left join company on company.id = game.company
                 left join genre on genre.genre_id = game.genre
                 where game.id = :ID;';
-        $query = $connection->prepare($sql);
+        $query = $this->connection->prepare($sql);
         $query->execute(['ID' => $id]);
         $gameInfo = $query->fetch();
 
@@ -86,7 +83,6 @@ class GameResource extends AbstractResource
 
     public function add(array $post)
     {
-        $connection = Database::getInstance();
         $sql = 'insert into game
                     set `name` = :name,
                     `company` = :company,
@@ -95,14 +91,13 @@ class GameResource extends AbstractResource
                     `score` = :score,
                     `description` = :description
                     ';
-        $query = $connection->prepare($sql);
+        $query = $this->connection->prepare($sql);
         $this->prepareDataOfGame($query, $post);
         $query->execute();
     }
 
     public function update(array $post)
     {
-        $connection = Database::getInstance();
         $sql = 'update game
                     set `name` = :name,
                     `company` = :company,
@@ -112,7 +107,7 @@ class GameResource extends AbstractResource
                     `description` = :description
                     where game.id = :ID
                     ';
-        $query = $connection->prepare($sql);
+        $query = $this->connection->prepare($sql);
         $this->prepareDataOfGame($query, $post);
         $query->execute();
     }

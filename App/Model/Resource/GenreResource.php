@@ -14,9 +14,9 @@ class GenreResource extends AbstractResource
     protected string $table = 'genre';
     protected $entityFactory;
 
-    public function __construct(Di $di, EntityFactory $entityFactory)
+    public function __construct(Di $di, Database $database, EntityFactory $entityFactory)
     {
-        parent::__construct($di);
+        parent::__construct($di, $database);
         $this->entityFactory = $entityFactory;
     }
 
@@ -26,9 +26,8 @@ class GenreResource extends AbstractResource
      */
     public function getByName(?string $name): Genre
     {
-        $connection = Database::getInstance();
         $sql = 'select * from genre where genre.name_of_genre = :name;';
-        $query = $connection->prepare($sql);
+        $query = $this->connection->prepare($sql);
         $query->execute(['name' => $name]);
         $genreInfo = $query->fetch();
 

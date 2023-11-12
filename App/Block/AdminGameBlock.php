@@ -9,6 +9,7 @@ use App\Model\Database;
 use App\Model\Game;
 use App\Model\Resource\CommentResource;
 use App\Model\Resource\GameResource;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class AdminGameBlock extends AbstractAdminBlock
@@ -17,9 +18,14 @@ class AdminGameBlock extends AbstractAdminBlock
     protected $gameResource;
     protected $commentResource;
 
-    public function __construct(?int $id, Di $di, GameResource $gameResource, CommentResource $commentResource)
-    {
-        parent::__construct($di);
+    public function __construct(
+        ?int $id,
+        Di $di,
+        GameResource $gameResource,
+        CommentResource $commentResource,
+        Session $session
+    ) {
+        parent::__construct($di, $session);
         $this->id = $id;
         $this->gameResource = $gameResource;
         $this->commentResource = $commentResource;

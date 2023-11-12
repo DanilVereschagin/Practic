@@ -6,15 +6,20 @@ namespace App\Controller\Web;
 
 use App\Factory\ResourceFactory;
 use App\Factory\ServiceFactory;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class AddPlayerController extends AbstractWebController
 {
     protected $resourceFactory;
     protected $serviceFactory;
-    public function __construct(Di $di, ResourceFactory $resourceFactory, ServiceFactory $serviceFactory)
-    {
-        parent::__construct($di);
+    public function __construct(
+        Di $di,
+        ResourceFactory $resourceFactory,
+        ServiceFactory $serviceFactory,
+        Session $session
+    ) {
+        parent::__construct($di, $session);
         $this->resourceFactory = $resourceFactory;
         $this->serviceFactory = $serviceFactory;
     }

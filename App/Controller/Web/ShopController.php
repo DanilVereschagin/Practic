@@ -7,6 +7,7 @@ namespace App\Controller\Web;
 use App\Factory\BlockFactory;
 use App\Factory\EntityFactory;
 use App\Factory\ServiceFactory;
+use App\Model\Session;
 use Laminas\Di\Di;
 use Psr\SimpleCache\CacheInterface;
 
@@ -22,9 +23,10 @@ class ShopController extends AbstractWebController
         BlockFactory $blockFactory,
         CacheInterface $cacheService,
         ServiceFactory $serviceFactory,
-        EntityFactory $entityFactory
+        EntityFactory $entityFactory,
+        Session $session
     ) {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->blockFactory = $blockFactory;
         $this->cacheService = $cacheService;
         $this->serviceFactory = $serviceFactory;

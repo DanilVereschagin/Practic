@@ -9,78 +9,71 @@ use Laminas\Di\Di;
 
 class Session
 {
-    protected static $_instance;
-    protected static $di;
+    protected $di;
 
-    private function __construct(Di $di = null)
+    public function __construct(Di $di)
     {
-        self::$di = $di;
-        session_save_path(APP_ROOT . '/var/sessions');
-    }
+        $this->di = $di;
 
-    public static function getInstance(Di $di = null)
-    {
-        if (self::$_instance === null) {
-            self::$_instance = new self($di);
+        if (!$di) {
+            session_save_path(APP_ROOT . '/var/sessions');
         }
-
-        return self::$_instance;
     }
 
-    public static function start()
+    public function start()
     {
         if (!isset($_SESSION)) {
             session_start();
         }
     }
 
-    public static function destroy()
+    public function destroy()
     {
         session_destroy();
     }
 
-    public static function deleteVariable(string $variable)
+    public function deleteVariable(string $variable)
     {
         unset($_SESSION[$variable]);
     }
 
-    public static function setClientId(int $id)
+    public function setClientId(int $id)
     {
         $_SESSION['client_id'] = $id;
     }
 
-    public static function setIsAdmin(int $is)
+    public function setIsAdmin(int $is)
     {
         $_SESSION['is_admin'] = $is;
     }
 
-    public static function getClientId()
+    public function getClientId()
     {
         return $_SESSION['client_id'] ?? null;
     }
 
-    public static function IsAdmin()
+    public function IsAdmin()
     {
         return $_SESSION['is_admin'];
     }
 
-    public static function setMessage(string $message)
+    public function setMessage(string $message)
     {
         $_SESSION['message'] = $message;
     }
 
-    public static function getMessage()
+    public function getMessage()
     {
         return $_SESSION['message'] ?? null;
     }
 
-    public static function setCsrfToken()
+    public function setCsrfToken()
     {
-        $securityService = self::$di->get(SecurityService::class, ['di' => self::$di]);
+        $securityService = $this->di->get(SecurityService::class, ['di' => $this->di]);
         $_SESSION['csrf_token'] = $securityService->generateCsrf();
     }
 
-    public static function getCsrfToken()
+    public function getCsrfToken()
     {
         return $_SESSION['csrf_token'] ?? null;
     }

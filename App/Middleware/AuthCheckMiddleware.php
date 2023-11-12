@@ -7,10 +7,19 @@ namespace App\Middleware;
 use App\Model\Exception\HttpRedirectException;
 use App\Model\Session;
 use App\Model\SessionChecker;
+use Laminas\Di\Di;
 
 class AuthCheckMiddleware implements MiddlewareInterface
 {
     protected MiddlewareInterface $next;
+    protected $session;
+    protected $observer;
+
+    public function __construct(Session $session, SessionChecker $sessionChecker)
+    {
+        $this->session = $session;
+        $this->observer = $sessionChecker;
+    }
 
     public function getNext()
     {
@@ -24,14 +33,13 @@ class AuthCheckMiddleware implements MiddlewareInterface
 
     public function handle(string $route)
     {
-        Session::start();
+        $this->session->start();
 
-        if (Session::getClientId() !== null) {
+        if ($this->session->getClientId() !== null) {
             return $route;
         }
 
-        $observer = new SessionChecker();
-        $isGuessPage = $observer->isGuestPages($route);
+        $isGuessPage = $this->observer->isGuestPages($route);
 
         if (!$isGuessPage) {
             throw new HttpRedirectException('/login');

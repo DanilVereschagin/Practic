@@ -15,12 +15,18 @@ class EmailService extends AbstractService
 {
     protected $resourceFactory;
     protected $blockFactory;
+    protected $sendSmtpEmail;
 
-    public function __construct(Di $di, ResourceFactory $resourceFactory, BlockFactory $blockFactory)
-    {
+    public function __construct(
+        Di $di,
+        ResourceFactory $resourceFactory,
+        BlockFactory $blockFactory,
+        SendinBlueApiService $apiService
+    ) {
         parent::__construct($di);
         $this->resourceFactory = $resourceFactory;
         $this->blockFactory = $blockFactory;
+        $this->sendSmtpEmail = $apiService;
     }
 
     public function sendMailing(string $subject, ?string $email = '')
@@ -31,7 +37,7 @@ class EmailService extends AbstractService
             $emails = $this->prepareMailing($subject);
         }
 
-        SendinBlueApiService::sendSmtpEmails($emails);
+        $this->sendSmtpEmail->sendSmtpEmails($emails);
     }
 
     protected function prepareLetter(string $subject, string $email)
@@ -48,7 +54,7 @@ class EmailService extends AbstractService
         $to[] = ['name' => $name, 'email' => $email];
         $htmlContent = $this->getHtmlContent();
 
-        return SendinBlueApiService::getSmtpEmails($subject, $htmlContent, $to);
+        return $this->sendSmtpEmail->getSmtpEmails($subject, $htmlContent, $to);
     }
 
     protected function prepareMailing(string $subject)
@@ -62,7 +68,7 @@ class EmailService extends AbstractService
         $to[] = ['name' => 'dvereschagin', 'email' => 'dvereschagin@lachestry.com'];
 
         $htmlContent = $this->getHtmlContent();
-        return SendinBlueApiService::getSmtpEmails($subject, $htmlContent, $to);
+        return $this->sendSmtpEmail->getSmtpEmails($subject, $htmlContent, $to);
     }
 
     protected function getHtmlContent()

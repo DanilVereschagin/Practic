@@ -4,37 +4,30 @@ declare(strict_types=1);
 
 namespace App\Model\Service;
 
+use Laminas\Di\Di;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class LoggerService
+class LoggerService extends AbstractService
 {
-    protected static $log;
+    protected $log;
 
-    private function __construct()
+    public function __construct(Di $di, Logger $logger)
     {
-        $log = new Logger('name');
-        $log->pushHandler(new StreamHandler(APP_ROOT . '/var/log/warning.log', Logger::WARNING));
-        $log->pushHandler(new StreamHandler(APP_ROOT . '/var/log/error.log', Logger::ERROR));
-        self::$log = $log;
+        parent::__construct($di);
+
+        $logger->pushHandler(new StreamHandler(APP_ROOT . '/var/log/warning.log', Logger::WARNING));
+        $logger->pushHandler(new StreamHandler(APP_ROOT . '/var/log/error.log', Logger::ERROR));
+        $this->log = $logger;
     }
 
-    public static function getInstance()
+    public function warning(string $message, array $context = [])
     {
-        if (self::$log === null) {
-            new self();
-        }
-
-        return self::$log;
+        $this->log->warning($message, $context);
     }
 
-    public static function warning(string $message)
+    public function error(string $message, array $context = [])
     {
-        self::$log->warning($message);
-    }
-
-    public static function error(string $message)
-    {
-        self::$log->error($message);
+        $this->log->error($message, $context);
     }
 }

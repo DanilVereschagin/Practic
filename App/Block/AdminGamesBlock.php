@@ -6,15 +6,16 @@ namespace App\Block;
 
 use App\Model\Game;
 use App\Model\Resource\GameResource;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class AdminGamesBlock extends AbstractAdminBlock
 {
     protected $gameResource;
 
-    public function __construct(Di $di, GameResource $gameResource)
+    public function __construct(Di $di, GameResource $gameResource, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->gameResource = $gameResource;
     }
 

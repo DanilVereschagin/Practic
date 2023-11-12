@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace App\Model\DiC;
 
-use App\Model\Database;
-use App\Model\Environment;
 use App\Model\Service\LoggerService;
-use App\Model\Service\WebApiSevice\SendinBlueApiService;
-use App\Model\Session;
 use Laminas\Di\Di;
+use Monolog\Logger;
 
-class DiInstance
+class DiServices
 {
     protected $di;
     protected $instanceManager;
@@ -24,10 +21,12 @@ class DiInstance
 
     public function assemble()
     {
-        Database::getInstance();
-        Environment::getInstance($this->di);
-        SendinBlueApiService::getInstance();
-        Session::getInstance($this->di);
-        LoggerService::getInstance();
+        $this->instanceManager->setParameters(
+            LoggerService::class,
+            [
+                'logger' => $this->di->get(Logger::class, ['name' => 'name']),
+                'di'     => $this->di,
+            ]
+        );
     }
 }

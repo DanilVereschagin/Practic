@@ -14,9 +14,9 @@ class CompanyResource extends AbstractResource
     protected string $table = 'company';
     protected $entityFactory;
 
-    public function __construct(Di $di, EntityFactory $entityFactory)
+    public function __construct(Di $di, Database $database, EntityFactory $entityFactory)
     {
-        parent::__construct($di);
+        parent::__construct($di, $database);
         $this->entityFactory = $entityFactory;
     }
 
@@ -26,9 +26,8 @@ class CompanyResource extends AbstractResource
      */
     public function getByName(?string $name): Company
     {
-        $connection = Database::getInstance();
         $sql = 'select * from company where company.name = :name;';
-        $query = $connection->prepare($sql);
+        $query = $this->connection->prepare($sql);
         $query->execute(['name' => $name]);
         $companyInfo = $query->fetch();
 
@@ -39,19 +38,17 @@ class CompanyResource extends AbstractResource
 
     public function add(array $post)
     {
-        $connection = Database::getInstance();
         $sql = 'insert into company set `name` = :name, `type` = :type, `address` = :address';
-        $query = $connection->prepare($sql);
+        $query = $this->connection->prepare($sql);
         $this->prepareDataOfCompany($query, $post);
         $query->execute();
     }
 
     public function update(array $post)
     {
-        $connection = Database::getInstance();
         $sql = 'update company set `name` = :name, `type` = :type, `address` = :address
                 where company.id = :ID;';
-        $query = $connection->prepare($sql);
+        $query = $this->connection->prepare($sql);
         $this->prepareDataOfCompany($query, $post);
         $query->execute();
     }

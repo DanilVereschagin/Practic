@@ -9,44 +9,34 @@ use Laminas\Di\Di;
 
 class Environment
 {
-    protected static $_instance;
-    protected static $sectionDb = 'db';
-    protected static $sectionCache = 'cache';
-    protected static $sectionMail = 'mail';
+    protected $instance;
+    protected $sectionDb = 'db';
+    protected $sectionCache = 'cache';
+    protected $sectionMail = 'mail';
 
-    private function __construct(Di $di = null)
+    public function __construct(EnvironmentResource $environmentResource)
     {
-        if ($di) {
-            $resource = $di->get(EnvironmentResource::class, ['di' => $di]);
-        } else {
-            $resource = new EnvironmentResource();
-        }
-
-        self::$_instance = $resource->parseEnvFile(APP_ROOT . '/.env');
+        $this->instance = $environmentResource->parseEnvFile(APP_ROOT . '/.env');
     }
 
-    public static function getInstance(Di $di = null)
+    public function getInstance()
     {
-        if (self::$_instance === null) {
-            new self($di);
-        }
-
-        return self::$_instance;
+        return $this->instance;
     }
 
-    public static function getDbSetting(string $setting)
+    public function getDbSetting(string $setting)
     {
-        return self::getInstance()[self::$sectionDb][$setting] ?? null;
+        return $this->getInstance()[$this->sectionDb][$setting] ?? null;
     }
 
-    public static function getCacheSetting(string $setting)
+    public function getCacheSetting(string $setting)
     {
-        return self::getInstance()[self::$sectionCache][$setting] ?? null;
+        return $this->getInstance()[$this->sectionCache][$setting] ?? null;
     }
 
-    public static function getMailSetting(string $setting)
+    public function getMailSetting(string $setting)
     {
-        return self::getInstance()[self::$sectionMail][$setting] ?? null;
+        return $this->getInstance()[$this->sectionMail][$setting] ?? null;
     }
 
     private function __clone()

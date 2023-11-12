@@ -6,15 +6,16 @@ namespace App\Block;
 
 use App\Model\Company;
 use App\Model\Resource\CompanyResource;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class CompaniesBlock extends AbstractAdminBlock
 {
     protected $companyResource;
 
-    public function __construct(Di $di, CompanyResource $companyResource)
+    public function __construct(Di $di, CompanyResource $companyResource, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->companyResource = $companyResource;
     }
 

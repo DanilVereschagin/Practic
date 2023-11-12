@@ -12,68 +12,62 @@ use SendinBlue\Client\Model\SendSmtpEmail;
 
 class SendinBlueApiService
 {
-    protected static $apiInstance = null;
+    protected $apiInstance = null;
+    protected $environment;
 
-    protected function __construct()
+    public function __construct(Environment $environment)
     {
+        $this->environment = $environment;
+
         $config = Configuration::getDefaultConfiguration()->setApiKey(
             'api-key',
-            Environment::getMailSetting('SENDINBLUE')
+            $environment->getMailSetting('SENDINBLUE')
         );
 
-        self::$apiInstance = new TransactionalEmailsApi(
+        $this->apiInstance = new TransactionalEmailsApi(
             new Client(),
             $config
         );
     }
 
-    public static function getInstance()
-    {
-        if (self::$apiInstance === null) {
-            new self();
-        }
-
-        return self::$apiInstance;
-    }
-
-    public static function getSmtpEmail(string $subject, string $htmlContent, array $to)
+    public function getSmtpEmail(string $subject, string $htmlContent, array $to)
     {
         $sendSmtpEmail = new \SendinBlue\Client\Model\SendSmtpEmail();
         $sendSmtpEmail['subject'] = $subject;
         $sendSmtpEmail['htmlContent'] = $htmlContent;
         $sendSmtpEmail['sender'] = [
-            'name' => Environment::getMailSetting('NAME'),
-            'email' => Environment::getMailSetting('EMAIL')
+            'name' => $this->environment->getMailSetting('NAME'),
+            'email' => $this->environment->getMailSetting('EMAIL')
         ];
         $sendSmtpEmail['to'] = [$to];
 
         return $sendSmtpEmail;
     }
 
-    public static function getSmtpEmails(string $subject, string $htmlContent, array $to)
+    public function getSmtpEmails(string $subject, string $htmlContent, array $to)
     {
         $sendSmtpEmails = [];
         foreach ($to as $player) {
             $html = str_replace('Товарищ', $player['name'], $htmlContent);
-            $sendSmtpEmails[] = self::getSmtpEmail($subject, $html, $player);
+            $sendSmtpEmails[] = $this->getSmtpEmail($subject, $html, $player);
         }
 
         return $sendSmtpEmails;
     }
 
-    public static function sendSmtpEmail(SendSmtpEmail $email)
+    public function sendSmtpEmail(SendSmtpEmail $email)
     {
         try {
-            $result = self::$apiInstance->sendTransacEmail($email);
+            $result = $this->apiInstance->sendTransacEmail($email);
         } catch (\Exception $e) {
             echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
         }
     }
 
-    public static function sendSmtpEmails(array $emails)
+    public function sendSmtpEmails(array $emails)
     {
         foreach ($emails as $email) {
-            self::sendSmtpEmail($email);
+            $this->sendSmtpEmail($email);
         }
     }
 }

@@ -12,9 +12,9 @@ class PlayerController extends AbstractApiController
 {
     protected $resourceFactory;
 
-    public function __construct(Di $di, ResourceFactory $resourceFactory)
+    public function __construct(Di $di, ResourceFactory $resourceFactory, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->resourceFactory = $resourceFactory;
     }
 
@@ -23,7 +23,7 @@ class PlayerController extends AbstractApiController
         $id = $this->getIdParam();
 
         if (!$id) {
-            $id = Session::getClientId();
+            $id = $this->session->getClientId();
         }
 
         $resource = $this->resourceFactory->create('player', ['di' => $this->di]);

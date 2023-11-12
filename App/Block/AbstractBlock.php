@@ -10,10 +10,12 @@ class AbstractBlock
     protected $template;
     protected $renderedTemplate;
     protected Di $di;
+    protected $session;
 
-    public function __construct(Di $di)
+    public function __construct(Di $di, Session $session)
     {
         $this->di = $di;
+        $this->session = $session;
     }
 
     public function render()
@@ -33,7 +35,7 @@ class AbstractBlock
 
     public function getCsrfToken()
     {
-        return Session::getCsrfToken();
+        return $this->session->getCsrfToken();
     }
 
     public function protectFromXss($data): string

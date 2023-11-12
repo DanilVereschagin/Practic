@@ -13,9 +13,9 @@ class LibraryController extends AbstractWebController
 {
     protected $factory;
 
-    public function __construct(Di $di, BlockFactory $factory)
+    public function __construct(Di $di, BlockFactory $factory, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->factory = $factory;
     }
 
@@ -24,7 +24,7 @@ class LibraryController extends AbstractWebController
         $id = $this->getIdParam();
 
         if ($id == 0) {
-            $id = Session::getClientId();
+            $id = $this->session->getClientId();
         }
 
         $block = $this->factory->create('library', ['id' => $id, 'di' => $this->di]);

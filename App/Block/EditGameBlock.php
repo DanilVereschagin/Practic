@@ -6,6 +6,7 @@ namespace App\Block;
 
 use App\Model\Game;
 use App\Model\Resource\GameResource;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class EditGameBlock extends AbstractAdminBlock
@@ -13,9 +14,9 @@ class EditGameBlock extends AbstractAdminBlock
     protected ?int $id;
     protected $gameResource;
 
-    public function __construct(?int $id, Di $di)
+    public function __construct(?int $id, Di $di, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->id = $id;
     }
 

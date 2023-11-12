@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace App\Controller\Api;
 
 use App\Factory\ResourceFactory;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class UpdateCompanyController extends AbstractApiController
 {
     protected $resourceFactory;
 
-    public function __construct(Di $di, ResourceFactory $resourceFactory)
+    public function __construct(Di $di, ResourceFactory $resourceFactory, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->resourceFactory = $resourceFactory;
     }
 

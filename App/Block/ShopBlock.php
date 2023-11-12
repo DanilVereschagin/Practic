@@ -7,6 +7,7 @@ namespace App\Block;
 use App\Model\Game;
 use App\Model\Resource\GameResource;
 use App\Model\Service\WebApiSevice\DogApiService;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class ShopBlock extends AbstractBlock
@@ -14,9 +15,9 @@ class ShopBlock extends AbstractBlock
     protected array $games;
     protected $gameResource;
 
-    public function __construct(array $games, Di $di, GameResource $gameResource)
+    public function __construct(array $games, Di $di, GameResource $gameResource, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->games = $games;
         $this->gameResource = $gameResource;
     }

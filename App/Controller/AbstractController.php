@@ -14,10 +14,12 @@ use Laminas\Di\Di;
 abstract class AbstractController implements ControllerInterface
 {
     protected $di;
+    protected $session;
 
-    public function __construct(Di $di)
+    public function __construct(Di $di, Session $session)
     {
         $this->di = $di;
+        $this->session = $session;
         $this->getCache();
         $this->protectFromCsrf();
     }
@@ -150,10 +152,10 @@ abstract class AbstractController implements ControllerInterface
             return;
         }
 
-        $csrfToken = Session::getCsrfToken();
+        $csrfToken = $this->session->getCsrfToken();
 
         if ($postCsrfToken !== $csrfToken) {
-            Session::setMessage('Да ты тут самый умный, я смотрю...');
+            $this->session->setMessage('Да ты тут самый умный, я смотрю...');
             $this->redirectTo('/error');
         }
     }

@@ -11,9 +11,10 @@ use Laminas\Di\Di;
 class AddCommentController extends AbstractWebController
 {
     protected $factory;
-    public function __construct(Di $di, ResourceFactory $factory)
+
+    public function __construct(Di $di, ResourceFactory $factory, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->factory = $factory;
         $this->di = $di;
     }
@@ -29,7 +30,7 @@ class AddCommentController extends AbstractWebController
         $postParams = $this->getPostParams();
         $post = [
             'text_of_comment'    => $postParams['message'],
-            'username'           => Session::getClientId(),
+            'username'           => $this->session->getClientId(),
             'game'               => $id,
             'date_of_writing'    => date('Y-m-d h:i:s'),
         ];

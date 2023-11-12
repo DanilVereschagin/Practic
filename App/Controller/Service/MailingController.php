@@ -9,6 +9,7 @@ use App\Controller\AbstractController;
 use App\Factory\BlockFactory;
 use App\Factory\ServiceFactory;
 use App\Model\Service\EmailService;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class MailingController extends AbstractController
@@ -16,9 +17,9 @@ class MailingController extends AbstractController
     protected $blockFactory;
     protected $serviceFactory;
 
-    public function __construct(Di $di, ServiceFactory $serviceFactory, BlockFactory $blockFactory)
+    public function __construct(Di $di, ServiceFactory $serviceFactory, BlockFactory $blockFactory, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->blockFactory = $blockFactory;
         $this->serviceFactory = $serviceFactory;
     }

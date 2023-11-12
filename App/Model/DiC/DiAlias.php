@@ -13,10 +13,12 @@ class DiAlias
 {
     protected $di;
     protected $instanceManager;
+    protected $environment;
 
-    public function __construct(Di $di)
+    public function __construct(Di $di, Environment $environment)
     {
         $this->di = $di;
+        $this->environment = $environment;
         $this->instanceManager = $di->instanceManager();
     }
 
@@ -34,7 +36,7 @@ class DiAlias
 
     protected function assembleAliasCache()
     {
-        $cacheType = Environment::getCacheSetting('TYPE');
+        $cacheType = $this->environment->getCacheSetting('TYPE');
 
         $this->instanceManager->addAlias(
             'alias_cache',

@@ -15,17 +15,17 @@ class ApiRouter
 {
     protected $apiRoutes;
     protected $di;
+    protected $log;
 
-    public function __construct(Di $di, array $apiRoutes = [])
+    public function __construct(Di $di, LoggerService $loggerService, array $apiRoutes = [])
     {
         $this->di = $di;
         $this->apiRoutes = $apiRoutes;
+        $this->log = $loggerService;
     }
 
     public function selectController(string $route)
     {
-        $log = LoggerService::getInstance();
-
         $routeParts = explode('/', $route);
 
         $route = '/' . $routeParts[2];
@@ -40,11 +40,11 @@ class ApiRouter
                 return;
             } catch (HttpRedirectException $e) {
                 header('Location: ' . $e->getMessage(), true, 302);
-                $log->warning('Api', [$e->getMessage()]);
+                $this->log->warning('Api', [$e->getMessage()]);
                 return;
             } catch (HttpMethodNotAllowedException $e) {
                 http_response_code(405);
-                $log->error('Api', [$e->getMessage()]);
+                $this->log->error('Api', [$e->getMessage()]);
                 return;
             }
         }

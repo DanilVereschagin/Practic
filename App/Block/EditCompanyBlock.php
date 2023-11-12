@@ -6,6 +6,7 @@ namespace App\Block;
 
 use App\Model\Company;
 use App\Model\Resource\CompanyResource;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class EditCompanyBlock extends AbstractAdminBlock
@@ -13,9 +14,9 @@ class EditCompanyBlock extends AbstractAdminBlock
     protected ?int $id;
     protected $companyResource;
 
-    public function __construct(?int $id, Di $di, CompanyResource $companyResource)
+    public function __construct(?int $id, Di $di, CompanyResource $companyResource, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->id = $id;
         $this->companyResource = $companyResource;
     }

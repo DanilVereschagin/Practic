@@ -6,15 +6,15 @@ namespace App\Model;
 
 class Database
 {
-    protected static $_instance;
+    protected $connection;
 
-    private function __construct()
+    public function __construct(Environment $environment)
     {
-        $host = Environment::getDbSetting('HOST');
-        $db   = Environment::getDbSetting('DB');
-        $user = Environment::getDbSetting('USER');
-        $pass = Environment::getDbSetting('PASS');
-        $charset = Environment::getDbSetting('CHARSET');
+        $host = $environment->getDbSetting('HOST');
+        $db   = $environment->getDbSetting('DB');
+        $user = $environment->getDbSetting('USER');
+        $pass = $environment->getDbSetting('PASS');
+        $charset = $environment->getDbSetting('CHARSET');
 
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
         $opt = [
@@ -23,16 +23,12 @@ class Database
             \PDO::ATTR_EMULATE_PREPARES   => false,
         ];
 
-        self::$_instance = new \PDO($dsn, $user, $pass, $opt);
+        $this->connection = new \PDO($dsn, $user, $pass, $opt);
     }
 
-    public static function getInstance()
+    public function getConnection()
     {
-        if (self::$_instance === null) {
-            new self();
-        }
-
-        return self::$_instance;
+        return $this->connection;
     }
 
     private function __clone()

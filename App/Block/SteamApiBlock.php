@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace App\Block;
 
 use App\Model\Game;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class SteamApiBlock extends AbstractBlock
 {
     protected array $games;
 
-    public function __construct(Di $di, array $games)
+    public function __construct(Di $di, array $games, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->games = $games;
     }
     public function renderTemplate()

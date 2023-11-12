@@ -10,15 +10,16 @@ use App\Factory\ResourceFactory;
 use App\Model\Resource\CommentResource;
 use App\Model\Resource\CompanyResource;
 use App\Model\Resource\GameResource;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class GameController extends AbstractApiController
 {
     protected $resourceFactory;
 
-    public function __construct(Di $di, ResourceFactory $resourceFactory)
+    public function __construct(Di $di, ResourceFactory $resourceFactory, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->resourceFactory = $resourceFactory;
     }
 

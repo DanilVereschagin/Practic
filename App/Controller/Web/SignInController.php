@@ -14,9 +14,13 @@ class SignInController extends AbstractWebController
     protected $resourceFactory;
     protected $serviceFactory;
 
-    public function __construct(Di $di, ResourceFactory $resourceFactory, ServiceFactory $serviceFactory)
-    {
-        parent::__construct($di);
+    public function __construct(
+        Di $di,
+        ResourceFactory $resourceFactory,
+        ServiceFactory $serviceFactory,
+        Session $session
+    ) {
+        parent::__construct($di, $session);
         $this->serviceFactory = $serviceFactory;
         $this->resourceFactory = $resourceFactory;
     }
@@ -33,9 +37,9 @@ class SignInController extends AbstractWebController
         $password = $this->serviceFactory->create('password', ['di' => $this->di]);
 
         if ($password->verifyPassword($post['password'], $player->getPassword())) {
-            Session::setClientId($player->getId());
-            Session::setIsAdmin($player->getIsAdmin());
-            Session::setCsrfToken();
+            $this->session->setClientId($player->getId());
+            $this->session->setIsAdmin($player->getIsAdmin());
+            $this->session->setCsrfToken();
             $this->redirectTo('/main');
         } else {
             $this->redirectTo('/login');

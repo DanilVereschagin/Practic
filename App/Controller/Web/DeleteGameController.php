@@ -6,15 +6,16 @@ namespace App\Controller\Web;
 
 use App\Factory\ResourceFactory;
 use App\Model\Resource\GameResource;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class DeleteGameController extends AbstractWebController
 {
     protected $factory;
 
-    public function __construct(Di $di, ResourceFactory $factory)
+    public function __construct(Di $di, ResourceFactory $factory, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->factory = $factory;
     }
 

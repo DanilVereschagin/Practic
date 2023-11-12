@@ -13,17 +13,17 @@ class ErrorController extends AbstractWebController
 {
     protected $factory;
 
-    public function __construct(Di $di, BlockFactory $factory)
+    public function __construct(Di $di, BlockFactory $factory, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->factory = $factory;
     }
 
     public function execute()
     {
-        $message = Session::getMessage();
+        $message = $this->session->getMessage();
         $block = $this->factory->create('error', ['message' => $message, 'di' => $this->di]);
-        Session::deleteVariable('message');
+        $this->session->deleteVariable('message');
         $block->render();
     }
 }

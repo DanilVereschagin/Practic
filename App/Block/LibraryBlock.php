@@ -8,6 +8,7 @@ use App\Model\Game;
 use App\Model\Player;
 use App\Model\Resource\GameResource;
 use App\Model\Resource\PlayerResource;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class LibraryBlock extends AbstractBlock
@@ -16,9 +17,14 @@ class LibraryBlock extends AbstractBlock
     protected $playerResource;
     protected $gameResource;
 
-    public function __construct(int $id, Di $di, PlayerResource $playerResource, GameResource $gameResource)
-    {
-        parent::__construct($di);
+    public function __construct(
+        int $id,
+        Di $di,
+        PlayerResource $playerResource,
+        GameResource $gameResource,
+        Session $session
+    ) {
+        parent::__construct($di, $session);
         $this->id = $id;
         $this->playerResource = $playerResource;
         $this->gameResource = $gameResource;

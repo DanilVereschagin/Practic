@@ -6,14 +6,15 @@ namespace App\Controller\Api;
 
 use App\Factory\ResourceFactory;
 use App\Model\Resource\CompanyResource;
+use App\Model\Session;
 use Laminas\Di\Di;
 
 class DeleteCompanyController extends AbstractApiController
 {
     protected $resourceFactory;
-    public function __construct(Di $di, ResourceFactory $resourceFactory)
+    public function __construct(Di $di, ResourceFactory $resourceFactory, Session $session)
     {
-        parent::__construct($di);
+        parent::__construct($di, $session);
         $this->resourceFactory = $resourceFactory;
     }
 
