@@ -16,7 +16,6 @@ class AddGameController extends AbstractApiController
     public function __construct(Di $di, ResourceFactory $resourceFactory, RepositoryFactory $repositoryFactory)
     {
         parent::__construct($di);
-        $this->di = $di;
         $this->resourceFactory = $resourceFactory;
         $this->repositoryFactory = $repositoryFactory;
     }

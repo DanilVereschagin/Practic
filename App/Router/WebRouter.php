@@ -35,7 +35,7 @@ class WebRouter
 
         if ($class) {
             try {
-                $authchecker = new AuthCheckMiddleware();
+                $authchecker = $this->di->get(AuthCheckMiddleware::class);
                 $authchecker->handle($route);
                 /** @var AbstractController $controller */
                 $controller = $this->di->get($class, ['di' => $this->di]);
@@ -52,7 +52,7 @@ class WebRouter
             }
         }
 
-        $controller = new NotFoundErrorController();
+        $controller = $this->di->get(NotFoundErrorController::class);
         $controller->execute();
     }
 }

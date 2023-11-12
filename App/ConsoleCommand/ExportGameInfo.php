@@ -4,7 +4,6 @@ namespace App\ConsoleCommand;
 
 use App\Factory\FileHandlerFactory;
 use App\Factory\ResourceFactory;
-use App\Model\Resource\GameResource;
 use Laminas\Di\Di;
 
 class ExportGameInfo

@@ -9,12 +9,6 @@ use Laminas\Di\Di;
 
 class LogoutController extends AbstractWebController
 {
-    public function __construct(Di $di)
-    {
-        parent::__construct($di);
-        $this->di = $di;
-    }
-
     public function execute()
     {
         Session::destroy();

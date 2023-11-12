@@ -5,17 +5,22 @@ declare(strict_types=1);
 namespace App\Model\Service;
 
 use App\Block\EmailBlock;
+use App\Factory\BlockFactory;
+use App\Factory\ResourceFactory;
 use App\Model\Resource\PlayerResource;
 use App\Model\Service\WebApiSevice\SendinBlueApiService;
 use Laminas\Di\Di;
 
-class EmailService
+class EmailService extends AbstractService
 {
-    protected $di;
+    protected $resourceFactory;
+    protected $blockFactory;
 
-    public function __construct(Di $di)
+    public function __construct(Di $di, ResourceFactory $resourceFactory, BlockFactory $blockFactory)
     {
-        $this->di = $di;
+        parent::__construct($di);
+        $this->resourceFactory = $resourceFactory;
+        $this->blockFactory = $blockFactory;
     }
 
     public function sendMailing(string $subject, ?string $email = '')
@@ -31,7 +36,7 @@ class EmailService
 
     protected function prepareLetter(string $subject, string $email)
     {
-        $resource = $this->di->get(PlayerResource::class);
+        $resource = $this->resourceFactory->create('player', ['di' => $this->di]);
         $player = $resource->getByMail($email);
 
         $name = $player->getName();
@@ -48,7 +53,7 @@ class EmailService
 
     protected function prepareMailing(string $subject)
     {
-        $resource = $this->di->get(PlayerResource::class);
+        $resource = $this->resourceFactory->create('player', ['di' => $this->di]);
         $players = $resource->getAllPlayers();
 
         foreach ($players as $player) {
@@ -62,7 +67,7 @@ class EmailService
 
     protected function getHtmlContent()
     {
-        $block = $this->di->get(EmailBlock::class);
+        $block = $this->blockFactory->create('email');
         return $block->getRenderedTemplate();
     }
 }

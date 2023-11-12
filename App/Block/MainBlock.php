@@ -11,9 +11,14 @@ use Laminas\Di\Di;
 
 class MainBlock extends AbstractBlock
 {
-    public function __construct(Di $di)
+    protected $playerResource;
+    protected $dogApiService;
+
+    public function __construct(Di $di, PlayerResource $playerResource, DogApiService $dogApiService)
     {
-        $this->di = $di;
+        $this->playerResource = $playerResource;
+        $this->dogApiService = $dogApiService;
+        parent::__construct($di);
     }
 
     public function renderTemplate()
@@ -26,14 +31,12 @@ class MainBlock extends AbstractBlock
      */
     public function getAllPlayer(): array
     {
-        $playerResource = $this->di->get(PlayerResource::class, ['di' => $this->di]);
-        return $playerResource->getAll();
+        return $this->playerResource->getAll();
     }
 
     public function getDog()
     {
-        $service = $this->di->get(DogApiService::class);
-        $dog = $service->getDog();
+        $dog = $this->dogApiService->getDog();
 
         return $dog;
     }

@@ -16,7 +16,7 @@ class ApiRouter
     protected $apiRoutes;
     protected $di;
 
-    public function __construct(Di $di, array $apiRoutes)
+    public function __construct(Di $di, array $apiRoutes = [])
     {
         $this->di = $di;
         $this->apiRoutes = $apiRoutes;
@@ -49,7 +49,7 @@ class ApiRouter
             }
         }
 
-        $controller = new NotFoundErrorController();
+        $controller = $this->di->get(NotFoundErrorController::class);
         $controller->execute();
     }
 }

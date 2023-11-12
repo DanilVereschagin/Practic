@@ -19,7 +19,6 @@ class GameController extends AbstractApiController
     public function __construct(Di $di, ResourceFactory $resourceFactory)
     {
         parent::__construct($di);
-        $this->di = $di;
         $this->resourceFactory = $resourceFactory;
     }
 

@@ -9,6 +9,11 @@ class AbstractAdminBlock
 {
     protected Di $di;
 
+    public function __construct(Di $di)
+    {
+        $this->di = $di;
+    }
+
     public function render()
     {
         require_once APP_ROOT . '/view/layout/admin-layout.phtml';

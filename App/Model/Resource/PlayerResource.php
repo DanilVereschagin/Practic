@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Resource;
 
+use App\Factory\EntityFactory;
 use App\Model\Database;
 use App\Model\Player;
 use Laminas\Di\Di;
@@ -11,12 +12,12 @@ use Laminas\Di\Di;
 class PlayerResource extends AbstractResource
 {
     protected string $table = 'player';
-    protected $di;
+    protected $entityFactory;
 
-    public function __construct(Di $di)
+    public function __construct(Di $di, EntityFactory $entityFactory)
     {
         parent::__construct($di);
-        $this->di = $di;
+        $this->entityFactory = $entityFactory;
     }
 
     /**
@@ -29,7 +30,7 @@ class PlayerResource extends AbstractResource
 
         $players = [];
         foreach ($rowset as $row) {
-            $player = $this->di->get(Player::class, ['data' => $row]);
+            $player = $this->entityFactory->create('player', ['data' => $row]);
             $players[] = $player;
         }
 
@@ -46,7 +47,7 @@ class PlayerResource extends AbstractResource
 
         $players = [];
         foreach ($rowset as $row) {
-            $player = $this->di->get(Player::class, ['data' => $row]);
+            $player = $this->entityFactory->create('player', ['data' => $row]);
             $players[] = $player;
         }
 
@@ -69,7 +70,7 @@ class PlayerResource extends AbstractResource
             $info = [];
         }
 
-        return $this->di->get(Player::class, ['data' => $info]);
+        return $this->entityFactory->create('player', ['data' => $info]);
     }
 
     public function update(array $post)

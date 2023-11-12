@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace App\Model\Service\WebApiSevice;
 
+use App\Factory\EntityFactory;
 use App\Model\Game;
 use Laminas\Di\Di;
 
 class SteamApiService extends AbstractWebApiService
 {
-    public function __construct(Di $di)
+    protected $entiryFactory;
+
+    public function __construct(Di $di, EntityFactory $entityFactory)
     {
-        $this->di = $di;
+        parent::__construct($di);
+        $this->entiryFactory = $entityFactory;
     }
 
     public function getGames()
@@ -24,7 +28,7 @@ class SteamApiService extends AbstractWebApiService
                 if ($app['name'] !== '') {
                     $app['id'] = $app['appid'];
                     unset($app['appid']);
-                    $game = $this->di->get(Game::class, ['data' => $app]);
+                    $game = $this->entiryFactory->create('game', ['data' => $app]);
                     $games[] = $game;
                 }
 

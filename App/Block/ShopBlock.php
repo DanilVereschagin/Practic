@@ -12,11 +12,13 @@ use Laminas\Di\Di;
 class ShopBlock extends AbstractBlock
 {
     protected array $games;
+    protected $gameResource;
 
-    public function __construct(array $games, Di $di)
+    public function __construct(array $games, Di $di, GameResource $gameResource)
     {
-        $this->di = $di;
+        parent::__construct($di);
         $this->games = $games;
+        $this->gameResource = $gameResource;
     }
     public function renderTemplate()
     {
@@ -28,8 +30,7 @@ class ShopBlock extends AbstractBlock
      */
     public function getGames(): array
     {
-        $gameResource = $this->di->get(GameResource::class, ['di' => $this->di]);
-        $orionGames = $gameResource->getAll();
+        $orionGames = $this->gameResource->getAll();
 
         foreach ($orionGames as $game) {
             $this->games[] = ['game' => $game, 'orion' => true];

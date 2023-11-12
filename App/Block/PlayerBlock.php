@@ -11,10 +11,13 @@ use Laminas\Di\Di;
 class PlayerBlock extends AbstractBlock
 {
     protected int $id;
-    public function __construct(int $id, Di $di)
+    protected $playerResource;
+
+    public function __construct(int $id, Di $di, PlayerResource $playerResource)
     {
-        $this->di = $di;
+        parent::__construct($di);
         $this->id = $id;
+        $this->playerResource = $playerResource;
     }
 
     public function renderTemplate()
@@ -24,7 +27,6 @@ class PlayerBlock extends AbstractBlock
 
     public function getPlayerInfo(): Player
     {
-        $playerResource = $this->di->get(PlayerResource::class, ['di' => $this->di]);
-        return $playerResource->getById($this->id);
+        return $this->playerResource->getById($this->id);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Resource;
 
+use App\Factory\EntityFactory;
 use App\Model\Database;
 use App\Model\Game;
 use Laminas\Di\Di;
@@ -11,12 +12,12 @@ use Laminas\Di\Di;
 class GameResource extends AbstractResource
 {
     protected string $table = 'game';
-    protected $di;
+    protected $entityFactory;
 
-    public function __construct(Di $di)
+    public function __construct(Di $di, EntityFactory $entityFactory)
     {
         parent::__construct($di);
-        $this->di = $di;
+        $this->entityFactory = $entityFactory;
     }
 
     /**
@@ -38,7 +39,7 @@ class GameResource extends AbstractResource
         $games = [];
         foreach ($rowset as $row) {
             unset($row['playerId']);
-            $game = $this->di->get(Game::class, ['data' => $row]);
+            $game = $this->entityFactory->create('game', ['data' => $row]);
             $games[] = $game;
         }
 
@@ -53,7 +54,7 @@ class GameResource extends AbstractResource
         $query->execute(['name' => $name]);
         $info = $query->fetch();
 
-        return $this->di->get(Game::class, ['data' => $info]);
+        return $this->entityFactory->create('game', ['data' => $info]);
     }
 
     /**
@@ -78,7 +79,7 @@ class GameResource extends AbstractResource
         $query->execute(['ID' => $id]);
         $gameInfo = $query->fetch();
 
-        $game = $this->di->get(Game::class, ['data' => $gameInfo]);
+        $game = $this->entityFactory->create('game', ['data' => $gameInfo]);
 
         return $game;
     }

@@ -10,9 +10,4 @@ use Laminas\Di\Di;
 
 abstract class AbstractApiController extends AbstractController implements ControllerInterface
 {
-    public function __construct(Di $di)
-    {
-        parent::__construct($di);
-        $this->di = $di;
-    }
 }

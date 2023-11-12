@@ -10,9 +10,12 @@ use Laminas\Di\Di;
 
 class CompaniesBlock extends AbstractAdminBlock
 {
-    public function __construct(Di $di)
+    protected $companyResource;
+
+    public function __construct(Di $di, CompanyResource $companyResource)
     {
-        $this->di = $di;
+        parent::__construct($di);
+        $this->companyResource = $companyResource;
     }
 
     public function renderTemplate()
@@ -25,7 +28,6 @@ class CompaniesBlock extends AbstractAdminBlock
      */
     public function getAllCompanies(): array
     {
-        $companyResource = $this->di->get(CompanyResource::class, ['di' => $this->di]);
-        return $companyResource->getAll();
+        return $this->companyResource->getAll();
     }
 }

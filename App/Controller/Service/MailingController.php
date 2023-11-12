@@ -21,7 +21,6 @@ class MailingController extends AbstractController
         parent::__construct($di);
         $this->blockFactory = $blockFactory;
         $this->serviceFactory = $serviceFactory;
-        $this->di = $di;
     }
 
     public function execute()

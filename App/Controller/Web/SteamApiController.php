@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Web;
 
-use App\Block\SteamApiBlock;
 use App\Factory\BlockFactory;
-use App\Factory\CacheFactory;
 use App\Factory\EntityFactory;
 use App\Factory\ServiceFactory;
-use App\Model\Game;
-use App\Model\Service\WebApiSevice\SteamApiService;
 use Laminas\Di\Di;
 use Psr\SimpleCache\CacheInterface;
 
@@ -33,7 +29,6 @@ class SteamApiController extends AbstractWebController
         $this->cacheService = $cacheService;
         $this->serviceFactory = $serviceFactory;
         $this->entityFactory = $entityFactory;
-        $this->di = $di;
     }
 
     public function execute()

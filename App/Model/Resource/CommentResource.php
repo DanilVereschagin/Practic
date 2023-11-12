@@ -2,19 +2,19 @@
 
 namespace App\Model\Resource;
 
-use App\Model\Comment;
+use App\Factory\EntityFactory;
 use App\Model\Database;
 use Laminas\Di\Di;
 
 class CommentResource extends AbstractResource
 {
     protected string $table = 'comment';
-    protected $di;
+    protected $entityFactory;
 
-    public function __construct(Di $di)
+    public function __construct(Di $di, EntityFactory $entityFactory)
     {
         parent::__construct($di);
-        $this->di = $di;
+        $this->entityFactory = $entityFactory;
     }
 
     public function getParentComments($id): array
@@ -30,7 +30,7 @@ class CommentResource extends AbstractResource
 
         $comments = [];
         foreach ($rowset as $row) {
-            $comment = $this->di->get(Comment::class, ['data' => $row]);
+            $comment = $this->entityFactory->create('comment', ['data' => $row]);
             $comments[] = $comment;
         }
 
@@ -56,7 +56,7 @@ class CommentResource extends AbstractResource
 
         $comments = [];
         foreach ($rowset as $row) {
-            $comment = $this->di->get(Comment::class, ['data' => $row]);
+            $comment = $this->entityFactory->create('comment', ['data' => $row]);
             $comments[] = $comment;
         }
 

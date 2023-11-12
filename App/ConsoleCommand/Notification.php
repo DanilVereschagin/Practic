@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\ConsoleCommand;
 
 use App\Factory\ServiceFactory;
-use App\Model\Service\EmailService;
 use Laminas\Di\Di;
 
 class Notification

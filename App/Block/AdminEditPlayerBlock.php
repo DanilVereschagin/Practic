@@ -12,11 +12,13 @@ use Laminas\Di\Di;
 class AdminEditPlayerBlock extends AbstractAdminBlock
 {
     protected ?int $id;
+    protected $playerResource;
 
-    public function __construct(?int $id, Di $di)
+    public function __construct(?int $id, Di $di, PlayerResource $playerResource)
     {
-        $this->di = $di;
+        parent::__construct($di);
         $this->id = $id;
+        $this->playerResource = $playerResource;
     }
 
     public function renderTemplate()
@@ -26,7 +28,6 @@ class AdminEditPlayerBlock extends AbstractAdminBlock
 
     public function getPlayerInfo(): Player
     {
-        $playerResource = $this->di->get(PlayerResource::class, ['di' => $this->di]);
-        return $playerResource->getById($this->id);
+        return $this->playerResource->getById($this->id);
     }
 }

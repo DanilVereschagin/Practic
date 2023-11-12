@@ -13,11 +13,15 @@ use Laminas\Di\Di;
 class LibraryBlock extends AbstractBlock
 {
     protected int $id;
+    protected $playerResource;
+    protected $gameResource;
 
-    public function __construct(int $id, Di $di)
+    public function __construct(int $id, Di $di, PlayerResource $playerResource, GameResource $gameResource)
     {
-        $this->di = $di;
+        parent::__construct($di);
         $this->id = $id;
+        $this->playerResource = $playerResource;
+        $this->gameResource = $gameResource;
     }
 
     public function renderTemplate()
@@ -28,8 +32,7 @@ class LibraryBlock extends AbstractBlock
 
     public function getPlayerInfo(): Player
     {
-        $playerResource = $this->di->get(PlayerResource::class, ['di' => $this->di]);
-        return $playerResource->getById($this->id);
+        return $this->playerResource->getById($this->id);
     }
 
     /**
@@ -37,7 +40,6 @@ class LibraryBlock extends AbstractBlock
      */
     public function getGames(): array
     {
-        $gameResource = $this->di->get(GameResource::class, ['di' => $this->di]);
-        return $gameResource->getLibraryGames($this->id);
+        return $this->gameResource->getLibraryGames($this->id);
     }
 }

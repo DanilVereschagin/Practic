@@ -15,7 +15,6 @@ class UpdatePlayerController extends AbstractWebController
     {
         parent::__construct($di);
         $this->factory = $factory;
-        $this->di = $di;
     }
 
     public function execute()

@@ -14,7 +14,6 @@ class AddCompanyController extends AbstractApiController
     public function __construct(Di $di, ResourceFactory $factory)
     {
         parent::__construct($di);
-        $this->di = $di;
         $this->factory = $factory;
     }
 

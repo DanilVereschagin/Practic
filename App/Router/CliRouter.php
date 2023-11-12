@@ -21,7 +21,7 @@ class CliRouter
 
     public function selectConsoleCommand()
     {
-        $consoleCommand = new ConsoleCommandMiddleware();
+        $consoleCommand = $this->di->get(ConsoleCommandMiddleware::class);
         $consoleCommand->handle('argv');
 
         $argument = $_SERVER['argv'][1];

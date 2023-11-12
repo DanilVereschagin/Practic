@@ -10,7 +10,7 @@ use App\Model\SessionChecker;
 
 class AuthCheckMiddleware implements MiddlewareInterface
 {
-    protected AuthCheckMiddleware $next;
+    protected MiddlewareInterface $next;
 
     public function getNext()
     {

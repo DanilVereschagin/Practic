@@ -17,7 +17,6 @@ class AddPlayerController extends AbstractWebController
         parent::__construct($di);
         $this->resourceFactory = $resourceFactory;
         $this->serviceFactory = $serviceFactory;
-        $this->di = $di;
     }
 
     public function execute()

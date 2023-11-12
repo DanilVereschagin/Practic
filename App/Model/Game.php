@@ -21,10 +21,18 @@ class Game extends AbstractModel implements \JsonSerializable
     protected ?string $description;
     protected ?Company $companyObject;
     protected ?Genre $genreObject;
+    protected ?CompanyResource $companyResource;
+    protected ?GenreResource $genreResource;
 
-    public function __construct(Di $di, ?array $data = [])
-    {
-        $this->di = $di;
+    public function __construct(
+        Di $di,
+        CompanyResource $companyResource,
+        GenreResource $genreResource,
+        ?array $data = []
+    ) {
+        parent::__construct($di);
+        $this->companyResource = $companyResource;
+        $this->genreResource = $genreResource;
         $this->setData($data);
     }
 
@@ -105,8 +113,8 @@ class Game extends AbstractModel implements \JsonSerializable
             $this->companyObject = null;
             return $this;
         }
-        $companyResource = $this->di->get(CompanyResource::class, ['di' => $this->di]);
-        $this->companyObject = $companyResource->getByName($companyName);
+
+        $this->companyObject = $this->companyResource->getByName($companyName);
 
         return $this;
     }
@@ -122,8 +130,8 @@ class Game extends AbstractModel implements \JsonSerializable
             $this->genreObject = null;
             return $this;
         }
-        $genreResource = $this->di->get(GenreResource::class, ['di' => $this->di]);
-        $this->genreObject = $genreResource->getByName($nameOfGenre);
+
+        $this->genreObject = $this->genreResource->getByName($nameOfGenre);
 
         return $this;
     }

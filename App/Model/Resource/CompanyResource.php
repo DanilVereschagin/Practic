@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Resource;
 
+use App\Factory\EntityFactory;
 use App\Model\Company;
 use App\Model\Database;
 use Laminas\Di\Di;
@@ -11,12 +12,12 @@ use Laminas\Di\Di;
 class CompanyResource extends AbstractResource
 {
     protected string $table = 'company';
-    protected $di;
+    protected $entityFactory;
 
-    public function __construct(Di $di)
+    public function __construct(Di $di, EntityFactory $entityFactory)
     {
         parent::__construct($di);
-        $this->di = $di;
+        $this->entityFactory = $entityFactory;
     }
 
     /**
@@ -31,7 +32,7 @@ class CompanyResource extends AbstractResource
         $query->execute(['name' => $name]);
         $companyInfo = $query->fetch();
 
-        $company = $this->di->get(Company::class, ['data' => $companyInfo]);
+        $company = $this->entityFactory->create('company', ['data' => $companyInfo]);
 
         return $company;
     }

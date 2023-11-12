@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Repository;
 
-use App\Factory\CacheFactory;
 use App\Factory\ResourceFactory;
-use App\Model\Resource\GameResource;
 use Laminas\Di\Di;
 use Psr\SimpleCache\CacheInterface;
 

@@ -9,6 +9,12 @@ use Laminas\Di\Di;
 class AbstractModel
 {
     protected Di $di;
+
+    public function __construct(Di $di)
+    {
+        $this->di = $di;
+    }
+
     protected function setData(?array $data = [])
     {
         foreach ($data as $datum => $value) {

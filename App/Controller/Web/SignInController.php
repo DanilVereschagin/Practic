@@ -19,7 +19,6 @@ class SignInController extends AbstractWebController
         parent::__construct($di);
         $this->serviceFactory = $serviceFactory;
         $this->resourceFactory = $resourceFactory;
-        $this->di = $di;
     }
 
     public function execute()

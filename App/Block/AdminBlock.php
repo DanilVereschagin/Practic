@@ -10,9 +10,12 @@ use Laminas\Di\Di;
 
 class AdminBlock extends AbstractAdminBlock
 {
-    public function __construct(Di $di)
+    protected $playerResource;
+
+    public function __construct(Di $di, PlayerResource $playerResource)
     {
-        $this->di = $di;
+        parent::__construct($di);
+        $this->playerResource = $playerResource;
     }
 
     public function renderTemplate()
@@ -25,7 +28,6 @@ class AdminBlock extends AbstractAdminBlock
      */
     public function getAllAdmins(): array
     {
-        $playerResource = $this->di->get(PlayerResource::class, ['di' => $this->di]);
-        return $playerResource->getAllAdmins();
+        return $this->playerResource->getAllAdmins();
     }
 }

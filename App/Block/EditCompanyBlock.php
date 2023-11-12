@@ -11,10 +11,13 @@ use Laminas\Di\Di;
 class EditCompanyBlock extends AbstractAdminBlock
 {
     protected ?int $id;
+    protected $companyResource;
 
-    public function __construct(?int $id, Di $di)
+    public function __construct(?int $id, Di $di, CompanyResource $companyResource)
     {
+        parent::__construct($di);
         $this->id = $id;
+        $this->companyResource = $companyResource;
     }
 
     public function renderTemplate()
@@ -24,7 +27,6 @@ class EditCompanyBlock extends AbstractAdminBlock
 
     public function getCompanyInfo(): Company
     {
-        $companyResource = $this->di->get(CompanyResource::class, ['di' => $this->di]);
-        return $companyResource->getById($this->id);
+        return $this->companyResource->getById($this->id);
     }
 }

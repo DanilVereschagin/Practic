@@ -11,11 +11,5 @@ use Laminas\Di\Di;
 
 abstract class AbstractWebController extends AbstractController implements ControllerInterface
 {
-    public function __construct(Di $di)
-    {
-        parent::__construct($di);
-        Session::start();
-    }
-
     abstract public function execute();
 }

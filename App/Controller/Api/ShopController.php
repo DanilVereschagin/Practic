@@ -14,7 +14,6 @@ class ShopController extends AbstractApiController
     public function __construct(Di $di, RepositoryFactory $repositoryFactory)
     {
         parent::__construct($di);
-        $this->di = $di;
         $this->repositoryFactory = $repositoryFactory;
     }
 

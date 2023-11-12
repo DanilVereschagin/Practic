@@ -11,10 +11,11 @@ use Laminas\Di\Di;
 class EditGameBlock extends AbstractAdminBlock
 {
     protected ?int $id;
+    protected $gameResource;
 
     public function __construct(?int $id, Di $di)
     {
-        $this->di = $di;
+        parent::__construct($di);
         $this->id = $id;
     }
 
@@ -25,7 +26,6 @@ class EditGameBlock extends AbstractAdminBlock
 
     public function getGameInfo(): Game
     {
-        $gameResource = $this->di->get(GameResource::class, ['di' => $this->di]);
-        return $gameResource->getComplexInfoById($this->id);
+        return $this->gameResource->getComplexInfoById($this->id);
     }
 }
