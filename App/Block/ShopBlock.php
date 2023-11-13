@@ -15,9 +15,9 @@ class ShopBlock extends AbstractBlock
     protected array $games;
     protected $gameResource;
 
-    public function __construct(array $games, Di $di, GameResource $gameResource, Session $session)
+    public function __construct(array $games, GameResource $gameResource, Session $session)
     {
-        parent::__construct($di, $session);
+        parent::__construct($session);
         $this->games = $games;
         $this->gameResource = $gameResource;
     }

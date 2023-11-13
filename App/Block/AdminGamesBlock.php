@@ -13,9 +13,9 @@ class AdminGamesBlock extends AbstractAdminBlock
 {
     protected $gameResource;
 
-    public function __construct(Di $di, GameResource $gameResource, Session $session)
+    public function __construct(GameResource $gameResource, Session $session)
     {
-        parent::__construct($di, $session);
+        parent::__construct($session);
         $this->gameResource = $gameResource;
     }
 

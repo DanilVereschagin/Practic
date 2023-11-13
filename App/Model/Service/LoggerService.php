@@ -8,14 +8,12 @@ use Laminas\Di\Di;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class LoggerService extends AbstractService
+class LoggerService
 {
     protected $log;
 
-    public function __construct(Di $di, Logger $logger)
+    public function __construct(Logger $logger)
     {
-        parent::__construct($di);
-
         $logger->pushHandler(new StreamHandler(APP_ROOT . '/var/log/warning.log', Logger::WARNING));
         $logger->pushHandler(new StreamHandler(APP_ROOT . '/var/log/error.log', Logger::ERROR));
         $this->log = $logger;

@@ -19,12 +19,11 @@ class GameBlock extends AbstractBlock
 
     public function __construct(
         ?int $id,
-        Di $di,
         GameResource $gameResource,
         CommentResource $commentResource,
         Session $session
     ) {
-        parent::__construct($di, $session);
+        parent::__construct($session);
         $this->id = $id;
         $this->gameResource = $gameResource;
         $this->commentResource = $commentResource;

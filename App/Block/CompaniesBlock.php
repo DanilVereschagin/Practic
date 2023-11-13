@@ -13,9 +13,9 @@ class CompaniesBlock extends AbstractAdminBlock
 {
     protected $companyResource;
 
-    public function __construct(Di $di, CompanyResource $companyResource, Session $session)
+    public function __construct(CompanyResource $companyResource, Session $session)
     {
-        parent::__construct($di, $session);
+        parent::__construct($session);
         $this->companyResource = $companyResource;
     }
 

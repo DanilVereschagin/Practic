@@ -12,9 +12,9 @@ class SteamApiBlock extends AbstractBlock
 {
     protected array $games;
 
-    public function __construct(Di $di, array $games, Session $session)
+    public function __construct(array $games, Session $session)
     {
-        parent::__construct($di, $session);
+        parent::__construct($session);
         $this->games = $games;
     }
     public function renderTemplate()

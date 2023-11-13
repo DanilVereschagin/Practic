@@ -12,9 +12,8 @@ class SteamApiService extends AbstractWebApiService
 {
     protected $entiryFactory;
 
-    public function __construct(Di $di, EntityFactory $entityFactory)
+    public function __construct(EntityFactory $entityFactory)
     {
-        parent::__construct($di);
         $this->entiryFactory = $entityFactory;
     }
 

@@ -14,9 +14,9 @@ class EditCompanyBlock extends AbstractAdminBlock
     protected ?int $id;
     protected $companyResource;
 
-    public function __construct(?int $id, Di $di, CompanyResource $companyResource, Session $session)
+    public function __construct(?int $id, CompanyResource $companyResource, Session $session)
     {
-        parent::__construct($di, $session);
+        parent::__construct($session);
         $this->id = $id;
         $this->companyResource = $companyResource;
     }

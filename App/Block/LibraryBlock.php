@@ -19,12 +19,11 @@ class LibraryBlock extends AbstractBlock
 
     public function __construct(
         int $id,
-        Di $di,
         PlayerResource $playerResource,
         GameResource $gameResource,
         Session $session
     ) {
-        parent::__construct($di, $session);
+        parent::__construct($session);
         $this->id = $id;
         $this->playerResource = $playerResource;
         $this->gameResource = $gameResource;

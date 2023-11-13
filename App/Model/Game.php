@@ -25,12 +25,10 @@ class Game extends AbstractModel implements \JsonSerializable
     protected ?GenreResource $genreResource;
 
     public function __construct(
-        Di $di,
         CompanyResource $companyResource,
         GenreResource $genreResource,
         ?array $data = []
     ) {
-        parent::__construct($di);
         $this->companyResource = $companyResource;
         $this->genreResource = $genreResource;
         $this->setData($data);

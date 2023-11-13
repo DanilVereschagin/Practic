@@ -9,12 +9,10 @@ class AbstractBlock
 {
     protected $template;
     protected $renderedTemplate;
-    protected Di $di;
     protected $session;
 
-    public function __construct(Di $di, Session $session)
+    public function __construct(Session $session)
     {
-        $this->di = $di;
         $this->session = $session;
     }
 

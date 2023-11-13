@@ -14,9 +14,9 @@ class PlayerBlock extends AbstractBlock
     protected int $id;
     protected $playerResource;
 
-    public function __construct(int $id, Di $di, PlayerResource $playerResource, Session $session)
+    public function __construct(int $id, PlayerResource $playerResource, Session $session)
     {
-        parent::__construct($di, $session);
+        parent::__construct($session);
         $this->id = $id;
         $this->playerResource = $playerResource;
     }

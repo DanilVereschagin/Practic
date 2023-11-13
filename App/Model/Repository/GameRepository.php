@@ -15,8 +15,8 @@ class GameRepository extends AbstractRepository
 
     public function __construct(CacheInterface $cacheService, Di $di, ResourceFactory $resourceFactory)
     {
+        parent::__construct($di);
         $this->cacheService = $cacheService;
-        $this->di = $di;
         $this->resourceFactory = $resourceFactory;
     }
 

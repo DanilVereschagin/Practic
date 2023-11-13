@@ -15,11 +15,11 @@ class MainBlock extends AbstractBlock
     protected $playerResource;
     protected $dogApiService;
 
-    public function __construct(Di $di, PlayerResource $playerResource, DogApiService $dogApiService, Session $session)
+    public function __construct(PlayerResource $playerResource, DogApiService $dogApiService, Session $session)
     {
         $this->playerResource = $playerResource;
         $this->dogApiService = $dogApiService;
-        parent::__construct($di, $session);
+        parent::__construct($session);
     }
 
     public function renderTemplate()

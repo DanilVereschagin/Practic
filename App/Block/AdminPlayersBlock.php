@@ -13,9 +13,9 @@ class AdminPlayersBlock extends AbstractAdminBlock
 {
     protected $playerResource;
 
-    public function __construct(Di $di, PlayerResource $playerResource, Session $session)
+    public function __construct(PlayerResource $playerResource, Session $session)
     {
-        parent::__construct($di, $session);
+        parent::__construct($session);
         $this->playerResource = $playerResource;
     }
 

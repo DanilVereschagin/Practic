@@ -21,8 +21,8 @@ class PlayerRepository extends AbstractRepository
         ResourceFactory $resourceFactory,
         ServiceFactory $serviceFactory
     ) {
+        parent::__construct($di);
         $this->cacheService = $cacheService;
-        $this->di = $di;
         $this->resourceFactory = $resourceFactory;
         $this->serviceFactory = $serviceFactory;
     }

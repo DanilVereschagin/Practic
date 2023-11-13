@@ -14,9 +14,9 @@ class EditGameBlock extends AbstractAdminBlock
     protected ?int $id;
     protected $gameResource;
 
-    public function __construct(?int $id, Di $di, Session $session)
+    public function __construct(?int $id, Session $session)
     {
-        parent::__construct($di, $session);
+        parent::__construct($session);
         $this->id = $id;
     }
 

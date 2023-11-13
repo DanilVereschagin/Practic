@@ -9,13 +9,6 @@ use Laminas\Di\Di;
 
 abstract class AbstractWebApiService
 {
-    protected Di $di;
-
-    public function __construct(Di $di)
-    {
-        $this->di = $di;
-    }
-
     protected function getApiResponse(string $uri)
     {
         $client = new Client();

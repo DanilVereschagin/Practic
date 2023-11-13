@@ -6,15 +6,8 @@ namespace App\Factory;
 
 use Laminas\Di\Di;
 
-class ServiceFactory
+class ServiceFactory extends AbstractFactory
 {
-    protected $di;
-
-    public function __construct(Di $di)
-    {
-        $this->di = $di;
-    }
-
     public function create(string $service = 'abstract', array $params = [])
     {
         $instance = 'App\\Model\\Service\\' . ucfirst($service) . 'Service';
